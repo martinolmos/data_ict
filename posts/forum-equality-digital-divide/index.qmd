@@ -1,0 +1,49 @@
+---
+title: Forum on Equality and the Digital Divide
+subtitle: Foro Brechas y Equidad Digital
+author: Martin Olmos
+date: '2022-06-17'
+slug: []
+categories: []
+tags: []
+---
+
+::: {.content-visible when-profile="english"}
+
+The [Forum on Equality and the Digital Divide][1] was held on June 9 and 10. In this context, I was invited to speak at the panel "Universal Access Funds in the Region: the case of Argentina."
+
+Here I leave the full [video of my participation](https://youtu.be/x2vido6ME4M) (in Spanish):
+
+:::
+
+::: {.content-visible when-profile="spanish"}
+
+El pasado 9 y 10 de junio se realizó el [Foro Brechas y Equidad Digital][1]. En ese marco me invitaron a exponer en el panel "Los Fondos de Acceso Universal en la Región: el caso de Argentina.
+
+Aquí dejo el [video completo de mi participación](https://youtu.be/x2vido6ME4M): 
+
+:::
+
+[![video](foro_brechas.png){width=80%}](https://youtu.be/x2vido6ME4M)
+
+::: {.content-visible when-profile="english"}
+
+And my [presentation][2] (in Spanish):
+
+:::
+
+::: {.content-visible when-profile="spanish"}
+
+Y mi [presentación][2]:
+
+:::
+
+<center>
+```{r, echo=FALSE}
+knitr::include_url("https://martinolmos.github.io/slides/presentacion_fondos_acceso_universal#1")
+```
+</center>
+
+[1]:https://foroequidaddigital.cl
+[2]:https://martinolmos.github.io/slides/presentacion_fondos_acceso_universal#1 
+

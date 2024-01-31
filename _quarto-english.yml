@@ -1,0 +1,30 @@
+project:
+ title: "Data & ICTs"
+ output-dir: ./_site/en
+
+website:
+  navbar:
+    left: 
+      - href: about.qmd
+        text: About me
+
+    right:
+      - href: ../en
+        text: English
+      - href: ../es
+        text: Español
+      - icon: github
+        href: https://github.com/
+      - icon: twitter
+        href: https://twitter.com
+
+lang: en
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+
+
+

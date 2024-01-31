@@ -1,0 +1,101 @@
+---
+title: Using Whisper to Transcribe Messi
+subtitle: Transcribir a Messi con Whisper
+author: Martin Olmos
+date: '2023-02-03'
+slug: []
+categories:
+  - NLP
+  - IA
+  - ML
+tags:
+  - Whisper
+  - Messi
+---
+
+::: {.content-visible when-profile="english"}
+[Whisper]('https://openai.com/blog/whisper/') is an open source model for speech recognition developed by [OpenAI](https://openai.com).
+
+We will try to use it to add subtitles to a recent interview.
+
+Here is the original interview:
+
+:::
+
+::: {.content-visible when-profile="spanish"}
+[Whisper]('https://openai.com/blog/whisper/') es un modelo de código abierto para reconocimiento del habla desarrollado por [OpenAI](https://openai.com).
+
+Intentaremos utilizarlo para agregar subtítulos a una entrevista reciente.
+
+Aquí la entrevista original:
+
+:::
+
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/RYXcR3YejwY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+</center>
+
+::: {.content-visible when-profile="english"}
+## Download audio and video from Youtube
+
+:::
+
+::: {.content-visible when-profile="spanish"}
+## Descargo el audio y el video de Youtube
+
+:::
+
+```{python, eval=FALSE, echo=TRUE}
+
+import youtube_dl as ydl
+
+video_url = 'https://www.youtube.com/watch?v=RYXcR3YejwY'
+
+ydl_audio_opts = {
+    'outtmpl': 'whisper_messi_corto.%(ext)s',
+    'format': 'bestaudio/best',
+    'postprocessors': [{
+        'key': 'FFmpegExtractAudio',
+        'preferredcodec': 'mp3',
+        'preferredquality': '192'}]
+}
+ydl_video_opts = {
+    'outtmpl': 'whisper_messi_corto.%(ext)s',
+}
+
+ydl.YoutubeDL(ydl_audio_opts).download([video_url])
+ydl.YoutubeDL(ydl_video_opts).download([video_url])
+
+```
+
+:::
+
+::: {.content-visible when-profile="english"}
+## Generate the transcript
+
+:::
+
+::: {.content-visible when-profile="spanish"}
+## Genero la transcripción
+
+:::
+
+```{python, eval=FALSE, echo=TRUE}
+import whisperx
+
+device = "cuda" 
+audio_file = "whisper_messi_corto.mp3"
+
+# transcribe with original whisper
+model = whisperx.load_model("large-v2", device)
+result = model.transcribe(audio_file)
+
+print(result["segments"]) # before alignment
+
+# load alignment model and metadata
+model_a, metadata = whisperx.load_align_model(language_code=result["language"], device=device)
+
+# align whisper output
+result_aligned = whisperx.align(result["segments"], model_a, metadata, audio_file, device)
+```
+

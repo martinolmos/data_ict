@@ -1,0 +1,489 @@
+---
+title: "About"
+subtitle: "Sobre mí"
+image: profile_pic.jpeg
+code-fold: true
+toc: false
+about:
+  template: trestles
+  links:
+    - icon: twitter
+      text: Twitter
+      href: https://twitter.com/martin_olmos_
+    - icon: linkedin
+      text: LinkedIn
+      href: https://www.linkedin.com/in/martinolmos/
+    - icon: github
+      text: Github
+      href: https://github.com/martinolmos
+
+---
+
+
+
+::: {.content-visible when-profile="spanish"}
+
+```{python}
+
+import matplotlib.pyplot as plt
+import matplotlib.dates as mdates
+from datetime import datetime
+import matplotlib.patches as mpatches
+
+# Activity data
+fechas = [
+    ("01/09/2023", "31/01/2024", "BID: Consultor en Ciencia de Datos y TICs", "Experiencia profesional"),
+    ("01/03/2023", "31/01/2024", "BNMC: Consultor asociado", "Experiencia profesional"),
+    ("01/02/2023", "31/01/2024", "CAF: Consultor en Ciencia de Datos y TICs", "Experiencia profesional"),
+    ("01/07/2022", "31/01/2024", "UNSAM: Docente en Gobierno Abierto y Nuevas Tecnologías", "Actividad docente"),
+    ("01/06/2021", "31/01/2024", "PELI: Docente en Nuevas Tecnologías", "Actividad docente"),
+    ("01/04/2023", "31/01/2024", "ITBA: Maestría en Ciencia de Datos", "Formación académica"),
+    ("20/12/2019", "11/03/2022", "Subsecretario de TICs", "Experiencia profesional"),
+    ("01/08/2018", "31/07/2019", "ITBA: Especialización en Ciencia de Datos", "Formación académica"),
+    ("01/07/2018", "01/11/2019", "SUBE: Consultor en Ciencia de Datos", "Experiencia profesional"),
+    ("01/08/2018", "01/06/2019", "Muni San Miguel: Consultor en Ciencia de Datos", "Experiencia profesional"),
+    ("01/02/2018", "01/08/2018", "OPDS: Consultor en Ciencia de Datos", "Experiencia profesional"),
+    ("01/04/2017", "01/11/2019", "iCiudad: Director Ejecutivo", "Experiencia profesional"),
+    ("01/05/2015", "01/12/2016", "CAF: Consultor en Ciencia de Datos", "Experiencia profesional"),
+    ("14/01/2015", "10/10/2016", "GWU: Master in Public Policy", "Formación académica"),
+    ("01/11/2009", "01/12/2014", "ANSES: Jefe Regional de Ciudad de Buenos Aires", "Experiencia profesional")
+]
+
+# Create a color map that maps each category to a specific color
+color_map = {
+    "Experiencia profesional": "lightskyblue",
+    "Actividad docente": "palegreen",
+    "Formación académica": "peachpuff"
+}
+
+# Transform string dates to datetime format
+fechas_convertidas = [(datetime.strptime(start, "%d/%m/%Y"), datetime.strptime(end, "%d/%m/%Y")) for start, end, _, _ in fechas]
+
+# Create figure and axis
+fig, ax = plt.subplots()
+
+# Create a list of patches to add to the legend
+patches = [mpatches.Patch(color=color, label=label) for label, color in color_map.items()]
+
+# Add the legend to the plot
+plt.legend(handles=patches)
+
+# Add each activity as a horizontal bar
+for i, (start, end, label, category) in enumerate(fechas):
+    start_date = datetime.strptime(start, "%d/%m/%Y")
+    end_date = datetime.strptime(end, "%d/%m/%Y")
+    ax.barh(i, (end_date - start_date).days, left=start_date, color=color_map[category], label=label)
+
+# Format dates in the x axis
+ax.xaxis.set_major_locator(mdates.YearLocator())
+ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y'))
+
+# Add legends and labels
+ax.set_yticks(range(len(fechas)))
+ax.set_yticklabels([label for _, _, label, _ in fechas])
+plt.xlabel('Año')
+plt.title('Línea de Tiempo CV Martin Olmos')
+plt.xticks(rotation=45)
+
+# Show the plot
+plt.show()
+
+
+```
+
+
+
+Soy licenciado en Ciencias Políticas (UCA), Magister en Políticas Públicas (George Washington University), Especialista y Maestrando en Ciencia de Datos (ITBA).
+
+### **FORMACIÓN ACADÉMICA**
+
+***2022    MAESTRÍA EN CIENCIA DE DATOS***  
+(Tesis en elaboración)  
+Instituto Tecnológico de Buenos Aires (ITBA)
+
+***2018    ESPECIALIZACIÓN EN CIENCIA DE DATOS***  
+Instituto Tecnológico de Buenos Aires (ITBA)
+
+***2016    MASTER IN PUBLIC POLICY***  
+Trachtenberg School of Public Policy and Public Administration  
+George Washington University
+
+***2003     LICENCIATURA EN CIENCIAS POLÍTICAS, CON ORIENTACIÓN EN PROCESOS POLÍTICOS***  
+Facultad de Ciencias Políticas y Relaciones Internacionales. Pontificia Universidad Católica Argentina. Buenos Aires, Argentina.
+
+
+### **ANTECEDENTES PROFESIONALES Y DOCENTES**
+
+***9/2023- actualidad BANCO INTERAMERICANO DE DESARROLLO***
+Responsabilidad: Consultor en Ciencia de Datos y TICs
+
+***3/2023- actualidad BLUENOTE MANAGEMENT CONSULTING***
+Responsabilidad: Consultor asociado
+
+***2/2023- actualidad CAF BANCO DE DESARROLLO DE AMÉRICA LATINA Y EL CARIBE***
+Responsabilidad: Consultor en Ciencia de Datos y TICs
+
+***7/2022- actualidad  DIPLOMATURA EN GESTIÓN DE CIUDADES - ESCUELA DE ECONOMÍA Y NEGOCIOS – UNIVERSIDAD NACIONAL DE SAN MARTÍN***  
+Responsabilidad: Docente en Gobierno Abierto y Nuevas Tecnologías
+
+***12/2019-03/2022 SUBSECRETARIO DE TECNOLOGÍAS DE LA INFORMACIÓN Y LAS  
+         COMUNICACIONES DE LA JEFATURA DE MINISTROS DE LA NACIÓN***
+
+***6/2021-9/2021   PROGRAMA EJECUTIVO EN LIDERAZGO INNOVADOR – OEI, ILES, SECRETARÍA DE ASUNTOS ESTRATÉGICOS DE LA REPÚBLICA ARGENTINA***  
+Responsabilidad: Docente en Nuevas Tecnologías
+
+***4/2017-11/2019   INSTITUTO CIUDAD – POLÍTICAS PÚBLICAS PARA BUENOS AIRES***  
+Responsabilidad: Director Ejecutivo
+
+***8/2019-12/2019 SEMINARIO DE INTRODUCCIÓN A LA CIENCIA DE DATOS PARA LAS CIENCIAS SOCIALES – FACULTAD DE CIENCIAS SOCIALES (UBA)***  
+Responsabilidad: Docente 
+
+***2/2019-actualidad THE CARPENTRIES – DATA CARPENTRY***  
+Responsabilidad: Instructor
+
+***7/2018-11/2019 DIRECCIÓN DE IMPLEMENTACIÓN Y SEGUIMIENTO SUBE – MINISTERIO DE TRANSPORTE DE LA NACIÓN***  
+Responsabilidad: Consultor en Ciencia de Datos
+
+***8/2018-6/2019	SECRETARÍA DE ASUNTOS PÚBLICOS – MUNICIPALIDAD DE SAN MIGUEL***  
+Responsabilidad: Consultor en Ciencia de Datos
+
+***2/2018-8/2018 ORGANISMO PROVINCIAL PARA EL DESARROLLO SOSTENIBLE***  
+Responsabilidad: Consultor en Ciencia de Datos
+
+***1/2017-6/2018 CONVENIO MINISTERIO DE TRANSPORTE-UNSAM***  
+Responsabilidad: Consultor en Ciencia de Datos
+
+***5/2015-12/2016 BANCO DE DESARROLLO DE AMÉRICA LATINA (CAF)***  
+Responsabilidad: Consultor en Ciencia de Datos
+
+***11/2009-12/2014 ADMINISTRACIÓN NACIONAL DE LA SEGURIDAD SOCIAL***  
+Responsabilidad: Jefe Regional de Ciudad de Buenos Aires.
+
+### **BECAS Y DISTINCIONES**  
+
+***2016	BECA ORGANIZACIÓN DE ESTADOS AMERICANOS (OEA)*** *PARA ESTUDIOS DE POSGRADO.*
+
+***2015	GLOBAL LEADERS FELLOWSHIP 2015-2016*** *, GEORGE WASHINGTON UNIVERSITY.*
+
+***2015	BECA FULBRIGHT DE MAESTRÍA 2015-2016*** *, COMISIÓN FULBRIGHT ARGENTINA.*
+
+***2013	IV FORO “EL FUTURO DE AMÉRICA LATINA: LA VISIÓN DE LOS JÓVENES LÍDERES”*** *, CAF – BANCO DE DESARROLLO DE AMÉRICA LATINA A PARTICIPAR, CIUDAD DE MÉXICO, 22 Y 23 DE AGOSTO DE 2013.*
+
+***2013	PROGRAMA DE GOBIERNO PARA EL DESARROLLO DE LÍDERES DE COMUNIDADES LOCALES.*** *CENTRO DE ESTUDIOS EN GOBIERNO, EMPRESA, SOCIEDAD Y ECONOMÍA, IAE BUSINESS SCHOOL, UNIVERSIDAD AUSTRAL, PILAR, PROVINCIA DE BUENOS AIRES, MAYO Y JUNIO DE 2013. BECA OTORGADA POR LA FUNDACIÓN RAP (RED DE ACCIÓN POLÍTICA).*
+
+***2005	PROGRAMA FURP- USA, AUSTIN Y WASHINGTON DC, ESTADOS UNIDOS DE AMÉRICA. FEBRERO DE 2005.***
+
+
+### **PARTICIPACIÓN EN ACTIVIDADES Y CONFERENCIAS INTERNACIONALES**
+
+*	**Junio 2022**
+
+**Organizadores** | Cámara Chilena de Infraestructura Digital y Asociación Chilena de Municipalidades  
+**Evento** | Foro Brechas y Equidad Digital  
+**Panel** | Los fondos de acceso universal en la Región
+
+*	**Marzo 2022**
+
+**Organizador** | GSMA  
+**Evento** | Ministerial Programme - Mobile World Congress (MWC)
+
+*	**Febrero 2022** 
+
+**Organizador** | Unión Internacional Telecomunicaciones (ITU)  
+**Evento** | 4th Global Standards Symposium  
+**Tema** | Normas Internacionales para Potenciar la Transformación Digital
+
+*	**Noviembre 2021**
+
+**Organizador** | Forum Europe (Forum Global)  
+**Evento** | Latin America Spectrum Management Conference  
+**Tema** | The Emerging Shape of the 6GHz Band  
+
+*	**Junio 2021**
+
+**Organizador** | GSMA  
+**Evento** | Spectrum Roundtable at the Ministerial Programme - Mobile World Congress (MWC)  
+**Tema** | The Future of Spectrum Access  
+
+*	**Noviembre 2020**
+
+**Organizador** | Forum Europe (Forum Global)  
+**Evento** | Latam Spectrum Conference  
+**Tema** | Bridging the Digital Divide – How Has Covid Shone a Light on Digital Inequalities and How Can the Region Move Forward in Tackling This Issue?  
+
+*	**Octubre 2020**
+
+**Organizador** | International Institute of Communications  
+**Tema** | Digital Transformation Post COVID-19: LatAm Responses to the Digital Divide.  
+
+*	**Julio 2020**
+
+**Organizador** | ITU, GeSI & the United Nations Office for South South Cooperation.  
+**Tema** | Accelerating Action and Transformative Pathways for Delivering on the Sustainable Development Goals and Recovery from COVID-19 Pandemic.  
+
+
+### **PARTICIPACIÓN EN ACTIVIDADES Y CONFERENCIAS NACIONALES**
+
+*	**Mayo 2021**
+
+**Organizador** | CABASE  
+**Evento** | Internet Day  
+**Tema** | Iniciativas de desarrollo de la infraestructura de internet para la universalización de la conectividad  
+
+**Organizador** | ISOC Capítulo Argentina y Facultad de Ingeniería de Universidad de Palermo  
+**Evento** | 5tas Jornadas sobre Perspectivas de las Telecomunicaciones y TICs 2021  
+**Tema** | Desafíos Actuales de las Telecomunicaciones  
+
+*	**Abril 2021**
+
+**Organizador** | Grupo Convergencia  
+**Evento** | NPlay Cono Sur  
+**Tema** | Los Planes para Reducir la Brecha Digital y Compartición de Infraestructura   
+
+*	**Diciembre 2020**
+
+**Organizador** | Grupo Convergencia  
+**Tema** | Infraestructura y despliegue de red para crecer en la nueva normalidad.  
+
+**Organizador** | Internet Governance Forum (IGF)  
+**Tema** | Gobernanza de Algoritmos e Inteligencia Artificial  
+
+*	**Agosto 2020 – Marzo 2022**
+
+**Organizador** | BID - INTAL  
+**Programa** | Proyecto Regional Programa de Integración de la Economía Digital para Latinoamérica y el Caribe  
+**Posición** | Miembro del Consejo Directivo  
+
+:::
+
+::: {.content-visible when-profile="english"}
+
+```{python}
+
+import matplotlib.pyplot as plt
+import matplotlib.dates as mdates
+from datetime import datetime
+import matplotlib.patches as mpatches
+
+# Activity data
+fechas = [
+    ("01/09/2023", "31/01/2024", "IDB: Data Science and ICT Consultant", "Professional Experience"),
+    ("01/03/2023", "31/01/2024", "BNMC: Associate Consultant", "Professional Experience"),
+    ("01/02/2023", "31/01/2024", "CAF: Data Science and ICT Consultant", "Professional Experience"),
+    ("01/07/2022", "31/01/2024", "UNSAM: Instructor in Open Government and New Technologies", "Teaching Activity"),
+    ("01/06/2021", "31/01/2024", "PELI: Instructor in New Technologies", "Teaching Activity"),
+    ("01/04/2023", "31/01/2024", "ITBA: Master's in Data Science", "Academic Training"),
+    ("20/12/2019", "11/03/2022", "Deputy Secretary of ICTs", "Professional Experience"),
+    ("01/08/2018", "31/07/2019", "ITBA: Specialization in Data Science", "Academic Training"),
+    ("01/07/2018", "01/11/2019", "SUBE: Data Science Consultant", "Professional Experience"),
+    ("01/08/2018", "01/06/2019", "Muni San Miguel: Data Science Consultant", "Professional Experience"),
+    ("01/02/2018", "01/08/2018", "OPDS: Data Science Consultant", "Professional Experience"),
+    ("01/04/2017", "01/11/2019", "iCiudad: Executive Director", "Professional Experience"),
+    ("01/05/2015", "01/12/2016", "CAF: Data Science Consultant", "Professional Experience"),
+    ("14/01/2015", "10/10/2016", "GWU: Master in Public Policy", "Academic Training"),
+    ("01/11/2009", "01/12/2014", "ANSES: Regional Head of Buenos Aires City", "Professional Experience")
+]
+
+# Create a color map that maps each category to a specific color
+color_map = {
+    "Professional Experience": "lightskyblue",
+    "Teaching Activity": "palegreen",
+    "Academic Training": "peachpuff"
+}
+
+# Transform string dates to datetime format
+fechas_convertidas = [(datetime.strptime(start, "%d/%m/%Y"), datetime.strptime(end, "%d/%m/%Y")) for start, end, _, _ in fechas]
+
+# Create figure and axis
+fig, ax = plt.subplots()
+
+# Create a list of patches to add to the legend
+patches = [mpatches.Patch(color=color, label=label) for label, color in color_map.items()]
+
+# Add the legend to the plot
+plt.legend(handles=patches)
+
+# Add each activity as a horizontal bar
+for i, (start, end, label, category) in enumerate(fechas):
+    start_date = datetime.strptime(start, "%d/%m/%Y")
+    end_date = datetime.strptime(end, "%d/%m/%Y")
+    ax.barh(i, (end_date - start_date).days, left=start_date, color=color_map[category], label=label)
+
+# Format dates in the x axis
+ax.xaxis.set_major_locator(mdates.YearLocator())
+ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y'))
+
+# Add legends and labels
+ax.set_yticks(range(len(fechas)))
+ax.set_yticklabels([label for _, _, label, _ in fechas])
+plt.xlabel('Year')
+plt.title('Martin Olmos CV Timeline')
+plt.xticks(rotation=45)
+
+# Show the plot
+plt.show()
+
+
+```
+
+I have a degree in Political Science (Universidad Católica Argentina - UCA), a Masters degree in Public Policy (George Washington University - GWU) and a Specialization in Data Science (Instituto Tecnológico de Buenos Aires - ITBA).
+
+### **EDUCATION**
+
+***2022    MASTER IN DATA SCIENCE***  
+(Thesis in progress)
+Instituto Tecnológico de Buenos Aires (ITBA)
+
+***2018    SPECIALIZATION IN DATA SCIENCE***  
+Instituto Tecnológico de Buenos Aires (ITBA)
+
+***2016    MASTER IN PUBLIC POLICY***  
+Trachtenberg School of Public Policy and Public Administration  
+George Washington University
+
+***2003     DEGREE IN POLITICAL SCIENCE***  
+Facultad de Ciencias Políticas y Relaciones Internacionales. Pontificia Universidad Católica Argentina. Buenos Aires, Argentina.
+
+
+### **PROFESIONAL AND TEACHING BACKGROUND**
+
+***9/2023- present day INTER-AMERICAN DEVELOPMENT BANK***  
+Responsibility: Consultant on Data Science and ICTs
+
+***3/2023- present day BLUENOTE MANAGEMENT CONSULTING***  
+Responsibility: Associate Consultant
+
+***2/2023- present day CAF LATIN AMERICAN DEVELOPMENT BANK***  
+Responsibility: Consultant on Data Science and ICTs
+
+***7/2022- present day  DIPLOMA ON CITY MANAGEMENT - ESCUELA DE ECONOMÍA Y NEGOCIOS – UNIVERSIDAD NACIONAL DE SAN MARTÍN***  
+Responsibility: Professor on Open Government and New Technologies
+
+***12/2019-03/2022 UNDERSECRETARY OF INFORMATION AND COMMUNICATIONS TECHNOLOGIES OF THE CHIEF OF CABINET OF ARGENTINA***
+
+***6/2021-9/2021   EXECUTIVE PROGRAM ON INNOVATIVE LEADERSHIP – OEI, ILES, SECRETARÍA DE ASUNTOS ESTRATÉGICOS DE LA REPÚBLICA ARGENTINA***  
+Responsibility: Professor on New Technologies
+
+***4/2017-11/2019   INSTITUTO CIUDAD – POLÍTICAS PÚBLICAS PARA BUENOS AIRES**  
+Responsibility: Executive Director
+
+***8/2019-present day INTRODUCTORY SEMINAR ON DATA SCIENCE FOR SOCIAL SCIENCES – FACULTAD DE CIENCIAS SOCIALES (UBA)***  
+Responsibility: Professor 
+
+***2/2019-present day THE CARPENTRIES – DATA CARPENTRY***  
+Responsibility: Instructor
+
+***7/2018-11/2019 DIRECCIÓN DE IMPLEMENTACIÓN Y SEGUIMIENTO SUBE – MINISTERIO DE TRANSPORTE DE LA NACIÓN***  
+Responsibility: Consultant on data science
+
+***8/2018-6/2019	SECRETARÍA DE ASUNTOS PÚBLICOS – MUNICIPALIDAD DE SAN MIGUEL***  
+Responsibility: Consultant on data science
+
+***2/2018-8/2018 ORGANISMO PROVINCIAL PARA EL DESARROLLO SOSTENIBLE***  
+Responsibility: Consultant on data science
+
+***1/2017-6/2018 CONVENIO MINISTERIO DE TRANSPORTE-UNSAM***  
+Responsibility: Consultant on data science
+
+***5/2015-12/2016 BANCO DE DESARROLLO DE AMÉRICA LATINA (CAF)***  
+Responsibility: Consultant on data science
+
+***11/2009-12/2014 ADMINISTRACIÓN NACIONAL DE LA SEGURIDAD SOCIAL***  
+Responsibility: Regional Chief for Buenos Aires City.
+
+### **FELLOWSHIPS**  
+
+***2016	ORGANIZATION OF AMERICAN STATES (OAS) FELLOWSHIP*** *FOR GRADUATE STUDIES.*
+
+***2015	GLOBAL LEADERS FELLOWSHIP 2015-2016*** *, GEORGE WASHINGTON UNIVERSITY.*
+
+***2015	FULBRIGHT FELLOWSHIP FOR MASTER STUDIES 2015-2016*** *, COMISIÓN FULBRIGHT ARGENTINA.*
+
+***2013	IV FORO “EL FUTURO DE AMÉRICA LATINA: LA VISIÓN DE LOS JÓVENES LÍDERES”*** *, CAF – BANCO DE DESARROLLO DE AMÉRICA LATINA A PARTICIPAR, CIUDAD DE MÉXICO, 22 Y 23 DE AGOSTO DE 2013.*
+
+***2013	PROGRAMA DE GOBIERNO PARA EL DESARROLLO DE LÍDERES DE COMUNIDADES LOCALES.*** *CENTRO DE ESTUDIOS EN GOBIERNO, EMPRESA, SOCIEDAD Y ECONOMÍA, IAE BUSINESS SCHOOL, UNIVERSIDAD AUSTRAL, PILAR, PROVINCIA DE BUENOS AIRES, MAYO Y JUNIO DE 2013. BECA OTORGADA POR LA FUNDACIÓN RAP (RED DE ACCIÓN POLÍTICA).*
+
+***2005	FURP-USA PROGRAM, DEPARTMENT OF STATE OF THE UNITED STATES OF AMERICA. FEBRUARY 2005.***
+
+
+### **INTERNATIONAL CONFERENCES AND ACTIVITIES**
+
+*	**June 2022**
+
+**Organized by** | Cámara Chilena de Infraestructura Digital y Asociación Chilena de Municipalidades  
+**Event** | Forum on Equality and Digital Divide  
+**Panel** | The role of universal access funds
+
+*	**March 2022**
+
+**Organized by** | GSMA  
+**Event** | Ministerial Programme - Mobile World Congress (MWC)
+
+*	**February 2022** 
+
+**Organized by** | Unión Internacional Telecomunicaciones (ITU)  
+**Event** | 4th Global Standards Symposium  
+**Panel** | International Standards for Digital Transformation
+
+*	**November 2021**
+
+**Organized by** | Forum Europe (Forum Global)  
+**Event** | Latin America Spectrum Management Conference  
+**Tema** | The Emerging Shape of the 6GHz Band  
+
+*	**June 2021**
+
+**Organized by** | GSMA  
+**Event** | Spectrum Roundtable at the Ministerial Programme - Mobile World Congress (MWC)  
+**Roundtable** | The Future of Spectrum Access  
+
+*	**November 2020**
+
+**Organized by** | Forum Europe (Forum Global)  
+**Event** | Latam Spectrum Conference  
+**Tema** | Bridging the Digital Divide – How Has Covid Shone a Light on Digital Inequalities and How Can the Region Move Forward in Tackling This Issue?  
+
+*	**October 2020**
+
+**Organized by** | International Institute of Communications  
+**Tema** | Digital Transformation Post COVID-19: LatAm Responses to the Digital Divide.  
+
+*	**July 2020**
+
+**Organized by** | ITU, GeSI & the United Nations Office for South South Cooperation.  
+**Panel** | Accelerating Action and Transformative Pathways for Delivering on the Sustainable Development Goals and Recovery from COVID-19 Pandemic.  
+
+
+### **NATIONAL CONFERENCES AND ACTIVITIES**
+
+*	**May 2021**
+
+**Organized by** | CABASE  
+**Event** | Internet Day  
+**Panel** | Infrastructure development initiatives for universal connectivity  
+
+**Organized by** | ISOC Argentinean Chapter and Facultad de Ingeniería de Universidad de Palermo  
+**Event** | 5tas Jornadas sobre Perspectivas de las Telecomunicaciones y TICs 2021  
+**Panel** | Desafíos Actuales de las Telecomunicaciones  
+
+*	**April 2021**
+
+**Organized by** | Grupo Convergencia  
+**Event** | NPlay Cono Sur  
+**Tema** | Programms to Reduce the Digital Divide and Infrastructure Sharing   
+
+*	**December 2020**
+
+**Organized by** | Grupo Convergencia  
+**Tema** |  Infrastructure and Network Deployment for Growth in the New Normal  
+
+**Organized by** | Internet Governance Forum (IGF)  
+**Tema** |  Algorithms and AI Governance  
+
+*	**August 2020 – March 2022**
+
+**Organized by** | BID - INTAL  
+**Program** | Regional Program for Latin America and the Caribbean Integration to the Digital Economy  
+**Position** | Member of the Board  
+
+:::

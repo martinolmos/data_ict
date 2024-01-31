@@ -1,0 +1,89 @@
+---
+title: Internet Submarine Cables
+subtitle: Cables Submarinos de Internet
+author: Martin Olmos
+date: '2022-02-06'
+slug: []
+categories: []
+tags: []
+codefolding_show: "show"
+---
+
+::: {.content-visible when-profile="english"}
+
+Some time ago [Tyler Morgan-Wall][1] made a [visualization][2] of all the submarine internet cables with [Telegeography data][3].
+
+Tyler posted the code in this [gist][4]. I decided to reproduce the visualization with a little modification to add a title and change earth´s rotation direction.
+
+Here is the modification to the last for loop to add the title:
+
+:::
+
+::: {.content-visible when-profile="spanish"}
+
+Hace un tiempo [Tyler Morgan-Wall][1] hizo una [visualizacón][2] de los todos los cables submarinos de internet con los [datos de Telegeography][3].
+
+Tyler publicó el código en este [gist][4]. Yo decidí reproducir la visualización con una pequeña modificación para agregarle un título y hacer girar a la tierra para el otro lado.
+
+Acá va la modificación al último for loop para agregar el título:
+
+:::
+
+```{r, echo=TRUE, eval=FALSE}
+for(i in seq(1,720,by=1)) {
+  tmp <- group_objects(fullcablescene,scale=c(1,1,1)*1.02) %>% 
+    add_object(sphere(radius=0.99,material=diffuse(image_texture = "2k_earth_daymap.jpg"),angle=c(0,-90,0))) %>% 
+    group_objects(angle=c(0,-i/2,0)) %>% 
+    add_object(sphere(y=5,z=5,x=5,material=light(intensity = 80,color="lightblue"))) %>% 
+    add_object(sphere(y=5,z=5,x=-5,material=light(intensity = 10,color="orange"))) %>% 
+    add_object(sphere(y=-10,material=light(intensity = 3,color="white"))) %>%
+    render_scene(samples=64,width=1200,height=1200,fov=0,aperture=0, ortho_dimensions = c(2.3,2.3),
+                 sample_method = "sobol_blue",parallel = TRUE,return_raw_array = TRUE)
+  rayimage::add_title(image = tmp,
+                      title_text = "https://martinolmos.github.io/datos_tic/",
+                      title_color = "orange",
+                      title_position = "north",
+                      filename = sprintf("imgs/smallcables%d.png",i))
+}
+
+```
+
+::: {.content-visible when-profile="english"}
+
+And here is the code to change the direction of earth´s rotation:
+
+:::
+
+::: {.content-visible when-profile="spanish"}
+
+Y la línea para generar la imagen animada girando para el otro lado:
+
+:::
+
+```{r, echo=TRUE, eval=FALSE}
+av::av_encode_video(sprintf("imgs/smallcables%d.png", seq(720,1,by=-1)), 
+                    framerate = 30, 
+                    output = "cables.mp4")
+```
+
+::: {.content-visible when-profile="english"}
+
+And finally the new visualization:
+
+:::
+
+::: {.content-visible when-profile="spanish"}
+
+Y finalmente la visualización con mis pequeñas modificaciones al código:
+
+:::
+
+<center>
+![](cables2.mp4){width=70%}
+</center>
+
+[1]:https://twitter.com/tylermorganwall?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor
+[2]:https://twitter.com/tylermorganwall/status/1440669533157556227?s=20&t=05ZXaTcWTILlnCBx4DfJKg
+[3]:https://github.com/telegeography/www.submarinecablemap.com
+[4]:https://gist.github.com/tylermorganwall/b222fcebcac3de56a6e144d73d166322 
+

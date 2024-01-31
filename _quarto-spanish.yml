@@ -1,0 +1,30 @@
+project:
+ title: "Datos y TICs"
+ output-dir: ./_site/es
+
+website:
+  navbar:
+    left: 
+      - href: about.qmd
+        text: Sobre mí
+
+    right:
+      - href: ../en
+        text: English
+      - href: ../es
+        text: Español
+      - icon: github
+        href: https://github.com/martinolmos
+      - icon: twitter
+        href: https://twitter.com/martin_olmos_
+
+lang: es
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+
+
+

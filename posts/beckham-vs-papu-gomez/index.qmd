@@ -1,0 +1,54 @@
+---
+title: Beckham vs. Papu Gomez
+subtitle: Beckham vs. Papu Gomez
+author: ''
+date: '2023-01-08'
+slug: []
+categories: []
+tags: []
+Description: ''
+Tags: []
+Categories: []
+DisableComments: no
+hidesidebar: true
+---
+
+::: {.content-visible when-profile="english"}
+
+This post is not about ICTs. It's about using AI to classify images. In this case we take a controversy that came up during the World Cup in a stream of Kun Aguero, where Lio Messi and Papu Gomez asked Kun to guess who Papu looks like, after his new haircut.
+
+:::
+
+::: {.content-visible when-profile="spanish"}
+
+Este post no es sobre TICs. Es sobre el uso de IA para clasificaar imágenes. En este caso tomamos una controversia que se planteó durante del mundial en un stream del Kun Aguero, donde Lio Messi y el Papu Gomez le piden al Kun que adivine a quién se parece el Papu, luego de su nuevo corte de pelo.
+
+:::
+
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/07vFqwrz5iA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+</center>
+
+::: {.content-visible when-profile="english"}
+
+After that, a controversy was opened. Does Papu Gomez look like David Beckham? That's why I decided to train an AI model to classify images of both players. I have to say that after this I came to the conclusion that they have some similarity, since I had to go from simpler to more complex models so that it could learn to distinguish between the two.
+
+You can try the application below or in the following [link](https://martinolmos-papu-beckham-classifier.hf.space)
+
+:::
+
+::: {.content-visible when-profile="spanish"}
+
+A partir de ahí quedó la controversia. Se parece el Papu Gomez a David Beckham? Es por eso que decidí entrenar un modelo de IA para clasificar imágenes de ambos jugadores. Tengo que decir que a partir de esto llegué a la conclusión que algún parecido tienen, ya que tuve que ir pasando de modelos más simples a más complejos para que aprenda a distinguir bien entre los dos.
+
+Pueden probar la aplicación a continuación o en el siguiente [link](https://martinolmos-papu-beckham-classifier.hf.space)
+
+:::
+
+<script
+	type="module"
+	src="https://gradio.s3-us-west-2.amazonaws.com/3.15.0/gradio.js"
+></script>
+
+<gradio-app src="https://martinolmos-papu-beckham-classifier.hf.space"></gradio-app>
+

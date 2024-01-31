@@ -1,0 +1,74 @@
+{
+  "index.qmd": {
+    "index.html": "0f9325f0"
+  },
+  "posts/post-with-code/index.qmd": {
+    "index.html": "03cae3b3"
+  },
+  "posts/welcome/index.qmd": {
+    "index.html": "c6cd25a0"
+  },
+  "about.qmd": {
+    "about.html": "2c4d0e9c"
+  },
+  "posts/transcribe-messi-using-whisper/index.qmd": {
+    "index.html": "144d4bec"
+  },
+  "lib/python3.11/site-packages/QtPy-2.4.1.dist-info/AUTHORS.md": {
+    "AUTHORS.html": "e701a4e3"
+  },
+  "lib/python3.11/site-packages/soupsieve-2.5.dist-info/licenses/LICENSE.md": {
+    "LICENSE.html": "5d62ac20"
+  },
+  "lib/python3.11/site-packages/pyzmq-25.1.2.dist-info/AUTHORS.md": {
+    "AUTHORS.html": "e4edae12"
+  },
+  "lib/python3.11/site-packages/idna-3.6.dist-info/LICENSE.md": {
+    "LICENSE.html": "3abdb75d"
+  },
+  "posts/prueba/index.qmd": {
+    "index.html": "fd1b372a"
+  },
+  "lib/python3.11/site-packages/httpcore-1.0.2.dist-info/licenses/LICENSE.md": {
+    "LICENSE.html": "8b960ea6"
+  },
+  "lib/python3.11/site-packages/httpx-0.26.0.dist-info/licenses/LICENSE.md": {
+    "LICENSE.html": "6bb23946"
+  },
+  "posts/internet-submarine-cables/index.qmd": {
+    "index.html": "9a6d5df1"
+  },
+  "posts/price-evolution/index.qmd": {
+    "index.html": "16ffb568"
+  },
+  "posts/internet-fix-access-dashboard-in-argentina/index.qmd": {
+    "index.html": "a70c3751"
+  },
+  "posts/ict-companies-social-network-analysis/index.qmd": {
+    "index.html": "1d9d5a0c"
+  },
+  "posts/using-satellite-images/index.qmd": {
+    "index.html": "49943aa4"
+  },
+  "posts/beckham-vs-papu-gomez/index.qmd": {
+    "index.html": "ab9d6c73"
+  },
+  "posts/forum-equality-digital-divide/index.qmd": {
+    "index.html": "7f6fe4d1"
+  },
+  "posts/30-day-map-challenge-day-3-and-4/index.qmd": {
+    "index.html": "da770d9c"
+  },
+  "posts/30-day-map-challenge-day-1-and-2/index.qmd": {
+    "index.html": "0fc1f822"
+  },
+  "migration.ipynb": {
+    "migration.html": "4dd0489b"
+  },
+  "lib/python3.11/site-packages/numpy/random/LICENSE.md": {
+    "LICENSE.html": "df65ba79"
+  },
+  "lib/python3.11/site-packages/matplotlib/backends/web_backend/nbagg_uat.ipynb": {
+    "nbagg_uat.html": "a11b1dc9"
+  }
+}

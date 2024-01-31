@@ -1,0 +1,168 @@
+---
+title: ICT Prices Evolution
+subtitle: Evolución de los precios
+author: ''
+date: '2022-02-07'
+slug: []
+categories: []
+tags: []
+---
+
+<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.8.0/dist/js/components.js'></script>
+<link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/datosgobar/series-tiempo-ar-explorer@ts_components_2.8.0/dist/css/components.css'/>
+
+::: {.content-visible when-profile="english"}
+
+Let's see what was the evolution of prices of ICT services in Argentina in recent years.
+
+If we take the time-series of the communications chapter of the INDEC Consumer Price Index (IPC-COM) we see that since the beginning of the series (Dec-2016=100) prices of communication services were above the general index until 2020, where the IPC-COM flattens and then goes below the general index.
+
+:::
+
+::: {.content-visible when-profile="spanish"}
+
+Veamos cuál fue la evolución de los precios de los servicios TIC en Argentina en los últimos años.
+
+Si tomamos la serie del capítulo de comunicaciones del Índice de Precios al Consumidor del INDEC (IPC-COM) vemos que desde el incio de la serie (Dic-2016=100) las comunicaciones estuvieron por encima del índice general hasta 2020, donde el IPC-COM se ameseta y luego queda por debajo.
+
+:::
+
+<div id="precios1"></div>
+
+::: {.content-visible when-profile="english"}
+
+Let's analyze in particular the years 2020 and 2021. First, 2020: if we look at the cumulative annual variation, the IPC-COM rises above the general IPC with the increase in March, which was partially reversed in April (the increase in prepaid mobile and fixed telephony, but not postpaid and mixed mobile) and then the IPC plateaus first due to the price agreement until July 31 and then due to the freeze imposed by DNU 690/2020 until December 31.
+
+:::
+
+::: {.content-visible when-profile="spanish"}
+
+Analicemos en particular los años 2020 y 2021. Primero 2020: si vemos la variación acumulada anual el IPC-COM se pone por arriba del IPC general con el aumento de marzo que fue parcialmente retrotraído en abril (se retrotrajo el aumento del móvil prepago y de la telefonía fija, no así el móvil pospago y mixto) y luego el IPC se ameseta primero por el acuerdo de precios hasta el 31 de julio y luego por el congelamiento que impuso el DNU 690/2020 hasta el 31 de diciembre.
+
+:::
+
+<div id="precios2"></div>
+
+::: {.content-visible when-profile="english"}
+
+Now let's look at the year 2021:
+
+:::
+
+::: {.content-visible when-profile="spanish"}
+
+Veamos ahora el año 2021:
+
+:::
+
+<div id="precios3"></div>
+
+<script>
+    window.onload = function() {
+        TSComponents.Graphic.render('precios1', {
+            graphicUrl: "https://apis.datos.gob.ar/series/api/series/?ids=148.3_INIVELNAL_DICI_M_26,146.3_ICOMUNINAL_DICI_M_27&limit=5000&representation_mode=value",
+            title: "IPC vs. IPC-COM. Base diciembre 2016.",
+            source: "Fuente: Instituto Nacional de Estadística y Censos (INDEC)"
+        })
+        TSComponents.Graphic.render('precios2', {
+            graphicUrl: "https://apis.datos.gob.ar/series/api/series/?ids=148.3_INIVELNAL_DICI_M_26,146.3_ICOMUNINAL_DICI_M_27&limit=5000&representation_mode=change_since_beginning_of_year&start_date=2020-01-01&end_date=2020-12-01",
+            title: "Índice de Precios al Consumidor Nacional (IPC). Base diciembre 2016.",
+            source: "Fuente: Instituto Nacional de Estadística y Censos (INDEC)"
+        })
+        TSComponents.Graphic.render('precios3', {
+            graphicUrl: "https://apis.datos.gob.ar/series/api/series/?ids=148.3_INIVELNAL_DICI_M_26,146.3_ICOMUNINAL_DICI_M_27&limit=5000&representation_mode=change_since_beginning_of_year&start_date=2021-01-01&end_date=2021-12-01",
+            title: "Índice de Precios al Consumidor Nacional (IPC). Base diciembre 2016.",
+            source: "Fuente: Instituto Nacional de Estadística y Censos (INDEC)"
+        })
+    }
+</script>
+
+::: {.content-visible when-profile="english"}
+
+As we can see, both 2020 and 2021 were years where price increases in ICTs were well below the increases in the general index.
+
+*Note: according to [COICOP Argentina][3], the Communications Chapter of the IPC does not include only ICT services but also the price of equipment and does not include prices of pay television services, which are reflected in the Chapter of Recreation and Culture.*
+
+Now let's see how we rank against other countries in the region in terms of affordability. [The International Telecommunication Union (ITU)][1] compiles [standardized price statistics][2] of price baskets for fixed and mobile services. Some examples:
+
+:::
+
+::: {.content-visible when-profile="spanish"}
+
+Como se puede apreciar en los gráficos, tanto 2020 como 2021 fueron años donde los aumentos del sector se ubicaron bien por debajo de los aumentos en el índice general.
+
+*Aclaración: de acuerdo al [COICOP Argentina][3], el Capítulo de Comunicaciones del IPC no incluye sólo servicios TIC si no también el precio de los equipos y no incluye precios del servicio de televisión paga, que se encuentran reflejados en el Capítulo de Recreación y Cultura.*
+
+Esto respecto de la evolución. Veamos ahora cómo nos ubicamos respecto de otros países de la región en cuanto a asequibilidad. [La Unión Internacional de Telecomunicaciones (UIT)][1] compila [estadísticas estandarizadas sobre precios][2] de canastas de precios de servicios fijos y móviles. Algunos ejemplos:
+
+:::
+
+```{r, echo=FALSE, eval=TRUE, message=FALSE, warning=FALSE, fig.align='center'}
+library(tidyverse)
+library(plotly)
+library(lubridate)
+
+itu_prices <- read_csv("itu_price_basket_selected.csv")
+
+prices_plot1 <- itu_prices %>% 
+  filter(type=="Mobile broadband data only 1.5 GB" & currency=="GNIpc") %>%
+  ggplot(mapping = aes(x = year, y = value, color = iso_code)) +
+  scale_x_continuous(breaks=c(2018, 2019, 2020), labels=c(2018, 2019, 2020)) +
+  geom_line() +
+  theme_bw() +
+  labs(title = "Mobile broadband data only 1.5 GB",
+       x = "Year", y = "Price (% GNIpc)", caption = "Source: ITU")
+
+ggplotly(prices_plot1)
+```
+
+```{r, echo=FALSE, eval=TRUE, message=FALSE, warning=FALSE, fig.align='center'}
+ict_type <- "Mobile Data and Voice Low Usage"
+prices_plot2 <- itu_prices %>% 
+  filter(type==ict_type & currency=="GNIpc") %>%
+  ggplot(mapping = aes(x = year, y = value, color = iso_code)) +
+  scale_x_continuous(breaks=c(2018, 2019, 2020), labels=c(2018, 2019, 2020)) +
+  geom_line() +
+  theme_bw() +
+  labs(title = ict_type,
+       x = "Year", y = "Price (% GNIpc)", caption = "Source: ITU")
+
+ggplotly(prices_plot2)
+
+```
+
+```{r, echo=FALSE, eval=TRUE, message=FALSE, warning=FALSE, fig.align='center'}
+ict_type <- "Fixed broadband 5GB"
+prices_plot3 <- itu_prices %>% 
+  filter(type==ict_type & currency=="GNIpc") %>%
+  ggplot(mapping = aes(x = year, y = value, color = iso_code)) +
+  scale_x_continuous(breaks=c(2018, 2019, 2020), labels=c(2018, 2019, 2020)) +
+  geom_line() +
+  theme_bw() +
+  labs(title = ict_type,
+       x = "Year", y = "Price (% GNIpc)", caption = "Source: ITU")
+
+ggplotly(prices_plot3)
+
+```
+
+::: {.content-visible when-profile="english"}
+
+In these time-series, Argentina only seems to be doing well in mobile broadband (only data).
+
+*Note: these time-series only includes 2018, 2019 and 2020 because in 2017 there was a change in methodology. For more information see [here][4].*
+
+:::
+
+::: {.content-visible when-profile="spanish"}
+
+En estas series temporales, Argentina parece estar bien sólo en banda ancha móvil (sólo datos).
+
+*Aclaración: estas series temporales sólo incluyen 2018, 2019 y 2020 porque en 2017 hubo un cambio de metodología. Para más información ver [aquí][4].*
+
+:::
+
+[1]:https://www.itu.int/es/Pages/default.aspx
+[2]:https://www.itu.int/en/ITU-D/Statistics/Pages/ICTprices/default.aspx
+[3]:https://www.indec.gob.ar/ftp/cuadros/menusuperior/clasificadores/coicop_argentina_2019.pdf
+[4]:https://www.itu.int/en/ITU-D/Statistics/Pages/ICTprices/default.aspx
