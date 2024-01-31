@@ -1,6 +1,6 @@
 project:
  title: "Datos y TICs"
- output-dir: ./_site/es
+ output-dir: ./docs/es
 
 website:
   navbar:
