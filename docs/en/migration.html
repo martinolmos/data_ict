@@ -1943,94 +1943,142 @@ caba %&gt;%
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">'prueba.qmd'</span>, <span class="st">'w'</span>) <span class="im">as</span> fw:</span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>    fw.write()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.dates <span class="im">as</span> mdates</span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> datetime</span>
-<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a><span class="co"># ***9/2023- actualidad BANCO INTERAMERICANO DE DESARROLLO***</span></span>
-<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Responsabilidad: Consultor en Ciencia de Datos y TICs</span></span>
-<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a><span class="co"># ***3/2023- actualidad BLUENOTE MANAGEMENT CONSULTING***</span></span>
-<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Responsabilidad: Consultor asociado</span></span>
-<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-11"><a href="#cb44-11" aria-hidden="true" tabindex="-1"></a><span class="co"># ***2/2023- actualidad CAF BANCO DE DESARROLLO DE AMÉRICA LATINA Y EL CARIBE***</span></span>
-<span id="cb44-12"><a href="#cb44-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Responsabilidad: Consultor en Ciencia de Datos y TICs</span></span>
-<span id="cb44-13"><a href="#cb44-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-14"><a href="#cb44-14" aria-hidden="true" tabindex="-1"></a><span class="co"># ***7/2022- actualidad  DIPLOMATURA EN GESTIÓN DE CIUDADES - ESCUELA DE ECONOMÍA Y NEGOCIOS – UNIVERSIDAD NACIONAL DE SAN MARTÍN***  </span></span>
-<span id="cb44-15"><a href="#cb44-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Responsabilidad: Docente en Gobierno Abierto y Nuevas Tecnologías</span></span>
-<span id="cb44-16"><a href="#cb44-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-17"><a href="#cb44-17" aria-hidden="true" tabindex="-1"></a><span class="co"># ***12/2019-03/2022 SUBSECRETARIO DE TECNOLOGÍAS DE LA INFORMACIÓN Y LAS  </span></span>
-<span id="cb44-18"><a href="#cb44-18" aria-hidden="true" tabindex="-1"></a><span class="co">#          COMUNICACIONES DE LA JEFATURA DE MINISTROS DE LA NACIÓN***</span></span>
-<span id="cb44-19"><a href="#cb44-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-20"><a href="#cb44-20" aria-hidden="true" tabindex="-1"></a><span class="co"># ***6/2021-9/2021   PROGRAMA EJECUTIVO EN LIDERAZGO INNOVADOR – OEI, ILES, SECRETARÍA DE ASUNTOS ESTRATÉGICOS DE LA REPÚBLICA ARGENTINA***  </span></span>
-<span id="cb44-21"><a href="#cb44-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Responsabilidad: Docente en Nuevas Tecnologías</span></span>
-<span id="cb44-22"><a href="#cb44-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-23"><a href="#cb44-23" aria-hidden="true" tabindex="-1"></a><span class="co"># ***4/2017-11/2019   INSTITUTO CIUDAD – POLÍTICAS PÚBLICAS PARA BUENOS AIRES***  </span></span>
-<span id="cb44-24"><a href="#cb44-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Responsabilidad: Director Ejecutivo</span></span>
+<div class="cell" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.dates <span class="im">as</span> mdates</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> datetime</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.patches <span class="im">as</span> mpatches</span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Activity data</span></span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>fechas <span class="op">=</span> [</span>
+<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"01/09/2023"</span>, <span class="st">"31/01/2024"</span>, <span class="st">"BID: Consultor en Ciencia de Datos y TICs"</span>, <span class="st">"Experiencia profesional"</span>),</span>
+<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"01/03/2023"</span>, <span class="st">"31/01/2024"</span>, <span class="st">"BNMC: Consultor asociado"</span>, <span class="st">"Experiencia profesional"</span>),</span>
+<span id="cb44-11"><a href="#cb44-11" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"01/02/2023"</span>, <span class="st">"31/01/2024"</span>, <span class="st">"CAF: Consultor en Ciencia de Datos y TICs"</span>, <span class="st">"Experiencia profesional"</span>),</span>
+<span id="cb44-12"><a href="#cb44-12" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"01/07/2022"</span>, <span class="st">"31/01/2024"</span>, <span class="st">"UNSAM: Docente en Gobierno Abierto y Nuevas Tecnologías"</span>, <span class="st">"Actividad docente"</span>),</span>
+<span id="cb44-13"><a href="#cb44-13" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"01/06/2021"</span>, <span class="st">"31/01/2024"</span>, <span class="st">"PELI: Docente en Nuevas Tecnologías"</span>, <span class="st">"Actividad docente"</span>),</span>
+<span id="cb44-14"><a href="#cb44-14" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"01/04/2023"</span>, <span class="st">"31/01/2024"</span>, <span class="st">"ITBA: Maestría en Ciencia de Datos"</span>, <span class="st">"Formación académica"</span>),</span>
+<span id="cb44-15"><a href="#cb44-15" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"20/12/2019"</span>, <span class="st">"11/03/2022"</span>, <span class="st">"Subsecretario de TICs"</span>, <span class="st">"Experiencia profesional"</span>),</span>
+<span id="cb44-16"><a href="#cb44-16" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"01/08/2018"</span>, <span class="st">"31/07/2019"</span>, <span class="st">"ITBA: Especialización en Ciencia de Datos"</span>, <span class="st">"Formación académica"</span>),</span>
+<span id="cb44-17"><a href="#cb44-17" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"01/07/2018"</span>, <span class="st">"01/11/2019"</span>, <span class="st">"SUBE: Consultor en Ciencia de Datos"</span>, <span class="st">"Experiencia profesional"</span>),</span>
+<span id="cb44-18"><a href="#cb44-18" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"01/08/2018"</span>, <span class="st">"01/06/2019"</span>, <span class="st">"Muni San Miguel: Consultor en Ciencia de Datos"</span>, <span class="st">"Experiencia profesional"</span>),</span>
+<span id="cb44-19"><a href="#cb44-19" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"01/02/2018"</span>, <span class="st">"01/08/2018"</span>, <span class="st">"OPDS: Consultor en Ciencia de Datos"</span>, <span class="st">"Experiencia profesional"</span>),</span>
+<span id="cb44-20"><a href="#cb44-20" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"01/04/2017"</span>, <span class="st">"01/11/2019"</span>, <span class="st">"iCiudad: Director Ejecutivo"</span>, <span class="st">"Experiencia profesional"</span>),</span>
+<span id="cb44-21"><a href="#cb44-21" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"01/05/2015"</span>, <span class="st">"01/12/2016"</span>, <span class="st">"CAF: Consultor en Ciencia de Datos"</span>, <span class="st">"Experiencia profesional"</span>),</span>
+<span id="cb44-22"><a href="#cb44-22" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"14/01/2015"</span>, <span class="st">"10/10/2016"</span>, <span class="st">"GWU: Master in Public Policy"</span>, <span class="st">"Formación académica"</span>),</span>
+<span id="cb44-23"><a href="#cb44-23" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"01/11/2009"</span>, <span class="st">"01/12/2014"</span>, <span class="st">"ANSES: Jefe Regional de Ciudad de Buenos Aires"</span>, <span class="st">"Experiencia profesional"</span>)</span>
+<span id="cb44-24"><a href="#cb44-24" aria-hidden="true" tabindex="-1"></a>]</span>
 <span id="cb44-25"><a href="#cb44-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-26"><a href="#cb44-26" aria-hidden="true" tabindex="-1"></a><span class="co"># ***8/2019-12/2019 SEMINARIO DE INTRODUCCIÓN A LA CIENCIA DE DATOS PARA LAS CIENCIAS SOCIALES – FACULTAD DE CIENCIAS SOCIALES (UBA)***  </span></span>
-<span id="cb44-27"><a href="#cb44-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Responsabilidad: Docente </span></span>
-<span id="cb44-28"><a href="#cb44-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-29"><a href="#cb44-29" aria-hidden="true" tabindex="-1"></a><span class="co"># ***2/2019-actualidad THE CARPENTRIES – DATA CARPENTRY***  </span></span>
-<span id="cb44-30"><a href="#cb44-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Responsabilidad: Instructor</span></span>
-<span id="cb44-31"><a href="#cb44-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-32"><a href="#cb44-32" aria-hidden="true" tabindex="-1"></a><span class="co"># ***7/2018-11/2019 DIRECCIÓN DE IMPLEMENTACIÓN Y SEGUIMIENTO SUBE – MINISTERIO DE TRANSPORTE DE LA NACIÓN***  </span></span>
-<span id="cb44-33"><a href="#cb44-33" aria-hidden="true" tabindex="-1"></a><span class="co"># Responsabilidad: Consultor en Ciencia de Datos</span></span>
-<span id="cb44-34"><a href="#cb44-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-35"><a href="#cb44-35" aria-hidden="true" tabindex="-1"></a><span class="co"># ***8/2018-6/2019  SECRETARÍA DE ASUNTOS PÚBLICOS – MUNICIPALIDAD DE SAN MIGUEL***  </span></span>
-<span id="cb44-36"><a href="#cb44-36" aria-hidden="true" tabindex="-1"></a><span class="co"># Responsabilidad: Consultor en Ciencia de Datos</span></span>
-<span id="cb44-37"><a href="#cb44-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-38"><a href="#cb44-38" aria-hidden="true" tabindex="-1"></a><span class="co"># ***2/2018-8/2018 ORGANISMO PROVINCIAL PARA EL DESARROLLO SOSTENIBLE***  </span></span>
-<span id="cb44-39"><a href="#cb44-39" aria-hidden="true" tabindex="-1"></a><span class="co"># Responsabilidad: Consultor en Ciencia de Datos</span></span>
-<span id="cb44-40"><a href="#cb44-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-41"><a href="#cb44-41" aria-hidden="true" tabindex="-1"></a><span class="co"># ***1/2017-6/2018 CONVENIO MINISTERIO DE TRANSPORTE-UNSAM***  </span></span>
-<span id="cb44-42"><a href="#cb44-42" aria-hidden="true" tabindex="-1"></a><span class="co"># Responsabilidad: Consultor en Ciencia de Datos</span></span>
-<span id="cb44-43"><a href="#cb44-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-44"><a href="#cb44-44" aria-hidden="true" tabindex="-1"></a><span class="co"># ***5/2015-12/2016 BANCO DE DESARROLLO DE AMÉRICA LATINA (CAF)***  </span></span>
-<span id="cb44-45"><a href="#cb44-45" aria-hidden="true" tabindex="-1"></a><span class="co"># Responsabilidad: Consultor en Ciencia de Datos</span></span>
-<span id="cb44-46"><a href="#cb44-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-47"><a href="#cb44-47" aria-hidden="true" tabindex="-1"></a><span class="co"># ***11/2009-12/2014 ADMINISTRACIÓN NACIONAL DE LA SEGURIDAD SOCIAL***  </span></span>
-<span id="cb44-48"><a href="#cb44-48" aria-hidden="true" tabindex="-1"></a><span class="co"># Responsabilidad: Jefe Regional de Ciudad de Buenos Aires.</span></span>
-<span id="cb44-49"><a href="#cb44-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-26"><a href="#cb44-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a color map that maps each category to a specific color</span></span>
+<span id="cb44-27"><a href="#cb44-27" aria-hidden="true" tabindex="-1"></a>color_map <span class="op">=</span> {</span>
+<span id="cb44-28"><a href="#cb44-28" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Experiencia profesional"</span>: <span class="st">"lightskyblue"</span>,</span>
+<span id="cb44-29"><a href="#cb44-29" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Actividad docente"</span>: <span class="st">"palegreen"</span>,</span>
+<span id="cb44-30"><a href="#cb44-30" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Formación académica"</span>: <span class="st">"peachpuff"</span></span>
+<span id="cb44-31"><a href="#cb44-31" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb44-32"><a href="#cb44-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-33"><a href="#cb44-33" aria-hidden="true" tabindex="-1"></a><span class="co"># Transform string dates to datetime format</span></span>
+<span id="cb44-34"><a href="#cb44-34" aria-hidden="true" tabindex="-1"></a>fechas_convertidas <span class="op">=</span> [(datetime.strptime(start, <span class="st">"</span><span class="sc">%d</span><span class="st">/%m/%Y"</span>), datetime.strptime(end, <span class="st">"</span><span class="sc">%d</span><span class="st">/%m/%Y"</span>)) <span class="cf">for</span> start, end, _, _ <span class="kw">in</span> fechas]</span>
+<span id="cb44-35"><a href="#cb44-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-36"><a href="#cb44-36" aria-hidden="true" tabindex="-1"></a><span class="co"># Create figure and axis</span></span>
+<span id="cb44-37"><a href="#cb44-37" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb44-38"><a href="#cb44-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-39"><a href="#cb44-39" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a list of patches to add to the legend</span></span>
+<span id="cb44-40"><a href="#cb44-40" aria-hidden="true" tabindex="-1"></a>patches <span class="op">=</span> [mpatches.Patch(color<span class="op">=</span>color, label<span class="op">=</span>label) <span class="cf">for</span> label, color <span class="kw">in</span> color_map.items()]</span>
+<span id="cb44-41"><a href="#cb44-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-42"><a href="#cb44-42" aria-hidden="true" tabindex="-1"></a><span class="co"># Add the legend to the plot</span></span>
+<span id="cb44-43"><a href="#cb44-43" aria-hidden="true" tabindex="-1"></a>plt.legend(handles<span class="op">=</span>patches)</span>
+<span id="cb44-44"><a href="#cb44-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-45"><a href="#cb44-45" aria-hidden="true" tabindex="-1"></a><span class="co"># Add each activity as a horizontal bar</span></span>
+<span id="cb44-46"><a href="#cb44-46" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, (start, end, label, category) <span class="kw">in</span> <span class="bu">enumerate</span>(fechas):</span>
+<span id="cb44-47"><a href="#cb44-47" aria-hidden="true" tabindex="-1"></a>    start_date <span class="op">=</span> datetime.strptime(start, <span class="st">"</span><span class="sc">%d</span><span class="st">/%m/%Y"</span>)</span>
+<span id="cb44-48"><a href="#cb44-48" aria-hidden="true" tabindex="-1"></a>    end_date <span class="op">=</span> datetime.strptime(end, <span class="st">"</span><span class="sc">%d</span><span class="st">/%m/%Y"</span>)</span>
+<span id="cb44-49"><a href="#cb44-49" aria-hidden="true" tabindex="-1"></a>    ax.barh(i, (end_date <span class="op">-</span> start_date).days, left<span class="op">=</span>start_date, color<span class="op">=</span>color_map[category], label<span class="op">=</span>label)</span>
 <span id="cb44-50"><a href="#cb44-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-51"><a href="#cb44-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-52"><a href="#cb44-52" aria-hidden="true" tabindex="-1"></a><span class="co"># Datos de ejemplo</span></span>
-<span id="cb44-53"><a href="#cb44-53" aria-hidden="true" tabindex="-1"></a>fechas <span class="op">=</span> [</span>
-<span id="cb44-54"><a href="#cb44-54" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"01/09/2023"</span>, <span class="st">"31/01/2024"</span>, <span class="st">"BID: Consultor en Ciencia de Datos y TICs"</span>),</span>
-<span id="cb44-55"><a href="#cb44-55" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"01/03/2023"</span>, <span class="st">"31/01/2024"</span>, <span class="st">"BNMC: Consultor asociado"</span>),</span>
-<span id="cb44-56"><a href="#cb44-56" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"01/02/2023"</span>, <span class="st">"31/01/2024"</span>, <span class="st">"CAF: Consultor en Ciencia de Datos y TICs"</span>),</span>
-<span id="cb44-57"><a href="#cb44-57" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"01/07/2022"</span>, <span class="st">"31/01/2024"</span>, <span class="st">"UNSAM: Docente en Gobierno Abierto y Nuevas Tecnologías"</span>),</span>
-<span id="cb44-58"><a href="#cb44-58" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"20/12/2019"</span>, <span class="st">"11/03/2022"</span>, <span class="st">"Subsecretario de TICs"</span>),</span>
-<span id="cb44-59"><a href="#cb44-59" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"01/06/2021"</span>, <span class="st">"01/09/2021"</span>, <span class="st">"PELI: Docente en Nuevas Tecnologías"</span>),</span>
-<span id="cb44-60"><a href="#cb44-60" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"01/04/2017"</span>, <span class="st">"01/11/2019"</span>, <span class="st">"iCiudad: Director Ejecutivo"</span>)</span>
-<span id="cb44-61"><a href="#cb44-61" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Agrega más empleos según sea necesario</span></span>
-<span id="cb44-62"><a href="#cb44-62" aria-hidden="true" tabindex="-1"></a>]</span>
-<span id="cb44-63"><a href="#cb44-63" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-64"><a href="#cb44-64" aria-hidden="true" tabindex="-1"></a><span class="co"># Convertir fechas a formato datetime</span></span>
-<span id="cb44-65"><a href="#cb44-65" aria-hidden="true" tabindex="-1"></a>fechas_convertidas <span class="op">=</span> [(datetime.strptime(start, <span class="st">"</span><span class="sc">%d</span><span class="st">/%m/%Y"</span>), datetime.strptime(end, <span class="st">"</span><span class="sc">%d</span><span class="st">/%m/%Y"</span>)) <span class="cf">for</span> start, end, _ <span class="kw">in</span> fechas]</span>
-<span id="cb44-66"><a href="#cb44-66" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-67"><a href="#cb44-67" aria-hidden="true" tabindex="-1"></a><span class="co"># Crear la figura y el eje</span></span>
-<span id="cb44-68"><a href="#cb44-68" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
-<span id="cb44-69"><a href="#cb44-69" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-70"><a href="#cb44-70" aria-hidden="true" tabindex="-1"></a><span class="co"># Añadir cada empleo como una barra horizontal</span></span>
-<span id="cb44-71"><a href="#cb44-71" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, (start, end, label) <span class="kw">in</span> <span class="bu">enumerate</span>(fechas):</span>
-<span id="cb44-72"><a href="#cb44-72" aria-hidden="true" tabindex="-1"></a>    ax.barh(i, end <span class="op">-</span> start, left<span class="op">=</span>start, label<span class="op">=</span>label)</span>
-<span id="cb44-73"><a href="#cb44-73" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-74"><a href="#cb44-74" aria-hidden="true" tabindex="-1"></a><span class="co"># Formatear fechas en el eje x</span></span>
-<span id="cb44-75"><a href="#cb44-75" aria-hidden="true" tabindex="-1"></a>ax.xaxis.set_major_locator(mdates.YearLocator())</span>
-<span id="cb44-76"><a href="#cb44-76" aria-hidden="true" tabindex="-1"></a>ax.xaxis.set_major_formatter(mdates.DateFormatter(<span class="st">'%Y'</span>))</span>
-<span id="cb44-77"><a href="#cb44-77" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-78"><a href="#cb44-78" aria-hidden="true" tabindex="-1"></a><span class="co"># Añadir leyendas y etiquetas</span></span>
-<span id="cb44-79"><a href="#cb44-79" aria-hidden="true" tabindex="-1"></a>ax.set_yticks(<span class="bu">range</span>(<span class="bu">len</span>(fechas)))</span>
-<span id="cb44-80"><a href="#cb44-80" aria-hidden="true" tabindex="-1"></a>ax.set_yticklabels([label <span class="cf">for</span> _, _, label <span class="kw">in</span> fechas])</span>
-<span id="cb44-81"><a href="#cb44-81" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Año'</span>)</span>
-<span id="cb44-82"><a href="#cb44-82" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Línea de Tiempo del CV'</span>)</span>
-<span id="cb44-83"><a href="#cb44-83" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-84"><a href="#cb44-84" aria-hidden="true" tabindex="-1"></a><span class="co"># Mostrar gráfico</span></span>
-<span id="cb44-85"><a href="#cb44-85" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>ValueError: time data 'Inicio Empleo 1' does not match format '%d/%m/%Y'</code></pre>
+<span id="cb44-51"><a href="#cb44-51" aria-hidden="true" tabindex="-1"></a><span class="co"># Format dates in the x axis</span></span>
+<span id="cb44-52"><a href="#cb44-52" aria-hidden="true" tabindex="-1"></a>ax.xaxis.set_major_locator(mdates.YearLocator())</span>
+<span id="cb44-53"><a href="#cb44-53" aria-hidden="true" tabindex="-1"></a>ax.xaxis.set_major_formatter(mdates.DateFormatter(<span class="st">'%Y'</span>))</span>
+<span id="cb44-54"><a href="#cb44-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-55"><a href="#cb44-55" aria-hidden="true" tabindex="-1"></a><span class="co"># Add legends and labels</span></span>
+<span id="cb44-56"><a href="#cb44-56" aria-hidden="true" tabindex="-1"></a>ax.set_yticks(<span class="bu">range</span>(<span class="bu">len</span>(fechas)))</span>
+<span id="cb44-57"><a href="#cb44-57" aria-hidden="true" tabindex="-1"></a>ax.set_yticklabels([label <span class="cf">for</span> _, _, label, _ <span class="kw">in</span> fechas])</span>
+<span id="cb44-58"><a href="#cb44-58" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Año'</span>)</span>
+<span id="cb44-59"><a href="#cb44-59" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Línea de Tiempo CV Martin Olmos'</span>)</span>
+<span id="cb44-60"><a href="#cb44-60" aria-hidden="true" tabindex="-1"></a>plt.xticks(rotation<span class="op">=</span><span class="dv">45</span>)</span>
+<span id="cb44-61"><a href="#cb44-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-62"><a href="#cb44-62" aria-hidden="true" tabindex="-1"></a><span class="co"># Show the plot</span></span>
+<span id="cb44-63"><a href="#cb44-63" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb44-64"><a href="#cb44-64" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="migration_files/figure-html/cell-35-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.dates <span class="im">as</span> mdates</span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> datetime</span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.patches <span class="im">as</span> mpatches</span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Activity data</span></span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a>fechas <span class="op">=</span> [</span>
+<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"01/09/2023"</span>, <span class="st">"31/01/2024"</span>, <span class="st">"IDB: Data Science and ICT Consultant"</span>, <span class="st">"Professional Experience"</span>),</span>
+<span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"01/03/2023"</span>, <span class="st">"31/01/2024"</span>, <span class="st">"BNMC: Associate Consultant"</span>, <span class="st">"Professional Experience"</span>),</span>
+<span id="cb45-11"><a href="#cb45-11" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"01/02/2023"</span>, <span class="st">"31/01/2024"</span>, <span class="st">"CAF: Data Science and ICT Consultant"</span>, <span class="st">"Professional Experience"</span>),</span>
+<span id="cb45-12"><a href="#cb45-12" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"01/07/2022"</span>, <span class="st">"31/01/2024"</span>, <span class="st">"UNSAM: Instructor in Open Government and New Technologies"</span>, <span class="st">"Teaching Activity"</span>),</span>
+<span id="cb45-13"><a href="#cb45-13" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"01/06/2021"</span>, <span class="st">"31/01/2024"</span>, <span class="st">"PELI: Instructor in New Technologies"</span>, <span class="st">"Teaching Activity"</span>),</span>
+<span id="cb45-14"><a href="#cb45-14" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"01/04/2023"</span>, <span class="st">"31/01/2024"</span>, <span class="st">"ITBA: Master's in Data Science"</span>, <span class="st">"Academic Training"</span>),</span>
+<span id="cb45-15"><a href="#cb45-15" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"20/12/2019"</span>, <span class="st">"11/03/2022"</span>, <span class="st">"Deputy Secretary of ICTs"</span>, <span class="st">"Professional Experience"</span>),</span>
+<span id="cb45-16"><a href="#cb45-16" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"01/08/2018"</span>, <span class="st">"31/07/2019"</span>, <span class="st">"ITBA: Specialization in Data Science"</span>, <span class="st">"Academic Training"</span>),</span>
+<span id="cb45-17"><a href="#cb45-17" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"01/07/2018"</span>, <span class="st">"01/11/2019"</span>, <span class="st">"SUBE: Data Science Consultant"</span>, <span class="st">"Professional Experience"</span>),</span>
+<span id="cb45-18"><a href="#cb45-18" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"01/08/2018"</span>, <span class="st">"01/06/2019"</span>, <span class="st">"Muni San Miguel: Data Science Consultant"</span>, <span class="st">"Professional Experience"</span>),</span>
+<span id="cb45-19"><a href="#cb45-19" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"01/02/2018"</span>, <span class="st">"01/08/2018"</span>, <span class="st">"OPDS: Data Science Consultant"</span>, <span class="st">"Professional Experience"</span>),</span>
+<span id="cb45-20"><a href="#cb45-20" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"01/04/2017"</span>, <span class="st">"01/11/2019"</span>, <span class="st">"iCiudad: Executive Director"</span>, <span class="st">"Professional Experience"</span>),</span>
+<span id="cb45-21"><a href="#cb45-21" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"01/05/2015"</span>, <span class="st">"01/12/2016"</span>, <span class="st">"CAF: Data Science Consultant"</span>, <span class="st">"Professional Experience"</span>),</span>
+<span id="cb45-22"><a href="#cb45-22" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"14/01/2015"</span>, <span class="st">"10/10/2016"</span>, <span class="st">"GWU: Master in Public Policy"</span>, <span class="st">"Academic Training"</span>),</span>
+<span id="cb45-23"><a href="#cb45-23" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"01/11/2009"</span>, <span class="st">"01/12/2014"</span>, <span class="st">"ANSES: Regional Head of Buenos Aires City"</span>, <span class="st">"Professional Experience"</span>)</span>
+<span id="cb45-24"><a href="#cb45-24" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb45-25"><a href="#cb45-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-26"><a href="#cb45-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a color map that maps each category to a specific color</span></span>
+<span id="cb45-27"><a href="#cb45-27" aria-hidden="true" tabindex="-1"></a>color_map <span class="op">=</span> {</span>
+<span id="cb45-28"><a href="#cb45-28" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Professional Experience"</span>: <span class="st">"lightskyblue"</span>,</span>
+<span id="cb45-29"><a href="#cb45-29" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Teaching Activity"</span>: <span class="st">"palegreen"</span>,</span>
+<span id="cb45-30"><a href="#cb45-30" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Academic Training"</span>: <span class="st">"peachpuff"</span></span>
+<span id="cb45-31"><a href="#cb45-31" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb45-32"><a href="#cb45-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-33"><a href="#cb45-33" aria-hidden="true" tabindex="-1"></a><span class="co"># Transform string dates to datetime format</span></span>
+<span id="cb45-34"><a href="#cb45-34" aria-hidden="true" tabindex="-1"></a>fechas_convertidas <span class="op">=</span> [(datetime.strptime(start, <span class="st">"</span><span class="sc">%d</span><span class="st">/%m/%Y"</span>), datetime.strptime(end, <span class="st">"</span><span class="sc">%d</span><span class="st">/%m/%Y"</span>)) <span class="cf">for</span> start, end, _, _ <span class="kw">in</span> fechas]</span>
+<span id="cb45-35"><a href="#cb45-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-36"><a href="#cb45-36" aria-hidden="true" tabindex="-1"></a><span class="co"># Create figure and axis</span></span>
+<span id="cb45-37"><a href="#cb45-37" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb45-38"><a href="#cb45-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-39"><a href="#cb45-39" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a list of patches to add to the legend</span></span>
+<span id="cb45-40"><a href="#cb45-40" aria-hidden="true" tabindex="-1"></a>patches <span class="op">=</span> [mpatches.Patch(color<span class="op">=</span>color, label<span class="op">=</span>label) <span class="cf">for</span> label, color <span class="kw">in</span> color_map.items()]</span>
+<span id="cb45-41"><a href="#cb45-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-42"><a href="#cb45-42" aria-hidden="true" tabindex="-1"></a><span class="co"># Add the legend to the plot</span></span>
+<span id="cb45-43"><a href="#cb45-43" aria-hidden="true" tabindex="-1"></a>plt.legend(handles<span class="op">=</span>patches)</span>
+<span id="cb45-44"><a href="#cb45-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-45"><a href="#cb45-45" aria-hidden="true" tabindex="-1"></a><span class="co"># Add each activity as a horizontal bar</span></span>
+<span id="cb45-46"><a href="#cb45-46" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, (start, end, label, category) <span class="kw">in</span> <span class="bu">enumerate</span>(fechas):</span>
+<span id="cb45-47"><a href="#cb45-47" aria-hidden="true" tabindex="-1"></a>    start_date <span class="op">=</span> datetime.strptime(start, <span class="st">"</span><span class="sc">%d</span><span class="st">/%m/%Y"</span>)</span>
+<span id="cb45-48"><a href="#cb45-48" aria-hidden="true" tabindex="-1"></a>    end_date <span class="op">=</span> datetime.strptime(end, <span class="st">"</span><span class="sc">%d</span><span class="st">/%m/%Y"</span>)</span>
+<span id="cb45-49"><a href="#cb45-49" aria-hidden="true" tabindex="-1"></a>    ax.barh(i, (end_date <span class="op">-</span> start_date).days, left<span class="op">=</span>start_date, color<span class="op">=</span>color_map[category], label<span class="op">=</span>label)</span>
+<span id="cb45-50"><a href="#cb45-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-51"><a href="#cb45-51" aria-hidden="true" tabindex="-1"></a><span class="co"># Format dates in the x axis</span></span>
+<span id="cb45-52"><a href="#cb45-52" aria-hidden="true" tabindex="-1"></a>ax.xaxis.set_major_locator(mdates.YearLocator())</span>
+<span id="cb45-53"><a href="#cb45-53" aria-hidden="true" tabindex="-1"></a>ax.xaxis.set_major_formatter(mdates.DateFormatter(<span class="st">'%Y'</span>))</span>
+<span id="cb45-54"><a href="#cb45-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-55"><a href="#cb45-55" aria-hidden="true" tabindex="-1"></a><span class="co"># Add legends and labels</span></span>
+<span id="cb45-56"><a href="#cb45-56" aria-hidden="true" tabindex="-1"></a>ax.set_yticks(<span class="bu">range</span>(<span class="bu">len</span>(fechas)))</span>
+<span id="cb45-57"><a href="#cb45-57" aria-hidden="true" tabindex="-1"></a>ax.set_yticklabels([label <span class="cf">for</span> _, _, label, _ <span class="kw">in</span> fechas])</span>
+<span id="cb45-58"><a href="#cb45-58" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Year'</span>)</span>
+<span id="cb45-59"><a href="#cb45-59" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Martin Olmos CV Timeline'</span>)</span>
+<span id="cb45-60"><a href="#cb45-60" aria-hidden="true" tabindex="-1"></a>plt.xticks(rotation<span class="op">=</span><span class="dv">45</span>)</span>
+<span id="cb45-61"><a href="#cb45-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-62"><a href="#cb45-62" aria-hidden="true" tabindex="-1"></a><span class="co"># Show the plot</span></span>
+<span id="cb45-63"><a href="#cb45-63" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb45-64"><a href="#cb45-64" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="migration_files/figure-html/cell-36-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 
