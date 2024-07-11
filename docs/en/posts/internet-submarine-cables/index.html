@@ -126,10 +126,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
     <a class="nav-link" href="../../about.html"> 
-<span class="menu-text">Sobre mí</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../about.html"> 
 <span class="menu-text">About me</span></a>
   </li>  
 </ul>
@@ -141,16 +137,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li class="nav-item">
     <a class="nav-link" href="../../../es"> 
 <span class="menu-text">Español</span></a>
-  </li>  
-  <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/martinolmos"> <i class="bi bi-github" role="img">
-</i> 
-<span class="menu-text"></span></a>
-  </li>  
-  <li class="nav-item compact">
-    <a class="nav-link" href="https://twitter.com/martin_olmos_"> <i class="bi bi-twitter" role="img">
-</i> 
-<span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="https://github.com/"> <i class="bi bi-github" role="img">
@@ -215,9 +201,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Some time ago <a href="https://twitter.com/tylermorganwall?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor">Tyler Morgan-Wall</a> made a <a href="https://twitter.com/tylermorganwall/status/1440669533157556227?s=20&amp;t=05ZXaTcWTILlnCBx4DfJKg">visualization</a> of all the submarine internet cables with <a href="https://github.com/telegeography/www.submarinecablemap.com">Telegeography data</a>.</p>
 <p>Tyler posted the code in this <a href="https://gist.github.com/tylermorganwall/b222fcebcac3de56a6e144d73d166322">gist</a>. I decided to reproduce the visualization with a little modification to add a title and change earth´s rotation direction.</p>
 <p>Here is the modification to the last for loop to add the title:</p>
-<p>Hace un tiempo <a href="https://twitter.com/tylermorganwall?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor">Tyler Morgan-Wall</a> hizo una <a href="https://twitter.com/tylermorganwall/status/1440669533157556227?s=20&amp;t=05ZXaTcWTILlnCBx4DfJKg">visualizacón</a> de los todos los cables submarinos de internet con los <a href="https://github.com/telegeography/www.submarinecablemap.com">datos de Telegeography</a>.</p>
-<p>Tyler publicó el código en este <a href="https://gist.github.com/tylermorganwall/b222fcebcac3de56a6e144d73d166322">gist</a>. Yo decidí reproducir la visualización con una pequeña modificación para agregarle un título y hacer girar a la tierra para el otro lado.</p>
-<p>Acá va la modificación al último for loop para agregar el título:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="fu">seq</span>(<span class="dv">1</span>,<span class="dv">720</span>,<span class="at">by=</span><span class="dv">1</span>)) {</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  tmp <span class="ot">&lt;-</span> <span class="fu">group_objects</span>(fullcablescene,<span class="at">scale=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>)<span class="sc">*</span><span class="fl">1.02</span>) <span class="sc">%&gt;%</span> </span>
@@ -236,14 +219,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>And here is the code to change the direction of earth´s rotation:</p>
-<p>Y la línea para generar la imagen animada girando para el otro lado:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>av<span class="sc">::</span><span class="fu">av_encode_video</span>(<span class="fu">sprintf</span>(<span class="st">"imgs/smallcables%d.png"</span>, <span class="fu">seq</span>(<span class="dv">720</span>,<span class="dv">1</span>,<span class="at">by=</span><span class="sc">-</span><span class="dv">1</span>)), </span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>                    <span class="at">framerate =</span> <span class="dv">30</span>, </span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                    <span class="at">output =</span> <span class="st">"cables.mp4"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>And finally the new visualization:</p>
-<p>Y finalmente la visualización con mis pequeñas modificaciones al código:</p>
 <center>
 <video src="cables2.mp4" class="img-fluid" style="width:70.0%" controls=""><a href="cables2.mp4">Video</a></video>
 </center>

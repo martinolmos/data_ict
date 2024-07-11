@@ -123,10 +123,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
     <a class="nav-link active" href="./about.html" aria-current="page"> 
-<span class="menu-text">Sobre mí</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
 <span class="menu-text">About me</span></a>
   </li>  
 </ul>
@@ -138,16 +134,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li class="nav-item">
     <a class="nav-link" href="./../es"> 
 <span class="menu-text">Español</span></a>
-  </li>  
-  <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/martinolmos"> <i class="bi bi-github" role="img">
-</i> 
-<span class="menu-text"></span></a>
-  </li>  
-  <li class="nav-item compact">
-    <a class="nav-link" href="https://twitter.com/martin_olmos_"> <i class="bi bi-twitter" role="img">
-</i> 
-<span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="https://github.com/"> <i class="bi bi-github" role="img">
@@ -200,7 +186,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
   </div>
   <div class="about-contents"><main class="content" id="quarto-document-content">
-<div id="32fdc89f" class="cell" data-execution_count="1">
+<div id="eb3109a2" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -210,28 +196,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Activity data</span></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>fechas <span class="op">=</span> [</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"01/09/2023"</span>, <span class="st">"31/01/2024"</span>, <span class="st">"BID: Consultor en Ciencia de Datos y TICs"</span>, <span class="st">"Experiencia profesional"</span>),</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"01/03/2023"</span>, <span class="st">"31/01/2024"</span>, <span class="st">"BNMC: Consultor asociado"</span>, <span class="st">"Experiencia profesional"</span>),</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"01/02/2023"</span>, <span class="st">"31/01/2024"</span>, <span class="st">"CAF: Consultor en Ciencia de Datos y TICs"</span>, <span class="st">"Experiencia profesional"</span>),</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"01/07/2022"</span>, <span class="st">"31/01/2024"</span>, <span class="st">"UNSAM: Docente en Gobierno Abierto y Nuevas Tecnologías"</span>, <span class="st">"Actividad docente"</span>),</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"01/06/2021"</span>, <span class="st">"31/01/2024"</span>, <span class="st">"PELI: Docente en Nuevas Tecnologías"</span>, <span class="st">"Actividad docente"</span>),</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"01/04/2023"</span>, <span class="st">"31/01/2024"</span>, <span class="st">"ITBA: Maestría en Ciencia de Datos"</span>, <span class="st">"Formación académica"</span>),</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"20/12/2019"</span>, <span class="st">"11/03/2022"</span>, <span class="st">"Subsecretario de TICs"</span>, <span class="st">"Experiencia profesional"</span>),</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"01/08/2018"</span>, <span class="st">"31/07/2019"</span>, <span class="st">"ITBA: Especialización en Ciencia de Datos"</span>, <span class="st">"Formación académica"</span>),</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"01/07/2018"</span>, <span class="st">"01/11/2019"</span>, <span class="st">"SUBE: Consultor en Ciencia de Datos"</span>, <span class="st">"Experiencia profesional"</span>),</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"01/08/2018"</span>, <span class="st">"01/06/2019"</span>, <span class="st">"Muni San Miguel: Consultor en Ciencia de Datos"</span>, <span class="st">"Experiencia profesional"</span>),</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"01/02/2018"</span>, <span class="st">"01/08/2018"</span>, <span class="st">"OPDS: Consultor en Ciencia de Datos"</span>, <span class="st">"Experiencia profesional"</span>),</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"01/04/2017"</span>, <span class="st">"01/11/2019"</span>, <span class="st">"iCiudad: Director Ejecutivo"</span>, <span class="st">"Experiencia profesional"</span>),</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"01/05/2015"</span>, <span class="st">"01/12/2016"</span>, <span class="st">"CAF: Consultor en Ciencia de Datos"</span>, <span class="st">"Experiencia profesional"</span>),</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"14/01/2015"</span>, <span class="st">"10/10/2016"</span>, <span class="st">"GWU: Master in Public Policy"</span>, <span class="st">"Formación académica"</span>),</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"01/11/2009"</span>, <span class="st">"01/12/2014"</span>, <span class="st">"ANSES: Jefe Regional de Ciudad de Buenos Aires"</span>, <span class="st">"Experiencia profesional"</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"01/09/2023"</span>, <span class="st">"31/01/2024"</span>, <span class="st">"IDB: Data Science and ICT Consultant"</span>, <span class="st">"Professional Experience"</span>),</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"01/03/2023"</span>, <span class="st">"31/01/2024"</span>, <span class="st">"BNMC: Associate Consultant"</span>, <span class="st">"Professional Experience"</span>),</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"01/02/2023"</span>, <span class="st">"31/01/2024"</span>, <span class="st">"CAF: Data Science and ICT Consultant"</span>, <span class="st">"Professional Experience"</span>),</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"01/07/2022"</span>, <span class="st">"31/01/2024"</span>, <span class="st">"UNSAM: Instructor in Open Government and New Technologies"</span>, <span class="st">"Teaching Activity"</span>),</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"01/06/2021"</span>, <span class="st">"31/01/2024"</span>, <span class="st">"PELI: Instructor in New Technologies"</span>, <span class="st">"Teaching Activity"</span>),</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"01/04/2023"</span>, <span class="st">"31/01/2024"</span>, <span class="st">"ITBA: Master's in Data Science"</span>, <span class="st">"Academic Training"</span>),</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"20/12/2019"</span>, <span class="st">"11/03/2022"</span>, <span class="st">"Deputy Secretary of ICTs"</span>, <span class="st">"Professional Experience"</span>),</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"01/08/2018"</span>, <span class="st">"31/07/2019"</span>, <span class="st">"ITBA: Specialization in Data Science"</span>, <span class="st">"Academic Training"</span>),</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"01/07/2018"</span>, <span class="st">"01/11/2019"</span>, <span class="st">"SUBE: Data Science Consultant"</span>, <span class="st">"Professional Experience"</span>),</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"01/08/2018"</span>, <span class="st">"01/06/2019"</span>, <span class="st">"Muni San Miguel: Data Science Consultant"</span>, <span class="st">"Professional Experience"</span>),</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"01/02/2018"</span>, <span class="st">"01/08/2018"</span>, <span class="st">"OPDS: Data Science Consultant"</span>, <span class="st">"Professional Experience"</span>),</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"01/04/2017"</span>, <span class="st">"01/11/2019"</span>, <span class="st">"iCiudad: Executive Director"</span>, <span class="st">"Professional Experience"</span>),</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"01/05/2015"</span>, <span class="st">"01/12/2016"</span>, <span class="st">"CAF: Data Science Consultant"</span>, <span class="st">"Professional Experience"</span>),</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"14/01/2015"</span>, <span class="st">"10/10/2016"</span>, <span class="st">"GWU: Master in Public Policy"</span>, <span class="st">"Academic Training"</span>),</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"01/11/2009"</span>, <span class="st">"01/12/2014"</span>, <span class="st">"ANSES: Regional Head of Buenos Aires City"</span>, <span class="st">"Professional Experience"</span>)</span>
 <span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>]</span>
 <span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a color map that maps each category to a specific color</span></span>
 <span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>color_map <span class="op">=</span> {</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Experiencia profesional"</span>: <span class="st">"lightskyblue"</span>,</span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Actividad docente"</span>: <span class="st">"palegreen"</span>,</span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Formación académica"</span>: <span class="st">"peachpuff"</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Professional Experience"</span>: <span class="st">"lightskyblue"</span>,</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Teaching Activity"</span>: <span class="st">"palegreen"</span>,</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Academic Training"</span>: <span class="st">"peachpuff"</span></span>
 <span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="co"># Transform string dates to datetime format</span></span>
@@ -259,217 +245,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a><span class="co"># Add legends and labels</span></span>
 <span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>ax.set_yticks(<span class="bu">range</span>(<span class="bu">len</span>(fechas)))</span>
 <span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>ax.set_yticklabels([label <span class="cf">for</span> _, _, label, _ <span class="kw">in</span> fechas])</span>
-<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Año'</span>)</span>
-<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Línea de Tiempo CV Martin Olmos'</span>)</span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Year'</span>)</span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Martin Olmos CV Timeline'</span>)</span>
 <span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>plt.xticks(rotation<span class="op">=</span><span class="dv">45</span>)</span>
 <span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a><span class="co"># Show the plot</span></span>
 <span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="about_files/figure-html/cell-2-output-1.png" width="948" height="470" class="figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>Soy licenciado en Ciencias Políticas (UCA), Magister en Políticas Públicas (George Washington University), Especialista y Maestrando en Ciencia de Datos (ITBA).</p>
-<section id="formación-académica" class="level3">
-<h3 data-anchor-id="formación-académica"><strong>FORMACIÓN ACADÉMICA</strong></h3>
-<p><strong><em>2022 MAESTRÍA EN CIENCIA DE DATOS</em></strong><br>
-(Tesis en elaboración)<br>
-Instituto Tecnológico de Buenos Aires (ITBA)</p>
-<p><strong><em>2018 ESPECIALIZACIÓN EN CIENCIA DE DATOS</em></strong><br>
-Instituto Tecnológico de Buenos Aires (ITBA)</p>
-<p><strong><em>2016 MASTER IN PUBLIC POLICY</em></strong><br>
-Trachtenberg School of Public Policy and Public Administration<br>
-George Washington University</p>
-<p><strong><em>2003 LICENCIATURA EN CIENCIAS POLÍTICAS, CON ORIENTACIÓN EN PROCESOS POLÍTICOS</em></strong><br>
-Facultad de Ciencias Políticas y Relaciones Internacionales. Pontificia Universidad Católica Argentina. Buenos Aires, Argentina.</p>
-</section>
-<section id="antecedentes-profesionales-y-docentes" class="level3">
-<h3 data-anchor-id="antecedentes-profesionales-y-docentes"><strong>ANTECEDENTES PROFESIONALES Y DOCENTES</strong></h3>
-<p><strong><em>9/2023- actualidad BANCO INTERAMERICANO DE DESARROLLO</em></strong> Responsabilidad: Consultor en Ciencia de Datos y TICs</p>
-<p><strong><em>3/2023- actualidad BLUENOTE MANAGEMENT CONSULTING</em></strong> Responsabilidad: Consultor asociado</p>
-<p><strong><em>2/2023- actualidad CAF BANCO DE DESARROLLO DE AMÉRICA LATINA Y EL CARIBE</em></strong> Responsabilidad: Consultor en Ciencia de Datos y TICs</p>
-<p><strong><em>7/2022- actualidad DIPLOMATURA EN GESTIÓN DE CIUDADES - ESCUELA DE ECONOMÍA Y NEGOCIOS – UNIVERSIDAD NACIONAL DE SAN MARTÍN</em></strong><br>
-Responsabilidad: Docente en Gobierno Abierto y Nuevas Tecnologías</p>
-<p><strong><em>12/2019-03/2022 SUBSECRETARIO DE TECNOLOGÍAS DE LA INFORMACIÓN Y LAS<br>
-COMUNICACIONES DE LA JEFATURA DE MINISTROS DE LA NACIÓN</em></strong></p>
-<p><strong><em>6/2021-9/2021 PROGRAMA EJECUTIVO EN LIDERAZGO INNOVADOR – OEI, ILES, SECRETARÍA DE ASUNTOS ESTRATÉGICOS DE LA REPÚBLICA ARGENTINA</em></strong><br>
-Responsabilidad: Docente en Nuevas Tecnologías</p>
-<p><strong><em>4/2017-11/2019 INSTITUTO CIUDAD – POLÍTICAS PÚBLICAS PARA BUENOS AIRES</em></strong><br>
-Responsabilidad: Director Ejecutivo</p>
-<p><strong><em>8/2019-12/2019 SEMINARIO DE INTRODUCCIÓN A LA CIENCIA DE DATOS PARA LAS CIENCIAS SOCIALES – FACULTAD DE CIENCIAS SOCIALES (UBA)</em></strong><br>
-Responsabilidad: Docente</p>
-<p><strong><em>2/2019-actualidad THE CARPENTRIES – DATA CARPENTRY</em></strong><br>
-Responsabilidad: Instructor</p>
-<p><strong><em>7/2018-11/2019 DIRECCIÓN DE IMPLEMENTACIÓN Y SEGUIMIENTO SUBE – MINISTERIO DE TRANSPORTE DE LA NACIÓN</em></strong><br>
-Responsabilidad: Consultor en Ciencia de Datos</p>
-<p><strong><em>8/2018-6/2019 SECRETARÍA DE ASUNTOS PÚBLICOS – MUNICIPALIDAD DE SAN MIGUEL</em></strong><br>
-Responsabilidad: Consultor en Ciencia de Datos</p>
-<p><strong><em>2/2018-8/2018 ORGANISMO PROVINCIAL PARA EL DESARROLLO SOSTENIBLE</em></strong><br>
-Responsabilidad: Consultor en Ciencia de Datos</p>
-<p><strong><em>1/2017-6/2018 CONVENIO MINISTERIO DE TRANSPORTE-UNSAM</em></strong><br>
-Responsabilidad: Consultor en Ciencia de Datos</p>
-<p><strong><em>5/2015-12/2016 BANCO DE DESARROLLO DE AMÉRICA LATINA (CAF)</em></strong><br>
-Responsabilidad: Consultor en Ciencia de Datos</p>
-<p><strong><em>11/2009-12/2014 ADMINISTRACIÓN NACIONAL DE LA SEGURIDAD SOCIAL</em></strong><br>
-Responsabilidad: Jefe Regional de Ciudad de Buenos Aires.</p>
-</section>
-<section id="becas-y-distinciones" class="level3">
-<h3 data-anchor-id="becas-y-distinciones"><strong>BECAS Y DISTINCIONES</strong></h3>
-<p><strong><em>2016 BECA ORGANIZACIÓN DE ESTADOS AMERICANOS (OEA)</em></strong> <em>PARA ESTUDIOS DE POSGRADO.</em></p>
-<p><strong><em>2015 GLOBAL LEADERS FELLOWSHIP 2015-2016</em></strong> <em>, GEORGE WASHINGTON UNIVERSITY.</em></p>
-<p><strong><em>2015 BECA FULBRIGHT DE MAESTRÍA 2015-2016</em></strong> <em>, COMISIÓN FULBRIGHT ARGENTINA.</em></p>
-<p><strong><em>2013 IV FORO “EL FUTURO DE AMÉRICA LATINA: LA VISIÓN DE LOS JÓVENES LÍDERES”</em></strong> <em>, CAF – BANCO DE DESARROLLO DE AMÉRICA LATINA A PARTICIPAR, CIUDAD DE MÉXICO, 22 Y 23 DE AGOSTO DE 2013.</em></p>
-<p><strong><em>2013 PROGRAMA DE GOBIERNO PARA EL DESARROLLO DE LÍDERES DE COMUNIDADES LOCALES.</em></strong> <em>CENTRO DE ESTUDIOS EN GOBIERNO, EMPRESA, SOCIEDAD Y ECONOMÍA, IAE BUSINESS SCHOOL, UNIVERSIDAD AUSTRAL, PILAR, PROVINCIA DE BUENOS AIRES, MAYO Y JUNIO DE 2013. BECA OTORGADA POR LA FUNDACIÓN RAP (RED DE ACCIÓN POLÍTICA).</em></p>
-<p><strong><em>2005 PROGRAMA FURP- USA, AUSTIN Y WASHINGTON DC, ESTADOS UNIDOS DE AMÉRICA. FEBRERO DE 2005.</em></strong></p>
-</section>
-<section id="participación-en-actividades-y-conferencias-internacionales" class="level3">
-<h3 data-anchor-id="participación-en-actividades-y-conferencias-internacionales"><strong>PARTICIPACIÓN EN ACTIVIDADES Y CONFERENCIAS INTERNACIONALES</strong></h3>
-<ul>
-<li><strong>Junio 2022</strong></li>
-</ul>
-<p><strong>Organizadores</strong> | Cámara Chilena de Infraestructura Digital y Asociación Chilena de Municipalidades<br>
-<strong>Evento</strong> | Foro Brechas y Equidad Digital<br>
-<strong>Panel</strong> | Los fondos de acceso universal en la Región</p>
-<ul>
-<li><strong>Marzo 2022</strong></li>
-</ul>
-<p><strong>Organizador</strong> | GSMA<br>
-<strong>Evento</strong> | Ministerial Programme - Mobile World Congress (MWC)</p>
-<ul>
-<li><strong>Febrero 2022</strong></li>
-</ul>
-<p><strong>Organizador</strong> | Unión Internacional Telecomunicaciones (ITU)<br>
-<strong>Evento</strong> | 4th Global Standards Symposium<br>
-<strong>Tema</strong> | Normas Internacionales para Potenciar la Transformación Digital</p>
-<ul>
-<li><strong>Noviembre 2021</strong></li>
-</ul>
-<p><strong>Organizador</strong> | Forum Europe (Forum Global)<br>
-<strong>Evento</strong> | Latin America Spectrum Management Conference<br>
-<strong>Tema</strong> | The Emerging Shape of the 6GHz Band</p>
-<ul>
-<li><strong>Junio 2021</strong></li>
-</ul>
-<p><strong>Organizador</strong> | GSMA<br>
-<strong>Evento</strong> | Spectrum Roundtable at the Ministerial Programme - Mobile World Congress (MWC)<br>
-<strong>Tema</strong> | The Future of Spectrum Access</p>
-<ul>
-<li><strong>Noviembre 2020</strong></li>
-</ul>
-<p><strong>Organizador</strong> | Forum Europe (Forum Global)<br>
-<strong>Evento</strong> | Latam Spectrum Conference<br>
-<strong>Tema</strong> | Bridging the Digital Divide – How Has Covid Shone a Light on Digital Inequalities and How Can the Region Move Forward in Tackling This Issue?</p>
-<ul>
-<li><strong>Octubre 2020</strong></li>
-</ul>
-<p><strong>Organizador</strong> | International Institute of Communications<br>
-<strong>Tema</strong> | Digital Transformation Post COVID-19: LatAm Responses to the Digital Divide.</p>
-<ul>
-<li><strong>Julio 2020</strong></li>
-</ul>
-<p><strong>Organizador</strong> | ITU, GeSI &amp; the United Nations Office for South South Cooperation.<br>
-<strong>Tema</strong> | Accelerating Action and Transformative Pathways for Delivering on the Sustainable Development Goals and Recovery from COVID-19 Pandemic.</p>
-</section>
-<section id="participación-en-actividades-y-conferencias-nacionales" class="level3">
-<h3 data-anchor-id="participación-en-actividades-y-conferencias-nacionales"><strong>PARTICIPACIÓN EN ACTIVIDADES Y CONFERENCIAS NACIONALES</strong></h3>
-<ul>
-<li><strong>Mayo 2021</strong></li>
-</ul>
-<p><strong>Organizador</strong> | CABASE<br>
-<strong>Evento</strong> | Internet Day<br>
-<strong>Tema</strong> | Iniciativas de desarrollo de la infraestructura de internet para la universalización de la conectividad</p>
-<p><strong>Organizador</strong> | ISOC Capítulo Argentina y Facultad de Ingeniería de Universidad de Palermo<br>
-<strong>Evento</strong> | 5tas Jornadas sobre Perspectivas de las Telecomunicaciones y TICs 2021<br>
-<strong>Tema</strong> | Desafíos Actuales de las Telecomunicaciones</p>
-<ul>
-<li><strong>Abril 2021</strong></li>
-</ul>
-<p><strong>Organizador</strong> | Grupo Convergencia<br>
-<strong>Evento</strong> | NPlay Cono Sur<br>
-<strong>Tema</strong> | Los Planes para Reducir la Brecha Digital y Compartición de Infraestructura</p>
-<ul>
-<li><strong>Diciembre 2020</strong></li>
-</ul>
-<p><strong>Organizador</strong> | Grupo Convergencia<br>
-<strong>Tema</strong> | Infraestructura y despliegue de red para crecer en la nueva normalidad.</p>
-<p><strong>Organizador</strong> | Internet Governance Forum (IGF)<br>
-<strong>Tema</strong> | Gobernanza de Algoritmos e Inteligencia Artificial</p>
-<ul>
-<li><strong>Agosto 2020 – Marzo 2022</strong></li>
-</ul>
-<p><strong>Organizador</strong> | BID - INTAL<br>
-<strong>Programa</strong> | Proyecto Regional Programa de Integración de la Economía Digital para Latinoamérica y el Caribe<br>
-<strong>Posición</strong> | Miembro del Consejo Directivo</p>
-<div id="d3301abf" class="cell" data-execution_count="2">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.dates <span class="im">as</span> mdates</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> datetime</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.patches <span class="im">as</span> mpatches</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Activity data</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>fechas <span class="op">=</span> [</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"01/09/2023"</span>, <span class="st">"31/01/2024"</span>, <span class="st">"IDB: Data Science and ICT Consultant"</span>, <span class="st">"Professional Experience"</span>),</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"01/03/2023"</span>, <span class="st">"31/01/2024"</span>, <span class="st">"BNMC: Associate Consultant"</span>, <span class="st">"Professional Experience"</span>),</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"01/02/2023"</span>, <span class="st">"31/01/2024"</span>, <span class="st">"CAF: Data Science and ICT Consultant"</span>, <span class="st">"Professional Experience"</span>),</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"01/07/2022"</span>, <span class="st">"31/01/2024"</span>, <span class="st">"UNSAM: Instructor in Open Government and New Technologies"</span>, <span class="st">"Teaching Activity"</span>),</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"01/06/2021"</span>, <span class="st">"31/01/2024"</span>, <span class="st">"PELI: Instructor in New Technologies"</span>, <span class="st">"Teaching Activity"</span>),</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"01/04/2023"</span>, <span class="st">"31/01/2024"</span>, <span class="st">"ITBA: Master's in Data Science"</span>, <span class="st">"Academic Training"</span>),</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"20/12/2019"</span>, <span class="st">"11/03/2022"</span>, <span class="st">"Deputy Secretary of ICTs"</span>, <span class="st">"Professional Experience"</span>),</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"01/08/2018"</span>, <span class="st">"31/07/2019"</span>, <span class="st">"ITBA: Specialization in Data Science"</span>, <span class="st">"Academic Training"</span>),</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"01/07/2018"</span>, <span class="st">"01/11/2019"</span>, <span class="st">"SUBE: Data Science Consultant"</span>, <span class="st">"Professional Experience"</span>),</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"01/08/2018"</span>, <span class="st">"01/06/2019"</span>, <span class="st">"Muni San Miguel: Data Science Consultant"</span>, <span class="st">"Professional Experience"</span>),</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"01/02/2018"</span>, <span class="st">"01/08/2018"</span>, <span class="st">"OPDS: Data Science Consultant"</span>, <span class="st">"Professional Experience"</span>),</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"01/04/2017"</span>, <span class="st">"01/11/2019"</span>, <span class="st">"iCiudad: Executive Director"</span>, <span class="st">"Professional Experience"</span>),</span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"01/05/2015"</span>, <span class="st">"01/12/2016"</span>, <span class="st">"CAF: Data Science Consultant"</span>, <span class="st">"Professional Experience"</span>),</span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"14/01/2015"</span>, <span class="st">"10/10/2016"</span>, <span class="st">"GWU: Master in Public Policy"</span>, <span class="st">"Academic Training"</span>),</span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"01/11/2009"</span>, <span class="st">"01/12/2014"</span>, <span class="st">"ANSES: Regional Head of Buenos Aires City"</span>, <span class="st">"Professional Experience"</span>)</span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>]</span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a color map that maps each category to a specific color</span></span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>color_map <span class="op">=</span> {</span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Professional Experience"</span>: <span class="st">"lightskyblue"</span>,</span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Teaching Activity"</span>: <span class="st">"palegreen"</span>,</span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Academic Training"</span>: <span class="st">"peachpuff"</span></span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="co"># Transform string dates to datetime format</span></span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>fechas_convertidas <span class="op">=</span> [(datetime.strptime(start, <span class="st">"</span><span class="sc">%d</span><span class="st">/%m/%Y"</span>), datetime.strptime(end, <span class="st">"</span><span class="sc">%d</span><span class="st">/%m/%Y"</span>)) <span class="cf">for</span> start, end, _, _ <span class="kw">in</span> fechas]</span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="co"># Create figure and axis</span></span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a list of patches to add to the legend</span></span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>patches <span class="op">=</span> [mpatches.Patch(color<span class="op">=</span>color, label<span class="op">=</span>label) <span class="cf">for</span> label, color <span class="kw">in</span> color_map.items()]</span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a><span class="co"># Add the legend to the plot</span></span>
-<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>plt.legend(handles<span class="op">=</span>patches)</span>
-<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a><span class="co"># Add each activity as a horizontal bar</span></span>
-<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, (start, end, label, category) <span class="kw">in</span> <span class="bu">enumerate</span>(fechas):</span>
-<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>    start_date <span class="op">=</span> datetime.strptime(start, <span class="st">"</span><span class="sc">%d</span><span class="st">/%m/%Y"</span>)</span>
-<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>    end_date <span class="op">=</span> datetime.strptime(end, <span class="st">"</span><span class="sc">%d</span><span class="st">/%m/%Y"</span>)</span>
-<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>    ax.barh(i, (end_date <span class="op">-</span> start_date).days, left<span class="op">=</span>start_date, color<span class="op">=</span>color_map[category], label<span class="op">=</span>label)</span>
-<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a><span class="co"># Format dates in the x axis</span></span>
-<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>ax.xaxis.set_major_locator(mdates.YearLocator())</span>
-<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>ax.xaxis.set_major_formatter(mdates.DateFormatter(<span class="st">'%Y'</span>))</span>
-<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a><span class="co"># Add legends and labels</span></span>
-<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>ax.set_yticks(<span class="bu">range</span>(<span class="bu">len</span>(fechas)))</span>
-<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>ax.set_yticklabels([label <span class="cf">for</span> _, _, label, _ <span class="kw">in</span> fechas])</span>
-<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Year'</span>)</span>
-<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Martin Olmos CV Timeline'</span>)</span>
-<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a>plt.xticks(rotation<span class="op">=</span><span class="dv">45</span>)</span>
-<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a><span class="co"># Show the plot</span></span>
-<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <div>
@@ -480,7 +261,6 @@ Responsabilidad: Jefe Regional de Ciudad de Buenos Aires.</p>
 </div>
 </div>
 <p>I have a degree in Political Science (Universidad Católica Argentina - UCA), a Masters degree in Public Policy (George Washington University - GWU) and a Specialization in Data Science (Instituto Tecnológico de Buenos Aires - ITBA).</p>
-</section>
 <section id="education" class="level3">
 <h3 data-anchor-id="education"><strong>EDUCATION</strong></h3>
 <p><strong><em>2022 MASTER IN DATA SCIENCE</em></strong><br>

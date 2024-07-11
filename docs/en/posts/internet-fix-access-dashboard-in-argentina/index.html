@@ -126,10 +126,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
     <a class="nav-link" href="../../about.html"> 
-<span class="menu-text">Sobre mí</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../about.html"> 
 <span class="menu-text">About me</span></a>
   </li>  
 </ul>
@@ -141,16 +137,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li class="nav-item">
     <a class="nav-link" href="../../../es"> 
 <span class="menu-text">Español</span></a>
-  </li>  
-  <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/martinolmos"> <i class="bi bi-github" role="img">
-</i> 
-<span class="menu-text"></span></a>
-  </li>  
-  <li class="nav-item compact">
-    <a class="nav-link" href="https://twitter.com/martin_olmos_"> <i class="bi bi-twitter" role="img">
-</i> 
-<span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="https://github.com/"> <i class="bi bi-github" role="img">
@@ -208,13 +194,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#fixed-accesses-per-100-households-by-province" id="toc-fixed-accesses-per-100-households-by-province" class="nav-link active" data-scroll-target="#fixed-accesses-per-100-households-by-province">Fixed Accesses per 100 Households by Province</a></li>
-  <li><a href="#accesos-fijos-cada-100-hogares-por-provincia" id="toc-accesos-fijos-cada-100-hogares-por-provincia" class="nav-link" data-scroll-target="#accesos-fijos-cada-100-hogares-por-provincia">Accesos Fijos cada 100 Hogares por Provincia</a></li>
   <li><a href="#evolution-of-accesses-per-100-people" id="toc-evolution-of-accesses-per-100-people" class="nav-link" data-scroll-target="#evolution-of-accesses-per-100-people">Evolution of Accesses per 100 people</a></li>
-  <li><a href="#evolución-de-accesos-cada-100-habitantes" id="toc-evolución-de-accesos-cada-100-habitantes" class="nav-link" data-scroll-target="#evolución-de-accesos-cada-100-habitantes">Evolución de Accesos cada 100 habitantes</a></li>
   <li><a href="#evolution-of-the-average-download-speed" id="toc-evolution-of-the-average-download-speed" class="nav-link" data-scroll-target="#evolution-of-the-average-download-speed">Evolution of the Average Download Speed</a></li>
-  <li><a href="#evolución-de-la-velocidad-media-de-descarga" id="toc-evolución-de-la-velocidad-media-de-descarga" class="nav-link" data-scroll-target="#evolución-de-la-velocidad-media-de-descarga">Evolución de la Velocidad Media de Descarga</a></li>
   <li><a href="#evolution-of-fix-accesses-by-technology" id="toc-evolution-of-fix-accesses-by-technology" class="nav-link" data-scroll-target="#evolution-of-fix-accesses-by-technology">Evolution of Fix Accesses by Technology</a></li>
-  <li><a href="#evolución-de-accesos-fijos-por-tecnología" id="toc-evolución-de-accesos-fijos-por-tecnología" class="nav-link" data-scroll-target="#evolución-de-accesos-fijos-por-tecnología">Evolución de Accesos Fijos por Tecnología</a></li>
   </ul>
 </nav>
     </div>
@@ -228,14 +210,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>It is possible to make a dashboard with basic data on fix access in Argentina very quickly (about 30 minutes), with <a href="https://datosabiertos.enacom.gob.ar/home">open data from ENACOM</a>, open source tools (in this case <a href="https://www.r-project.org">R</a>, <a href="https://plotly.com/r/">Plotly</a> and <a href="https://pkgs.rstudio.com/flexdashboard/">Flexdashboards</a> but there are many others) and deploy it online for free with <a href="https://pages.github.com">Github Pages</a>.</p>
 <p>Here you can see the dashboard online (in Spanish): https://martinolmos.github.io/tablero_accesos_fijos/</p>
 <p>And the code to acquire the data and generate the visualizations:</p>
-<p>Es posible hacer un tablero con datos básicos de accesos fijos en Argentina en forma rápida (unos 30 minutos), con <a href="https://datosabiertos.enacom.gob.ar/home">datos abiertos de ENACOM</a>, herramientas open source (en este caso <a href="https://www.r-project.org">R</a>, <a href="https://plotly.com/r/">Plotly</a> y <a href="https://pkgs.rstudio.com/flexdashboard/">Flexdashboards</a> pero existen muchas otras) y desplegarlo online en forma gratuita con <a href="https://pages.github.com">Github Pages</a>.</p>
-<p>Acá se puede ver el tablero online: https://martinolmos.github.io/tablero_accesos_fijos/</p>
-<p>Y a continuación el código para adquirir los datos y generar las visualizaciones.</p>
 <section id="fixed-accesses-per-100-households-by-province" class="level3">
 <h3 class="anchored" data-anchor-id="fixed-accesses-per-100-households-by-province">Fixed Accesses per 100 Households by Province</h3>
-</section>
-<section id="accesos-fijos-cada-100-hogares-por-provincia" class="level3">
-<h3 class="anchored" data-anchor-id="accesos-fijos-cada-100-hogares-por-provincia">Accesos Fijos cada 100 Hogares por Provincia</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Penetracion por provincia: accesos cada 100 hogares</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>pen_prov_hog <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://datosabiertos.enacom.gob.ar/rest/datastreams/275028/data.csv"</span>, </span>
@@ -256,9 +232,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="evolution-of-accesses-per-100-people" class="level3">
 <h3 class="anchored" data-anchor-id="evolution-of-accesses-per-100-people">Evolution of Accesses per 100 people</h3>
-</section>
-<section id="evolución-de-accesos-cada-100-habitantes" class="level3">
-<h3 class="anchored" data-anchor-id="evolución-de-accesos-cada-100-habitantes">Evolución de Accesos cada 100 habitantes</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Penetración: accesos cada 100 habitantes. Serie histórica</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>pen_nac_hab_serie <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://datosabiertos.enacom.gob.ar/rest/datastreams/281491/data.csv"</span>,</span>
@@ -279,9 +252,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="evolution-of-the-average-download-speed" class="level3">
 <h3 class="anchored" data-anchor-id="evolution-of-the-average-download-speed">Evolution of the Average Download Speed</h3>
-</section>
-<section id="evolución-de-la-velocidad-media-de-descarga" class="level3">
-<h3 class="anchored" data-anchor-id="evolución-de-la-velocidad-media-de-descarga">Evolución de la Velocidad Media de Descarga</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Velocidad Media de Descarga (Mbps) - Nacional</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>vmd_nac_serie <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://datosabiertos.enacom.gob.ar/rest/datastreams/275016/data.csv"</span>, <span class="at">col_names =</span> <span class="fu">c</span>(<span class="st">"Año"</span>, <span class="st">"Trimestre"</span>, <span class="st">"Velocidad Media de Descarga"</span>, <span class="st">"Periodo"</span>), <span class="at">skip =</span> <span class="dv">1</span>,</span>
@@ -303,9 +273,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="evolution-of-fix-accesses-by-technology" class="level3">
 <h3 class="anchored" data-anchor-id="evolution-of-fix-accesses-by-technology">Evolution of Fix Accesses by Technology</h3>
-</section>
-<section id="evolución-de-accesos-fijos-por-tecnología" class="level3">
-<h3 class="anchored" data-anchor-id="evolución-de-accesos-fijos-por-tecnología">Evolución de Accesos Fijos por Tecnología</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>tec_nac_serie <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://datosabiertos.enacom.gob.ar/rest/datastreams/275029/data.csv"</span>,</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>                          <span class="at">locale =</span> <span class="fu">locale</span>(<span class="at">decimal_mark =</span> <span class="st">","</span>))</span>

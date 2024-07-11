@@ -126,10 +126,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
     <a class="nav-link" href="../../about.html"> 
-<span class="menu-text">Sobre mí</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../about.html"> 
 <span class="menu-text">About me</span></a>
   </li>  
 </ul>
@@ -141,16 +137,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li class="nav-item">
     <a class="nav-link" href="../../../es"> 
 <span class="menu-text">Español</span></a>
-  </li>  
-  <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/martinolmos"> <i class="bi bi-github" role="img">
-</i> 
-<span class="menu-text"></span></a>
-  </li>  
-  <li class="nav-item compact">
-    <a class="nav-link" href="https://twitter.com/martin_olmos_"> <i class="bi bi-twitter" role="img">
-</i> 
-<span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="https://github.com/"> <i class="bi bi-github" role="img">
@@ -208,7 +194,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#brief-concept-intro1" id="toc-brief-concept-intro1" class="nav-link active" data-scroll-target="#brief-concept-intro1">Brief concept intro</a></li>
-  <li><a href="#breve-intro-conceptual1" id="toc-breve-intro-conceptual1" class="nav-link" data-scroll-target="#breve-intro-conceptual1">Breve intro conceptual</a></li>
   </ul>
 </nav>
     </div>
@@ -230,18 +215,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The applications are diverse: monitoring of deforestation, soil degradation, detection and classification of objects as dissimilar as wetlands, informal settlements and gated communities, monitoring of water quality and salinity, air quality, detection of clandestine dumps, monitoring of landfills health, monitoring the environmental impact of certain industries, among others.</p>
 <p>In this post I am not going to advance in detection or classification of objects but, following <a href="https://www.tylermw.com/a-step-by-step-guide-to-making-3d-maps-with-satellite-imagery-in-r/">this</a> tutorial I am going to use satellite images together with <a href="https://es.wikipedia.org/wiki/Misión_topográfica_Radar_Shuttle">SRTM</a> elevation data to make a 3D map of my favorite place in the world: the <a href="https://www.sanjuan.tur.ar/que-hago/aventura/recomendados/dique-cuesta-del-viento">Cuesta del Viento Dam</a> in Rodeo, San Juan.</p>
 <p>Here is the code:</p>
-</section>
-<section id="breve-intro-conceptual1" class="level2">
-<h2 class="anchored" data-anchor-id="breve-intro-conceptual1">Breve intro conceptual<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></h2>
-<p>La teledetección satelital o satellite remote sensing es la actividad de recolectar datos a través del uso de sensores, en este caso satélites, de un lugar al que no se tiene acceso físicamente, es decir en forma remota.</p>
-<p>Estos datos consisten en la medición de energía electromagnética. La radiación electromagnética es una forma de energía emitida por toda materia con temperatura arriba del cero absoluto (0 Kelvin o -272° Celcius). Rayos X, ultravioletas, luz visible, infraroja, calor, microondas y ondas de radio y televisión son todas formas de energía electromagnética con distinta longitud de onda o frecuencia y son parte del espectro electromagnético.</p>
-<p>Los objetos más calientes emiten más energía electromagnética y a ondas más cortas que los más fríos. La fuente de radiación electromagnética más común es el Sol. Los objetos que constituyen la superficie de la Tierra reflejan y emiten radiación electromagnética de distinta manera.</p>
-<p>La porción del espectro electromagnético donde se ubica el pico de la radiación solar se denomina banda visible, ya que la visión humana es sensible a esas ondas. La teledetección permite extender la capacidad humana de percibir radiación electromagnética más allá de la banda visual, por eso las partes del espectro electromagnético que no podemos ver son muy importantes.</p>
-<p>Los objetos que constituyen la superficie de la Tierra reflejan la radiación electromagnética de distinta manera. El atractivo de la teledetección multiespectral es que objetos indistinguibles a una longitud de onda determinada pueden ser fáciles de distinguir a otra. Las bandas comúnmente usadas para percibir la ocupación y uso del suelo son: visible, infraroja y microondas.</p>
-<p>Entender las diferentes maneras en que longitudes de onda específicas interactúan con distintos objetos permite encontrar “sellos” o “signatures” que permitirán detectar esos objetos automáticamente.</p>
-<p>Las aplicaciones son diversas: monitoreo de deforestación, degradación del suelo, detección y clasificación de objetos tan disímiles como humedales, asentamientos informales y barrios cerrados, monitoreo de la calidad y salinidad del agua, calidad del aire, detección de basurales clandestinos, monitoreo de rellenos sanitarios, monitoreo del impacto ambiental de industrias determinadas, entre otros.</p>
-<p>En este post no voy a avanzar en detección o clasificación de objetos pero, siguiendo <a href="https://www.tylermw.com/a-step-by-step-guide-to-making-3d-maps-with-satellite-imagery-in-r/">este</a> tutorial voy a utilizar imágenes satelitales junto con datos de elevación <a href="https://es.wikipedia.org/wiki/Misión_topográfica_Radar_Shuttle">SRTM</a> para hacer un mapa en 3D de mi lugar preferido en el mundo: el <a href="https://www.sanjuan.tur.ar/que-hago/aventura/recomendados/dique-cuesta-del-viento">Dique de Cuesta del Viento</a> en Rodeo, San Juan.</p>
-<p>Acá el código:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rayshader)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sp)</span>
@@ -336,7 +309,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a>rgl<span class="sc">::</span><span class="fu">rgl.close</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>And the resulting visualization:</p>
-<p>Y el resultado:</p>
 <p><video src="cuesta.mp4" class="img-fluid" style="width:90.0%" controls=""><a href="cuesta.mp4">Video</a></video></p>
 
 
@@ -347,7 +319,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <ol>
 <li id="fn1"><p>En base al MOOC “Imagery, Automation, and Applications” de la Universidad de California, Davis y al libro de David DiBiase, The Nature of Geographic Information. Penn State University, College of Earth and Mineral Sciences. Retrieved from https://www.e-education.psu.edu/natureofgeoinfo/<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>En base al MOOC “Imagery, Automation, and Applications” de la Universidad de California, Davis y al libro de David DiBiase, The Nature of Geographic Information. Penn State University, College of Earth and Mineral Sciences. Retrieved from https://www.e-education.psu.edu/natureofgeoinfo/<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

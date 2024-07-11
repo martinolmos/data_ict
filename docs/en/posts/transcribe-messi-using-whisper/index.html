@@ -126,10 +126,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
     <a class="nav-link" href="../../about.html"> 
-<span class="menu-text">Sobre mí</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../about.html"> 
 <span class="menu-text">About me</span></a>
   </li>  
 </ul>
@@ -141,16 +137,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li class="nav-item">
     <a class="nav-link" href="../../../es"> 
 <span class="menu-text">Español</span></a>
-  </li>  
-  <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/martinolmos"> <i class="bi bi-github" role="img">
-</i> 
-<span class="menu-text"></span></a>
-  </li>  
-  <li class="nav-item compact">
-    <a class="nav-link" href="https://twitter.com/martin_olmos_"> <i class="bi bi-twitter" role="img">
-</i> 
-<span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="https://github.com/"> <i class="bi bi-github" role="img">
@@ -215,11 +201,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#download-audio-and-video-from-youtube" id="toc-download-audio-and-video-from-youtube" class="nav-link active" data-scroll-target="#download-audio-and-video-from-youtube">Download audio and video from Youtube</a></li>
-  <li><a href="#descargo-el-audio-y-el-video-de-youtube" id="toc-descargo-el-audio-y-el-video-de-youtube" class="nav-link" data-scroll-target="#descargo-el-audio-y-el-video-de-youtube">Descargo el audio y el video de Youtube</a></li>
   <li><a href="#generate-the-transcript" id="toc-generate-the-transcript" class="nav-link" data-scroll-target="#generate-the-transcript">Generate the transcript</a></li>
-  <li><a href="#genero-la-transcripción" id="toc-genero-la-transcripción" class="nav-link" data-scroll-target="#genero-la-transcripción">Genero la transcripción</a></li>
   <li><a href="#embed-the-transcript-in-the-video-as-subtitles" id="toc-embed-the-transcript-in-the-video-as-subtitles" class="nav-link" data-scroll-target="#embed-the-transcript-in-the-video-as-subtitles">Embed the transcript in the video as subtitles</a></li>
-  <li><a href="#incrusto-la-transcripción-en-el-video-como-subtítulos" id="toc-incrusto-la-transcripción-en-el-video-como-subtítulos" class="nav-link" data-scroll-target="#incrusto-la-transcripción-en-el-video-como-subtítulos">Incrusto la transcripción en el video como subtítulos</a></li>
   </ul>
 </nav>
     </div>
@@ -233,18 +216,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><a href="'https://openai.com/blog/whisper/'">Whisper</a> is an open source model for speech recognition developed by <a href="https://openai.com">OpenAI</a>.</p>
 <p>We will try to use it to add subtitles to a recent interview.</p>
 <p>Here is the original interview:</p>
-<p><a href="'https://openai.com/blog/whisper/'">Whisper</a> es un modelo de código abierto para reconocimiento del habla desarrollado por <a href="https://openai.com">OpenAI</a>.</p>
-<p>Intentaremos utilizarlo para agregar subtítulos a una entrevista reciente.</p>
-<p>Aquí la entrevista original:</p>
 <center>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/RYXcR3YejwY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="">
 </iframe>
 </center>
 <section id="download-audio-and-video-from-youtube" class="level2">
 <h2 class="anchored" data-anchor-id="download-audio-and-video-from-youtube">Download audio and video from Youtube</h2>
-</section>
-<section id="descargo-el-audio-y-el-video-de-youtube" class="level2">
-<h2 class="anchored" data-anchor-id="descargo-el-audio-y-el-video-de-youtube">Descargo el audio y el video de Youtube</h2>
 <div class="cell" data-execution_count="1">
 <details open="" class="code-fold">
 <summary>Code</summary>
@@ -272,9 +249,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="generate-the-transcript" class="level2">
 <h2 class="anchored" data-anchor-id="generate-the-transcript">Generate the transcript</h2>
-</section>
-<section id="genero-la-transcripción" class="level2">
-<h2 class="anchored" data-anchor-id="genero-la-transcripción">Genero la transcripción</h2>
 <div class="cell" data-execution_count="2">
 <details open="" class="code-fold">
 <summary>Code</summary>
@@ -299,9 +273,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="embed-the-transcript-in-the-video-as-subtitles" class="level2">
 <h2 class="anchored" data-anchor-id="embed-the-transcript-in-the-video-as-subtitles">Embed the transcript in the video as subtitles</h2>
-</section>
-<section id="incrusto-la-transcripción-en-el-video-como-subtítulos" class="level2">
-<h2 class="anchored" data-anchor-id="incrusto-la-transcripción-en-el-video-como-subtítulos">Incrusto la transcripción en el video como subtítulos</h2>
 <div class="cell" data-execution_count="3">
 <details open="" class="code-fold">
 <summary>Code</summary>
@@ -337,7 +308,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </details>
 </div>
 <p>Here is the final product, the video with the subtitles:</p>
-<p>Aquí el producto final, el video con los subtítulos:</p>
 <center>
 <video width="640" height="480" controls="">
 <source src="whisper_messi_corto_con_subs.mp4" type="video/mp4">

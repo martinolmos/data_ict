@@ -126,10 +126,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
     <a class="nav-link" href="../../about.html"> 
-<span class="menu-text">Sobre mí</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../about.html"> 
 <span class="menu-text">About me</span></a>
   </li>  
 </ul>
@@ -141,16 +137,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li class="nav-item">
     <a class="nav-link" href="../../../es"> 
 <span class="menu-text">Español</span></a>
-  </li>  
-  <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/martinolmos"> <i class="bi bi-github" role="img">
-</i> 
-<span class="menu-text"></span></a>
-  </li>  
-  <li class="nav-item compact">
-    <a class="nav-link" href="https://twitter.com/martin_olmos_"> <i class="bi bi-twitter" role="img">
-</i> 
-<span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="https://github.com/"> <i class="bi bi-github" role="img">
@@ -216,11 +202,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<p>La mayoría de los países de la región tienen algún tipo de estrategia más o menos definida y articulada para mejorar la conectvidad digital de las poblaciones vulnerables, aquellas que viven en zonas de baja densidad poblacional donde a veces el sector privado por sí solo no tiene los incentivos para invertir en infraestrutura, o para llevar la conectividad a servicios de educación y salud. Sin embargo, no siempre se ha pensado en la conectividad productiva, es decir, en cómo la conectividad puede mejorar la productividad de las empresas y de los trabajadores.</p>
-<p>Un presupuesto importante para llegar con conectividad a un lugar es que existan redes troncales que permitan luego desarrollar la denominada “última milla” desde estas redes hasta los hogares y empresas. Argentina, por ejemplo, cuenta con la Red Federal de Fibra Óptica (REFEFO) gestionada por <a href="https://www.arsat.com.ar">ARSAT</a>, que es una red troncal que atraviesa las 23 provincias del país, llegando a unas 1.300 localidades, muchas de las cuales tienen poblaciones de menos de 10.000 habitantes. Por supuesto que existen también redes troncales de fibra óptica de operadores privados, pero el tendido de las mismas y la ubicación de los nodos de conexión no está disponible públicamente.</p>
-<p>Pero volviendo al punto anterior, analicemos el potencial de la REFEFO para mejorar la conectividad productiva. Tomemos por ejemplo el sector agropecuario, que es uno de los más importantes de la economía argentina y el mayor generador de divisas.</p>
-<p>Podemos utilizar los datos del ex Ministerio de Desarrollo Productivo para georrefenciar las empresas agropecuarias y calcular la distancia de cada una de ellas al nodo de la REFEFO más cercano y luego analizar la distribución de estas distancias.</p>
-<p>En primer lugar, obtenemos, filtramos y cruzamos los datos necesarios para el análisis:</p>
 <p>Most countries in the region have some sort of strategy to improve digital connectivity for vulnerable populations, for those who live in low density areas where the private sector alone does not have the incentives to invest in infrastructure, or to bring connectivity to education and health services. However, we cannot say the same about productive connectivity, meaning, connectivity infrastructure oriented towards improving the productivity of companies and workers.</p>
 <p>An important prerequisite for bringing connectivity to a place is the existance of backbone networks that allow the development of the so-called “last mile” to connect homes and businesses. Argentina, for example, has the Federal Fiber Optic Network (REFEFO) managed by <a href="https://www.arsat.com.ar">ARSAT</a>, which is a backbone network that goes through the 23 provinces of the country, reaching about 1,300 localities, many of which have populations of less than 10,000 people. Of course, there are also other backbone fiber optic networks of private operators, but the layout of these networks and the location of the connection nodes is not publicly available.</p>
 <p>But going back to the previous point, let’s analyze the potential of REFEFO to improve productive connectivity. Let’s take for example the agricultural sector, which is one of the most important in the Argentine economy and the most important regarding exports.</p>
@@ -289,7 +270,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>estab_agro_refefo_gpd <span class="op">=</span> estab_agro_gpd.to_crs(crs<span class="op">=</span><span class="dv">3857</span>).sjoin_nearest(refefo_nodos.to_crs(<span class="dv">3857</span>), how<span class="op">=</span><span class="st">'left'</span>, distance_col<span class="op">=</span><span class="st">'distance'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<p>Luego vamos a plotear en un mapa cada uno de los establecimientos agropecuarios y asignarle un color en función de la distancia con el nodo de la REFEFO más cercano.</p>
 <p>Then we will plot on a map each of the agricultural establishments and assign a color based on the distance to the nearest REFEFO node.</p>
 <div id="60c52568" class="cell" data-execution_count="2">
 <details open="" class="code-fold">
@@ -334,7 +314,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <figcaption>Mapa de Establecimientos Agropecuarios y Distancia a Nodo de REFEFO</figcaption>
 </figure>
 </div>
-<p>Además, vamos a plotear el histograma de las distancias para poder analizar su distribución.</p>
 <p>Also, we will plot the histogram of the distances to analyze their distribution.</p>
 <div id="a3d4c571" class="cell" data-execution_count="3">
 <details open="" class="code-fold">
@@ -396,7 +375,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <figcaption>Histograma de Distancias a Nodo de REFEFO</figcaption>
 </figure>
 </div>
-<p>Como se puede observar en el mapa y en el histograma, la mayoría de los establecimientos agropecuarios se encuentran a menos de 10 km de un nodo de la REFEFO. Para obtener los números precisos observemos la media y los cuartiles de las distancias.</p>
 <p>As you can see in the map and in the histogram, most of the agricultural establishments are located less than 10 km from a REFEFO node. To get the precise numbers let’s take a look at the mean and the quartiles of the distances.</p>
 <div id="9cccab82" class="cell" data-execution_count="4">
 <details open="" class="code-fold">
@@ -404,8 +382,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>estab_agro_refefo_gpd[<span class="st">'distance'</span>].describe()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<p>La media de las distancias de establecimientos agropecuarios al nodo de REFEFO más cercano es de 25.544 metros o 25,5 KMs. Sin embargo, como se observa en el histograma, las distancias no tienen una distribución normal sino que se trata de una distribución asimétrica a la derecha, con la mayor cantidad de distancias con valores bajos y unas pocas distancias con valores muy altos. En estos casos, la mediana es más representativa que la media. Aquí la mediana es de 8.580 metros u 8,6 KMs. Esto quiere decir que el 50% de los establecimientos agropecuarios se encuentran a menos de 8,6 KMs de un nodo de REFEFO. Finalmente, el tercer cuartil es de 35.895 metros o casi 36 KMs, lo que significa que el 75% de los establecimientos agropecuarios se encuentran a menos de 36 KMs de un nodo de REFEFO.</p>
-<p>Hay muchas formas de mejorar este análisis preliminar pero esta primera aproximación parece indicar que la distancia a redes troncales no debería ser un impedimento para el desarrollo de la conectividad rural productiva en la Argentina.</p>
 <p>The mean distance of agricultural establishments to the nearest REFEFO node is 25,544 meters or 25.5 KMs. However, as observed in the histogram, the distances do not have a normal distribution but rather a right-skewed distribution, with most distances having low values and a few distances having very high values. In these cases, the median is more representative than the mean. Here the median is 8,580 meters or 8.6 KMs. This means that 50% of the agricultural establishments are located less than 8.6 KMs from a REFEFO node. Finally, the third quartile is 35,895 meters or almost 36 KMs, which means that 75% of the agricultural establishments are located less than 36 KMs from a REFEFO node.</p>
 <p>There are many ways in which we can improve this preliminary analysis but this first approach seems to indicate that the distance to backbone networks should not be an obstacle for the development of productive rural connectivity in Argentina.</p>
 
