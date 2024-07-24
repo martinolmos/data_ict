@@ -1,0 +1,267 @@
+---
+title: "ICT Infrastructure Subsidies Analysis"
+subtitle: "Análisis de Subsidios para Infraestructura TIC"
+draft: false
+author: "Martin Olmos"
+date: "2024-04-26"
+format: 
+    html:
+        code-fold: true
+slug: []
+categories:
+    - "ANR"
+execute: 
+  warning: false
+  eval: false
+
+---
+
+::: {.content-visible when-profile="spanish"}
+
+En Argentina, como en muchos otros países, existe un fondo constituido con aportes de las empresas del sector TIC con el objetivo de llevar los servicios a poblaciones que no pueden acceder a ellos por distintos motivos. En [este post][1], participé de un panel donde hablé sobre la historia de este fondo en Argentina, denominado Fondo Fiduciario de Servicio Universal (FFSU), su marco normativo y los distintos programas que tiene en la actualidad.
+
+En este post, voy a hacer un pequeño análisis exploratorio de los algunos datos de los dos programas más importantes del FFSU: el [Programa Conectividad][2] y el [Programa Barrios Populares][3]. El análisis abarco los años entre 2020 y 2023, para los cuales se cuenta con datos. Los datos fueron extraídos de las Actas de Directorio del Ente Nacional de Comunicaciones (ENACOM), que se publican en PDF en la página web del organismo.
+
+## Programa Conectividad
+
+:::
+
+::: {.content-visible when-profile="english"}
+
+In Argentina, as in many other countries, there is a fund made up of contributions from companies in the ICT sector with the goal of bringing services to populations that have no access to them for various reasons. In [this post][1], I participated in a panel where I talked about the history of this fund in Argentina, called the Universal Service Trust Fund (FFSU), its regulatory framework and the different programs it has today.
+
+In this post, I will develop a small exploratory analysis of some of the data regarding the two most important programs of the FFSU: the [Connectivity Program][2] and the [Vulnerable Neighborhoods Program][3]. The analysis covers the years between 2020 and 2023, for which data is available. The data was extracted from the minutes of the meetings of the Board of Directors of the National Communications Entity (ENACOM), which are published in PDF on the agency's website.
+
+
+## Connectivity Program
+
+:::
+
+```{python}
+# Me conecto a la base de datos y leo la tabla del Programa Conectividad
+# Connect to the database and read the Conectividad Program table
+
+from dotenv import load_dotenv
+from sqlalchemy import create_engine
+import os
+import pandas as pd
+
+load_dotenv()
+
+host = os.getenv("HOST")
+port = os.getenv("PORT")
+database = os.getenv("DBNAME")
+user = os.getenv("USER")
+password = os.getenv("PASSWD")
+
+engine = create_engine(f"postgresql://{user}:{password}@{host}:{port}/{database}")
+
+anr_prog_con = pd.read_sql_table(table_name="conectividad_aprob_georef", con=engine)
+
+```
+
+::: {.content-visible when-profile="spanish"}
+
+La @fig-prog-con-prov muestra la cantidad de localidades beneficiarias de ANRs del Programa Conectividad aprobados por provincia, entre 2020 y 2023.
+
+:::
+
+::: {.content-visible when-profile="english"}
+
+The @fig-prog-con-prov shows the number of localities that were beneficiaries from ANRs from the Connectivity Program approved by province, between 2020 and 2023.
+
+:::
+
+```{python}
+
+import matplotlib.pyplot as plt
+
+fig, ax = plt.subplots()
+
+ax = anr_prog_con.groupby("provincia_indec").size().sort_values(ascending=False).plot(kind='bar', figsize=(20,10), legend=False)
+
+ax.set_xlabel("Provincia", fontsize=15)
+
+```
+
+
+![Localidades beneficiarias de ANRs del Prog. Conectividad por provincia](./prog_con_prov.png){#fig-prog-con-prov}
+
+::: {.content-visible when-profile="spanish"}
+
+La @fig-prog-con-anio muestra la cantidad de localidades beneficiarias de ANRs del Programa Conectividad por año.
+
+:::
+
+::: {.content-visible when-profile="english"}
+
+The @fig-prog-con-anio shows the number of localities that were beneficiaries of ANRs from the Connectivity Program by year.
+
+:::
+
+```{python}
+
+anr_prog_con['anio'] = anr_prog_con['fecha'].apply(lambda x: x.strip().split(' ')[1] if len(x.split(' ')) > 1 else None)
+
+fig, ax = plt.subplots()
+
+anr_prog_con.groupby("anio").size().plot(ax=ax, kind='bar', figsize=(12,6), legend=False)
+
+ax.set_xlabel("Año", fontsize=15)
+
+```
+
+![Localidades beneficiarias de ANRs del Prog. Conectividad por año](./prog_con_anio.png){#fig-prog-con-anio}
+
+::: {.content-visible when-profile="spanish"}
+
+La @fig-prog-con-prov-anio muestra la cantidad de localidades beneficiarias de ANRs del Programa Conectividad por año y provincia.
+
+:::
+
+::: {.content-visible when-profile="english"}
+
+The @fig-prog-con-prov-anio shows the number of localities that were beneficiairies from ANRs from the Connectivity Program by year and province.
+
+:::
+
+
+```{python}
+
+import textwrap
+
+anr_prog_con_prov_anio = anr_prog_con.groupby(['anio', 'provincia_indec']).size().unstack().fillna(0)
+
+fig, ax = plt.subplots(4,1)
+
+for i, anio in enumerate(anr_prog_con_prov_anio.index):
+    anr_prog_con_prov_anio.loc[anio].sort_values(ascending=False).plot(ax=ax[i], kind='bar', figsize=(12,26), legend=False)
+    ax[i].set_title(f"{anio}", fontsize=20)
+    ax[i].set_xlabel("")
+    ax[i].set_xticklabels([textwrap.fill(label.get_text(), 10) for label in ax[i].get_xticklabels()], rotation=45, fontsize=8, ha='right')  # Wrap labels
+
+```
+
+![Localidades beneficiarias de ANRs del Prog. Conectividad por año y provincia](./prog_con_anio_prov.png){#fig-prog-con-prov-anio}
+
+::: {.content-visible when-profile="spanish"}
+
+## Programa Barrios Populares
+
+:::
+
+::: {.content-visible when-profile="english"}
+
+## Vulnerable Neighborhoods Program
+
+:::
+
+```{python}
+# Me conecto a la base de datos y leo la tabla del Programa Barrios Populares
+# Connect to the database and read the Barrios Populares Program table
+
+import geopandas as gpd
+
+anr_prog_renabap = gpd.read_postgis("SELECT * FROM renabap_aprob", con=engine, geom_col="geometry")
+
+```
+
+::: {.content-visible when-profile="spanish"}
+
+La @fig-prog-renabap-prov muestra la cantidad de barrios beneficiados por ANRs del Programa Barrios Populares por provincia, entre 2021, año en que comienza la ejecución del programa, y 2023.
+
+:::
+
+::: {.content-visible when-profile="english"}
+
+The @fig-prog-renabap-prov shows the number of neighborhoods that were beneficiaries of ANRs from the Vulnerable Neighborhoods Program by province, between 2021, the year in which the program began, and 2023.
+
+:::
+
+```{python}
+
+import matplotlib.pyplot as plt
+
+fig, ax = plt.subplots()
+
+ax = anr_prog_renabap.groupby("provincia").size().sort_values(ascending=False).plot(kind='bar', figsize=(20,10), legend=False)
+
+ax.set_xlabel("Provincia", fontsize=15)
+
+```
+
+![Barrios beneficiados con ANRs del Prog. Barrios Populares por provincia](./prog_renabap_prov.png){#fig-prog-renabap-prov}
+
+::: {.content-visible when-profile="spanish"}
+
+La @fig-prog-renabap-anio muestra la cantidad de barrios beneficiados con ANRs del Programa Barrios Populares por año.
+
+:::
+
+::: {.content-visible when-profile="english"}
+
+The @fig-prog-renabap-anio shows the number of neighborhoods that were beneficiaries of ANRs from the Vulnerable Neighborhoods Program by year.
+
+:::
+
+```{python}
+
+anr_prog_renabap['anio'] = anr_prog_renabap['fecha'].apply(lambda x: x.strip().split(' ')[1] if len(x.split(' ')) > 1 else None)
+
+fig, ax = plt.subplots()
+
+anr_prog_renabap.groupby("anio").size().plot(ax=ax, kind='bar', figsize=(12,6), legend=False)
+
+ax.set_xlabel("Año", fontsize=15)
+
+```
+
+![Barrios beneficiados con ANRs del Prog. Barrios Populares aprobados por año](./prog_renabap_anio.png){#fig-prog-renabap-anio}
+
+::: {.content-visible when-profile="spanish"}
+
+La @fig-prog-renabap-anio-prov muestra la cantidad de barrios beneficiados por ANRs del Programa Barrios Populares por año y provincia.
+
+:::
+
+::: {.content-visible when-profile="english"}
+
+The @fig-prog-renabap-anio-prov shows the number of neighborhoods that were beneficiaries of ANRs from the Vulnerable Neighborhoods Program by year and province.
+
+:::
+
+
+```{python}
+
+import textwrap
+
+anr_prog_renabap_prov_anio = anr_prog_renabap.groupby(['anio', 'provincia']).size().unstack().fillna(0)
+
+fig, ax = plt.subplots(3,1)
+
+for i, anio in enumerate(anr_prog_renabap_prov_anio.index):
+    anr_prog_renabap_prov_anio.loc[anio].sort_values(ascending=False).plot(ax=ax[i], kind='bar', figsize=(12,26), legend=False)
+    ax[i].set_title(f"{anio}", fontsize=20)
+    ax[i].set_xlabel("")
+    ax[i].set_xticklabels([textwrap.fill(label.get_text(), 10) for label in ax[i].get_xticklabels()], rotation=45, fontsize=8, ha='right')  # Wrap labels
+
+```
+
+
+![Barrios beneficiados por ANRs del Prog. Barrios Populares aprobados por año y provincia](./prog_renabap_anio_prov.png){#fig-prog-renabap-anio-prov}
+
+::: {.content-visible when-profile="spanish"}
+
+Mas allá de estos gráficos sobre la cantidad de localidades y barrios vulnerables beneficiados sería interesante hacer un análisis sobre el impacto de estos programas en la conectividad de las poblaciones beneficiarias. Intentaremos aproximarnos a esta cuestión en un próximo post.
+
+:::
+
+::: {.content-visible when-profile="english"}
+
+Beyond these graphs about the number of localities and vulnerable neighborhoods that were beneficiaries, it would be interesting to analyze the impact of these programs on the connectivity of the beneficiary populations. We will try to approach this issue in a future post.
+
+:::
+
+[1]:https://martinolmos.github.io/data_ict/es/posts/forum-equality-digital-divide/
+[2]:https://enacom.gob.ar/programa-conectividad_p4875
+[3]:https://enacom.gob.ar/programa-barrios-populares_p4615

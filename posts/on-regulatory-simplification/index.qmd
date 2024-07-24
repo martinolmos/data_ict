@@ -1,0 +1,135 @@
+---
+title: "On Regulatory Simplification"
+subtitle: "Sobre Simplificación Regulatoria"
+format: 
+    html: 
+        code-fold: true
+draft: false
+author: "Martin Olmos"
+date: "2024-07-24"
+categories:
+    - "Análisis de Grafos"
+    - "Graph Analysis" 
+execute: 
+  warning: false
+  eval: false
+---
+
+::: {.content-visible when-profile="spanish"}
+
+En el último [Internet Day](https://internetday.com.ar/day/), organizado por la Cámara Argentina de Internet (CABASE) los pasados 17 y 18 de mayo, uno de los temas que se discutió fue sobre simplificación regulatoria. Cómo podemos acercarnos a esta cuestión desde el análisis de datos? Una forma es a través del [análisis de grafos](https://es.wikipedia.org/wiki/Teoría_de_grafos).
+
+De acuerdo al Ente Nacional de Comunicaciones (ENACOM), existen 357 [normas fundamentales](https://www.enacom.gob.ar/normativas/grupos) que regulan al sector de las TIC en Argentina. Por otro lado, Infoleg, el sistema de información normativa y documental de la República Argentina, publica en formato abierto datos sobre la totalidad de las normas vigentes en el país en tres conjuntos de datos: una base de normas, una base de normas modificadas y una base de normas modificatorias (aquí normas modificatorias y modificadas son consideradas en sentido amplio, es decir, incluyen normas complementarias, reglamentarias, etc.).
+
+Pero qué tiene que ver esto con la teoría de grafos? Un grafo es una estructura de datos consistente en un conjunto de nodos y un conjunto de aristas que los conectan. Estas aristas pueden ser dirigidas (aquellas donde la relación va en un sentido pero no en el otro) o no dirigidas (aquellas donde la relación va en ambos sentidos). En el caso de las normas, podemos pensar en un grafo donde los nodos son las normas y las aristas son las relaciones entre ellas.
+
+En primer lugar, voy a leer los datos y cargarlos en una base de datos Neo4j, que es una base de datos de grafos.
+
+:::
+
+::: {.content-visible when-profile="english"}
+
+At the last [Internet Day](https://internetday.com.ar/day/), organized by the Argentine Chamber of Internet (CABASE) on May 17 and 18, one of the topics discussed was regulatory simplification. How can we approach this issue from a data analysis perspective? One way is through [graph analysis](https://es.wikipedia.org/wiki/Teoría_de_grafos).
+
+According to the National Communications Entity (ENACOM), there are 357 [fundamental regulations](https://www.enacom.gob.ar/normativas/grupos) that regulate the ICT sector in Argentina. On the other hand, Infoleg, the normative and documentary information system of the Argentine Republic, publishes in open format data on all the regulations in force in the country in three data sets: a base of regulations, a base of modified regulations, and a base of modifying regulations (here modifying and modified regulations are considered in a broad sense, that is, they include complementary regulations).
+
+But what does this have to do with graph theory? A graph is a data structure consisting of a set of nodes and a set of edges that connect them. These edges can be directed (those where the relationship goes in one direction but not the other) or undirected (those where the relationship goes in both directions). In the case of regulations, we can think of a graph where the nodes are the regulations and the edges are the relationships between them.
+
+First, I will read the data and load it into a Neo4j database, which is a graph database.
+
+:::
+
+```{python}
+
+import pandas as pd
+from neo4j import GraphDatabase
+import os
+
+normas_fundamentales_tic = pd.read_csv("normas_fundamentales_tic.csv")
+normas_modificatorias_tic = pd.read_csv("normas_modificatorias_tic.csv")
+
+# Configurar la conexión a Neo4j
+uri = "bolt://localhost:7687"  # Ajusta según la configuración de tu Neo4j
+username = os.getenv("NEO4J_USER")
+password = os.getenv("NEO4J_PASS")
+
+driver = GraphDatabase.driver(uri, auth=(username, password))
+
+def create_nodes_and_relationships(tx, normas_fundamentales_tic, normas_modificatorias_tic):
+    # Crear nodos para normas fundamentales
+    for index, row in normas_fundamentales_tic.iterrows():
+        tx.run("MERGE (n:Norma {id: $id, titulo: $titulo, grupo: $grupo, link: $link, notas: $notas, tipo: 'fundamental', boletin_oficial: $boletin_oficial})",
+               id=row['id_norma'], titulo=row['norma'], grupo=row['grupo'], link=row['link'], notas=row['notas'], boletin_oficial=row['boletin_oficial'])
+    
+    # Crear relaciones "modifica a" o "es modificada por"
+    for index, row in normas_modificatorias_tic.iterrows():
+        tx.run("""
+        MATCH (a:Norma {id: $id_modificatoria}), (b:Norma {id: $id_modificada})
+        MERGE (a)-[:MODIFICA_A]->(b)
+        """, id_modificatoria=row['id_norma_modificatoria'], id_modificada=row['id_norma_modificada'])
+
+# Ejecutar la función en una sesión
+with driver.session() as session:
+    session.execute_write(create_nodes_and_relationships, normas_fundamentales_tic, normas_modificatorias_tic)
+
+driver.close()
+
+```
+
+::: {.content-visible when-profile="spanish"}
+
+Veamos ahora cómo se ve el grafo.
+
+La @fig-grafo-normas muestra el grafo de las normas fundamentales y modificatorias del sector TIC en Argentina. La @fig-grafo-normas-zoom es un zoom de una parte del grafo para poder visualizar mejor las relaciones entre las normas.
+
+Pero qué podemos hacer con este grafo? Qué preguntas interesantes podemos responder?
+
+:::
+
+::: {.content-visible when-profile="english"}
+
+Now let's see what the graph looks like.
+
+The @fig-grafo-normas shows the graph of the fundamental and modifying regulations of the ICT sector in Argentina. The @fig-grafo-normas-zoom is a zoom of a part of the graph to better visualize the relationships between the regulations.
+
+But what can we do with this graph? What interesting questions can we answer?
+
+:::
+
+![Grafo de normas fundamentales y modificatorias](grafo_normas.png){#fig-grafo-normas}
+
+![Zoom al grafo de normas fundamentales y modificatorias](grafo_normas_zoom.png){#fig-grafo-normas-zoom}
+
+::: {.content-visible when-profile="spanish"}
+
+Una pregunta interesante podría ser: cuáles son las 10 normas fundamentales que más fueron modificadas o complementadas por otras normas?
+
+:::
+
+::: {.content-visible when-profile="english"}
+
+An interesting question could be: what are the 10 fundamental regulations that have been modified or complemented the most by other regulations?
+
+:::
+
+```
+MATCH (n:Norma)-[:MODIFICA_A]->(m)
+RETURN m.titulo, COUNT(n) AS num_modificaciones
+ORDER BY num_modificaciones DESC
+LIMIT 10
+```
+
+![Tabla de normas fundamentales que más fueron modificadas o complementadas](normas_mas_modificadas.png){#fig-normas-mas-modificadas}
+
+::: {.content-visible when-profile="spanish"}
+
+Aquí el ranking lo encabezan el Decreto 764/2000, la Ley Argentina Digital, el Decreto 267/2015 que, entre otras cosas, creó el ENACOM, y la Ley de Servicios de Comunicación Audiovisual.
+
+:::
+
+::: {.content-visible when-profile="english"}
+
+Here the ranking is led by Decree 764/2000, the Digital Argentina Law, Decree 267/2015 which, among other things, created ENACOM, and the Audiovisual Communication Services Law.
+
+:::
+

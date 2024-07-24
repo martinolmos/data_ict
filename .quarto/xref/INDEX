@@ -70,5 +70,38 @@
   },
   "lib/python3.11/site-packages/matplotlib/backends/web_backend/nbagg_uat.ipynb": {
     "nbagg_uat.html": "a11b1dc9"
+  },
+  "posts/refefo-potential-to-enhance-productive-connectivity/refefo-potential-for-productive-conectivity.qmd": {
+    "refefo-potential-for-productive-conectivity.html": "ac77fcf0"
+  },
+  "posts/refefo-potential-to-enhance-productive-connectivity/etl.ipynb": {
+    "etl.html": "164121e4"
+  },
+  "utils/migration.ipynb": {
+    "migration.html": "e195ee52"
+  },
+  "posts/ict-infra-subsidies-analysis/index.qmd": {
+    "index.html": "aefe1b06"
+  },
+  "posts/refefo-potential-to-enhance-productive-connectivity/index.qmd": {
+    "index.html": "4a764a85"
+  },
+  "lib/python3.11/site-packages/cffi/recompiler.py": {
+    "recompiler.html": "cd5a6fd3"
+  },
+  "lib/python3.11/site-packages/pandas/tests/indexes/period/test_constructors.py": {
+    "test_constructors.html": "6fbb53a0"
+  },
+  "lib/python3.11/site-packages/pandas/tests/indexes/period/test_indexing.py": {
+    "test_indexing.html": "67091a11"
+  },
+  "lib/python3.11/site-packages/pandas/tests/indexes/datetimes/test_indexing.py": {
+    "test_indexing.html": "42845d30"
+  },
+  "posts/ict-infra-subsidies-analysis/etl.ipynb": {
+    "etl.html": "e0a5b803"
+  },
+  "posts/on-regulatory-simplification/index.qmd": {
+    "index.html": "177c3329"
   }
 }
