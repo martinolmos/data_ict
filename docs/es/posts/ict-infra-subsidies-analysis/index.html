@@ -211,7 +211,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>En este post, voy a hacer un pequeño análisis exploratorio de los algunos datos de los dos programas más importantes del FFSU: el <a href="https://enacom.gob.ar/programa-conectividad_p4875">Programa Conectividad</a> y el <a href="https://enacom.gob.ar/programa-barrios-populares_p4615">Programa Barrios Populares</a>. El análisis abarco los años entre 2020 y 2023, para los cuales se cuenta con datos. Los datos fueron extraídos de las Actas de Directorio del Ente Nacional de Comunicaciones (ENACOM), que se publican en PDF en la página web del organismo.</p>
 <section id="programa-conectividad" class="level2">
 <h2 class="anchored" data-anchor-id="programa-conectividad">Programa Conectividad</h2>
-<div id="c686b1df" class="cell" data-execution_count="1">
+<div id="00d322c6" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Me conecto a la base de datos y leo la tabla del Programa Conectividad</span></span>
@@ -235,8 +235,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>anr_prog_con <span class="op">=</span> pd.read_sql_table(table_name<span class="op">=</span><span class="st">"conectividad_aprob_georef"</span>, con<span class="op">=</span>engine)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<p>La <a href="#fig-prog-con-prov" class="quarto-xref">Figura&nbsp;1</a> muestra la cantidad de ANRs del Programa Conectividad aprobados por provincia, entre 2020 y 2023.</p>
-<div id="0eb09657" class="cell" data-execution_count="2">
+<p>La <a href="#fig-prog-con-prov" class="quarto-xref">Figura&nbsp;1</a> muestra la cantidad de localidades beneficiarias de ANRs del Programa Conectividad aprobados por provincia, entre 2020 y 2023.</p>
+<div id="eeec95b3" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -254,12 +254,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <img src="./prog_con_prov.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-prog-con-prov-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figura&nbsp;1: Cantidad de ANRs del Prog. Conectividad aprobados por provincia
+Figura&nbsp;1: Localidades beneficiarias de ANRs del Prog. Conectividad por provincia
 </figcaption>
 </figure>
 </div>
-<p>La <a href="#fig-prog-con-anio" class="quarto-xref">Figura&nbsp;2</a> muestra la cantidad de ANRs del Programa Conectividad aprobados por año.</p>
-<div id="95001472" class="cell" data-execution_count="3">
+<p>La <a href="#fig-prog-con-anio" class="quarto-xref">Figura&nbsp;2</a> muestra la cantidad de localidades beneficiarias de ANRs del Programa Conectividad por año.</p>
+<div id="9ef88f0e" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>anr_prog_con[<span class="st">'anio'</span>] <span class="op">=</span> anr_prog_con[<span class="st">'fecha'</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: x.strip().split(<span class="st">' '</span>)[<span class="dv">1</span>] <span class="cf">if</span> <span class="bu">len</span>(x.split(<span class="st">' '</span>)) <span class="op">&gt;</span> <span class="dv">1</span> <span class="cf">else</span> <span class="va">None</span>)</span>
@@ -277,12 +277,12 @@ Figura&nbsp;1: Cantidad de ANRs del Prog. Conectividad aprobados por provincia
 <img src="./prog_con_anio.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-prog-con-anio-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figura&nbsp;2: Cantidad de ANRs del Prog. Conectividad aprobados por año
+Figura&nbsp;2: Localidades beneficiarias de ANRs del Prog. Conectividad por año
 </figcaption>
 </figure>
 </div>
-<p>La <a href="#fig-prog-con-prov-anio" class="quarto-xref">Figura&nbsp;3</a> muestra la cantidad de ANRs del Programa Conectividad aprobados por año y provincia.</p>
-<div id="de709137" class="cell" data-execution_count="4">
+<p>La <a href="#fig-prog-con-prov-anio" class="quarto-xref">Figura&nbsp;3</a> muestra la cantidad de localidades beneficiarias de ANRs del Programa Conectividad por año y provincia.</p>
+<div id="501c8bcd" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> textwrap</span>
@@ -304,14 +304,14 @@ Figura&nbsp;2: Cantidad de ANRs del Prog. Conectividad aprobados por año
 <img src="./prog_con_anio_prov.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-prog-con-prov-anio-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figura&nbsp;3: Cantidad de ANRs del Prog. Conectividad aprobados por año y provincia
+Figura&nbsp;3: Localidades beneficiarias de ANRs del Prog. Conectividad por año y provincia
 </figcaption>
 </figure>
 </div>
 </section>
 <section id="programa-barrios-populares" class="level2">
 <h2 class="anchored" data-anchor-id="programa-barrios-populares">Programa Barrios Populares</h2>
-<div id="06f2cf8d" class="cell" data-execution_count="5">
+<div id="0eddcd7b" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Me conecto a la base de datos y leo la tabla del Programa Barrios Populares</span></span>
@@ -322,8 +322,8 @@ Figura&nbsp;3: Cantidad de ANRs del Prog. Conectividad aprobados por año y prov
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>anr_prog_renabap <span class="op">=</span> gpd.read_postgis(<span class="st">"SELECT * FROM renabap_aprob"</span>, con<span class="op">=</span>engine, geom_col<span class="op">=</span><span class="st">"geometry"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<p>La <a href="#fig-prog-renabap-prov" class="quarto-xref">Figura&nbsp;4</a> muestra la cantidad de ANRs del Programa Barrios Populares aprobados por provincia, entre 2021, año en que comienza la ejecución del programa, y 2023.</p>
-<div id="dae495eb" class="cell" data-execution_count="6">
+<p>La <a href="#fig-prog-renabap-prov" class="quarto-xref">Figura&nbsp;4</a> muestra la cantidad de barrios beneficiados por ANRs del Programa Barrios Populares por provincia, entre 2021, año en que comienza la ejecución del programa, y 2023.</p>
+<div id="2b636219" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -341,12 +341,12 @@ Figura&nbsp;3: Cantidad de ANRs del Prog. Conectividad aprobados por año y prov
 <img src="./prog_renabap_prov.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-prog-renabap-prov-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figura&nbsp;4: Cantidad de ANRs del Prog. Barrios Populares aprobados por provincia
+Figura&nbsp;4: Barrios beneficiados con ANRs del Prog. Barrios Populares por provincia
 </figcaption>
 </figure>
 </div>
-<p>La <a href="#fig-prog-renabap-anio" class="quarto-xref">Figura&nbsp;5</a> muestra la cantidad de ANRs del Programa Barrios Populares aprobados por año.</p>
-<div id="9cb4de44" class="cell" data-execution_count="7">
+<p>La <a href="#fig-prog-renabap-anio" class="quarto-xref">Figura&nbsp;5</a> muestra la cantidad de barrios beneficiados con ANRs del Programa Barrios Populares por año.</p>
+<div id="2101f691" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>anr_prog_renabap[<span class="st">'anio'</span>] <span class="op">=</span> anr_prog_renabap[<span class="st">'fecha'</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: x.strip().split(<span class="st">' '</span>)[<span class="dv">1</span>] <span class="cf">if</span> <span class="bu">len</span>(x.split(<span class="st">' '</span>)) <span class="op">&gt;</span> <span class="dv">1</span> <span class="cf">else</span> <span class="va">None</span>)</span>
@@ -364,12 +364,12 @@ Figura&nbsp;4: Cantidad de ANRs del Prog. Barrios Populares aprobados por provin
 <img src="./prog_renabap_anio.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-prog-renabap-anio-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figura&nbsp;5: Cantidad de ANRs del Prog. Barrios Populares aprobados por año
+Figura&nbsp;5: Barrios beneficiados con ANRs del Prog. Barrios Populares aprobados por año
 </figcaption>
 </figure>
 </div>
-<p>La <a href="#fig-prog-renabap-anio-prov" class="quarto-xref">Figura&nbsp;6</a> muestra la cantidad de ANRs del Programa Barrios Populares aprobados por año y provincia.</p>
-<div id="65df8ac3" class="cell" data-execution_count="8">
+<p>La <a href="#fig-prog-renabap-anio-prov" class="quarto-xref">Figura&nbsp;6</a> muestra la cantidad de barrios beneficiados por ANRs del Programa Barrios Populares por año y provincia.</p>
+<div id="b3968d5f" class="cell" data-execution_count="8">
 <details class="code-fold">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> textwrap</span>
@@ -391,10 +391,11 @@ Figura&nbsp;5: Cantidad de ANRs del Prog. Barrios Populares aprobados por año
 <img src="./prog_renabap_anio_prov.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-prog-renabap-anio-prov-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figura&nbsp;6: Cantidad de ANRs del Prog. Barrios Populares aprobados por año y provincia
+Figura&nbsp;6: Barrios beneficiados por ANRs del Prog. Barrios Populares aprobados por año y provincia
 </figcaption>
 </figure>
 </div>
+<p>Mas allá de estos gráficos sobre la cantidad de localidades y barrios vulnerables beneficiados sería interesante hacer un análisis sobre el impacto de estos programas en la conectividad de las poblaciones beneficiarias. Intentaremos aproximarnos a esta cuestión en un próximo post.</p>
 
 
 </section>
