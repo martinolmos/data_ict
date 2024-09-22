@@ -8,7 +8,7 @@
 
 <meta name="author" content="Martin Olmos">
 
-<title>Datos y TICs - On Regulatory Simplification</title>
+<title>Datos y TICs - STEM Book Recommendations</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,40 +20,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -158,11 +124,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">On Regulatory Simplification</h1>
-            <p class="subtitle lead">Sobre Simplificación Regulatoria</p>
+      <h1 class="title">STEM Book Recommendations</h1>
+            <p class="subtitle lead">Recomendaciones de libros STEM</p>
                                 <div class="quarto-categories">
-                <div class="quarto-category">Análisis de Grafos</div>
-                <div class="quarto-category">Graph Analysis</div>
+                <div class="quarto-category">Libros</div>
+                <div class="quarto-category">Books</div>
+                <div class="quarto-category">STEM</div>
               </div>
                   </div>
   </div>
@@ -180,7 +147,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div>
       <div class="quarto-title-meta-heading">Fecha de publicación</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">24 de julio de 2024</p>
+        <p class="date">22 de septiembre de 2024</p>
       </div>
     </div>
     
@@ -201,99 +168,36 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<p>En el último <a href="https://internetday.com.ar/day/">Internet Day</a>, organizado por la Cámara Argentina de Internet (CABASE) los pasados 17 y 18 de mayo, uno de los temas que se discutió fue sobre simplificación regulatoria. Cómo podemos acercarnos a esta cuestión desde el análisis de datos? Una forma es a través del <a href="https://es.wikipedia.org/wiki/Teoría_de_grafos">análisis de grafos</a>.</p>
-<p>De acuerdo al Ente Nacional de Comunicaciones (ENACOM), existen 357 <a href="https://www.enacom.gob.ar/normativas/grupos">normas fundamentales</a> que regulan al sector de las TIC en Argentina. Por otro lado, Infoleg, el sistema de información normativa y documental de la República Argentina, publica en formato abierto datos sobre la totalidad de las normas vigentes en el país en tres conjuntos de datos: una base de normas, una base de normas modificadas y una base de normas modificatorias (aquí normas modificatorias y modificadas son consideradas en sentido amplio, es decir, incluyen normas complementarias, reglamentarias, etc.).</p>
-<p>Pero qué tiene que ver esto con la teoría de grafos? Un grafo es una estructura de datos consistente en un conjunto de nodos y un conjunto de aristas que los conectan. Estas aristas pueden ser dirigidas (aquellas donde la relación va en un sentido pero no en el otro) o no dirigidas (aquellas donde la relación va en ambos sentidos). En el caso de las normas, podemos pensar en un grafo donde los nodos son las normas y las aristas son las relaciones entre ellas.</p>
-<p>En primer lugar, voy a leer los datos y cargarlos en una base de datos Neo4j, que es una base de datos de grafos.</p>
-<div id="403e4150" class="cell" data-execution_count="1">
-<details class="code-fold">
-<summary>Código</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> neo4j <span class="im">import</span> GraphDatabase</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>normas_fundamentales_tic <span class="op">=</span> pd.read_csv(<span class="st">"normas_fundamentales_tic.csv"</span>)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>normas_modificatorias_tic <span class="op">=</span> pd.read_csv(<span class="st">"normas_modificatorias_tic.csv"</span>)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Configurar la conexión a Neo4j</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>uri <span class="op">=</span> <span class="st">"bolt://localhost:7687"</span>  <span class="co"># Ajusta según la configuración de tu Neo4j</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>username <span class="op">=</span> os.getenv(<span class="st">"NEO4J_USER"</span>)</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>password <span class="op">=</span> os.getenv(<span class="st">"NEO4J_PASS"</span>)</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>driver <span class="op">=</span> GraphDatabase.driver(uri, auth<span class="op">=</span>(username, password))</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> create_nodes_and_relationships(tx, normas_fundamentales_tic, normas_modificatorias_tic):</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Crear nodos para normas fundamentales</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> index, row <span class="kw">in</span> normas_fundamentales_tic.iterrows():</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>        tx.run(<span class="st">"MERGE (n:Norma {id: $id, titulo: $titulo, grupo: $grupo, link: $link, notas: $notas, tipo: 'fundamental', boletin_oficial: $boletin_oficial})"</span>,</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>               <span class="bu">id</span><span class="op">=</span>row[<span class="st">'id_norma'</span>], titulo<span class="op">=</span>row[<span class="st">'norma'</span>], grupo<span class="op">=</span>row[<span class="st">'grupo'</span>], link<span class="op">=</span>row[<span class="st">'link'</span>], notas<span class="op">=</span>row[<span class="st">'notas'</span>], boletin_oficial<span class="op">=</span>row[<span class="st">'boletin_oficial'</span>])</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Crear relaciones "modifica a" o "es modificada por"</span></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> index, row <span class="kw">in</span> normas_modificatorias_tic.iterrows():</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>        tx.run(<span class="st">"""</span></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="st">        MATCH (a:Norma {id: $id_modificatoria}), (b:Norma {id: $id_modificada})</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="st">        MERGE (a)-[:MODIFICA_A]-&gt;(b)</span></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="st">        """</span>, id_modificatoria<span class="op">=</span>row[<span class="st">'id_norma_modificatoria'</span>], id_modificada<span class="op">=</span>row[<span class="st">'id_norma_modificada'</span>])</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejecutar la función en una sesión</span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> driver.session() <span class="im">as</span> session:</span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>    session.execute_write(create_nodes_and_relationships, normas_fundamentales_tic, normas_modificatorias_tic)</span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>driver.close()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-<p>Veamos ahora cómo se ve el grafo.</p>
-<p>La <a href="#fig-grafo-normas" class="quarto-xref">Figura&nbsp;1</a> muestra el grafo de las normas fundamentales y modificatorias del sector TIC en Argentina. La <a href="#fig-grafo-normas-zoom" class="quarto-xref">Figura&nbsp;2</a> es un zoom de una parte del grafo para poder visualizar mejor las relaciones entre las normas.</p>
-<p>Pero qué podemos hacer con este grafo? Qué preguntas interesantes podemos responder?</p>
-<div id="fig-grafo-normas" class="quarto-figure quarto-figure-center quarto-float anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-grafo-normas-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="grafo_normas.png" class="img-fluid figure-img">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-grafo-normas-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figura&nbsp;1: Grafo de normas fundamentales y modificatorias
-</figcaption>
-</figure>
-</div>
-<div id="fig-grafo-normas-zoom" class="quarto-figure quarto-figure-center quarto-float anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-grafo-normas-zoom-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="grafo_normas_zoom.png" class="img-fluid figure-img">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-grafo-normas-zoom-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figura&nbsp;2: Zoom al grafo de normas fundamentales y modificatorias
-</figcaption>
-</figure>
-</div>
-<p>Una pregunta interesante podría ser: cuáles son las 10 normas fundamentales que más fueron modificadas o complementadas por otras normas?</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Nota
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><em>Neo4j utiliza un lenguaje de consultas que se llama <code>Cypher</code>. La pregunta anterior se puede responder con la consulta de Cypher que se muestra a continuación.</em></p>
-</div>
-</div>
-<pre><code>MATCH (n:Norma)-[:MODIFICA_A]-&gt;(m)
-RETURN m.titulo, COUNT(n) AS num_modificaciones
-ORDER BY num_modificaciones DESC
-LIMIT 10</code></pre>
-<div id="fig-normas-mas-modificadas" class="quarto-figure quarto-figure-center quarto-float anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-normas-mas-modificadas-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="normas_mas_modificadas.png" class="img-fluid figure-img">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-normas-mas-modificadas-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figura&nbsp;3: Tabla de normas fundamentales que más fueron modificadas o complementadas
-</figcaption>
-</figure>
-</div>
-<p>Aquí el ranking lo encabezan el Decreto 764/2000, la Ley Argentina Digital, el Decreto 267/2015 que, entre otras cosas, creó el ENACOM, y la Ley de Servicios de Comunicación Audiovisual.</p>
+<p>Recomendaciones de libros STEM que me gustaron (sin ningún orden en particular)</p>
+<ol type="1">
+<li><p><strong>“The Innovators” - Walter Isaacson</strong><br>
+<img src="walter_isaacson_the_innovators.png" class="img-fluid" style="width:50.0%" alt="The Innovators"><br>
+Este libro explora las vidas y contribuciones de los pioneros detrás de las grandes innovaciones tecnológicas del último siglo. Desde Ada Lovelace hasta los creadores de la web, Isaacson traza una línea clara entre la colaboración humana y los avances tecnológicos. Es una lectura imprescindible para quienes buscan entender cómo la interacción entre ciencia y creatividad ha dado forma a la era digital actual. <strong>Recomendado</strong> para quienes deseen una inmersión en la historia de la tecnología.</p></li>
+<li><p><strong>“A Brief History of Artificial Intelligence” - Michael Wooldridge</strong><br>
+<img src="michael_wooldridge_a_brief_history_of_ai.png" class="img-fluid" style="width:50.0%" alt="A Brief History of Artificial Intelligence"><br>
+Wooldridge ofrece una visión accesible y bien fundamentada sobre la evolución de la IA, desde sus inicios en la década de 1950 hasta los desarrollos más recientes. Es una excelente introducción para quienes buscan un enfoque académico pero accesible sobre la historia y las implicancias éticas de la inteligencia artificial. <strong>Recomendado</strong> para cualquier interesado en cómo la IA ha llegado a donde está hoy.</p></li>
+<li><p><strong>“A Brief History of Time” - Stephen W. Hawking</strong><br>
+<img src="stephen_hawking_a_brief_history_of_time.png" class="img-fluid" style="width:50.0%" alt="A Brief History of Time"><br>
+Un clásico de la divulgación científica, este libro de Hawking plantea algunas de las preguntas más fundamentales sobre el universo: desde la naturaleza del tiempo hasta la posibilidad de universos paralelos. Aunque es conocido por su complejidad, Hawking logra presentar conceptos difíciles de una forma comprensible para el lector promedio. <strong>Altamente recomendado</strong> para quienes buscan expandir su comprensión del cosmos.</p></li>
+<li><p><strong>“Weapons of Math Destruction” - Cathy O’Neil</strong><br>
+<img src="cathy_oneil_weapons_of_math_destruction.png" class="img-fluid" style="width:50.0%" alt="Weapons of Math Destruction"><br>
+En este libro, O’Neal analiza el lado oscuro de los algoritmos y cómo, lejos de ser neutrales, pueden exacerbar las desigualdades sociales y económicas. Su crítica apunta a sistemas que impactan negativamente en sectores como la educación, las finanzas y la justicia penal. <strong>Recomendado</strong> para quienes están interesados en la ética de los algoritmos y el impacto social de la tecnología.</p></li>
+<li><p><strong>“Permanent Record” - Edward Snowden</strong><br>
+<img src="edward_snowden_permanent_record.png" class="img-fluid" style="width:50.0%" alt="Permanent Record"><br>
+Un relato fascinante desde la perspectiva de Snowden, el famoso denunciante que expuso el programa de vigilancia masiva del gobierno de EE.UU. El libro explora cuestiones clave sobre la privacidad, la seguridad digital y el poder gubernamental. <strong>Recomendado</strong> para quienes desean una visión crítica y personal de los temas contemporáneos de ciberseguridad y privacidad.</p></li>
+<li><p><strong>“The Idea Factory” - Jon Gertner</strong><br>
+<img src="jon_gertner_the_idea_factory.png" class="img-fluid" style="width:50.0%" alt="The Idea Factory"><br>
+Gertner detalla la historia del laboratorio Bell Labs, el lugar donde se inventaron algunas de las tecnologías más revolucionarias del siglo XX, como el transistor y la fibra óptica. El libro destaca cómo el entorno de colaboración fue clave para estos avances. <strong>Recomendado</strong> para quienes estén interesados en la historia de la innovación tecnológica.</p></li>
+<li><p><strong>“A Mind at Play” - Jimmy Soni</strong><br>
+<img src="jimmy_soni_a_mind_at_play.png" class="img-fluid" style="width:50.0%" alt="A Mind at Play"><br>
+Esta biografía de Claude Shannon, el padre de la teoría de la información, ofrece un relato fascinante sobre uno de los intelectuales más influyentes del siglo XX. Shannon no solo cambió la forma en que entendemos la información, sino que sentó las bases para la revolución digital. <strong>Recomendado</strong> para aquellos interesados en los orígenes de la teoría de la información y su impacto actual.</p></li>
+<li><p><strong>“Everybody Lies” - Seth Stephens-Davidowitz</strong><br>
+<img src="seth_stephens_everybody_lies.png" class="img-fluid" style="width:50.0%" alt="Everybody Lies"><br>
+Stephens-Davidowitz utiliza los datos masivos (big data) para revelar cómo las búsquedas en Google y otras fuentes online pueden mostrar lo que realmente piensan y sienten las personas. Es una lectura provocadora que desafía nuestras nociones sobre la privacidad, los prejuicios y el comportamiento humano. <strong>Recomendado</strong> para quienes buscan una mirada innovadora al uso de datos en la sociedad actual.</p></li>
+<li><p><strong>“Fermat’s Last Theorem” - Simon Singh</strong><br>
+<img src="simon_singh_fermats_last_theorem.png" class="img-fluid" style="width:50.0%" alt="Fermat’s Last Theorem"><br>
+Un clásico de la divulgación matemática, este libro narra la resolución del problema que mantuvo en vilo a los matemáticos durante siglos. Singh convierte esta historia en un apasionante thriller académico que combina historia, matemáticas y un desafío intelectual. <strong>Recomendado</strong> para aficionados a las matemáticas y a quienes disfrutan de las historias de superación intelectual.</p></li>
+</ol>
 
 
 

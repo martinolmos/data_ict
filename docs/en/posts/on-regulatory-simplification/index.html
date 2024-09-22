@@ -206,7 +206,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>According to the National Communications Entity (ENACOM), there are 357 <a href="https://www.enacom.gob.ar/normativas/grupos">fundamental regulations</a> that regulate the ICT sector in Argentina. On the other hand, Infoleg, the normative and documentary information system of the Argentine Republic, publishes in open format data on all the regulations in force in the country in three data sets: a base of regulations, a base of modified regulations, and a base of modifying regulations (here modifying and modified regulations are considered in a broad sense, that is, they include complementary regulations).</p>
 <p>But what does this have to do with graph theory? A graph is a data structure consisting of a set of nodes and a set of edges that connect them. These edges can be directed (those where the relationship goes in one direction but not the other) or undirected (those where the relationship goes in both directions). In the case of regulations, we can think of a graph where the nodes are the regulations and the edges are the relationships between them.</p>
 <p>First, I will read the data and load it into a Neo4j database, which is a graph database.</p>
-<div id="c5be03d2" class="cell" data-execution_count="1">
+<div id="403e4150" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -267,6 +267,19 @@ Figure&nbsp;2: Zoom al grafo de normas fundamentales y modificatorias
 </figure>
 </div>
 <p>An interesting question could be: what are the 10 fundamental regulations that have been modified or complemented the most by other regulations?</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><em>Neo4j uses a query language called <code>Cypher</code>. The previous question can be answered with the Cypher query shown below.</em></p>
+</div>
+</div>
 <pre><code>MATCH (n:Norma)-[:MODIFICA_A]-&gt;(m)
 RETURN m.titulo, COUNT(n) AS num_modificaciones
 ORDER BY num_modificaciones DESC

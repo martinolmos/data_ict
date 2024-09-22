@@ -100,17 +100,31 @@ But what can we do with this graph? What interesting questions can we answer?
 
 ![Zoom al grafo de normas fundamentales y modificatorias](grafo_normas_zoom.png){#fig-grafo-normas-zoom}
 
-::: {.content-visible when-profile="spanish"}
+:::: {.content-visible when-profile="spanish"}
 
 Una pregunta interesante podría ser: cuáles son las 10 normas fundamentales que más fueron modificadas o complementadas por otras normas?
 
+::: {.callout-note}
+
+*Neo4j utiliza un lenguaje de consultas que se llama `Cypher`. La pregunta anterior se puede responder con la consulta de Cypher que se muestra a continuación.*
+
 :::
 
-::: {.content-visible when-profile="english"}
+::::
+
+:::: {.content-visible when-profile="english"}
 
 An interesting question could be: what are the 10 fundamental regulations that have been modified or complemented the most by other regulations?
 
+::: {.callout-note}
+
+*Neo4j uses a query language called `Cypher`. The previous question can be answered with the Cypher query shown below.*
+
 :::
+
+::::
+
+
 
 ```
 MATCH (n:Norma)-[:MODIFICA_A]->(m)
