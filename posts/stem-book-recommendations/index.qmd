@@ -4,7 +4,7 @@ subtitle: "Recomendaciones de libros STEM"
 format: 
     html: 
         code-fold: true
-draft: true
+draft: false
 author: "Martin Olmos"
 date: "2024-09-22"
 categories:
