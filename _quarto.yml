@@ -3,5 +3,11 @@ project:
   output-dir: docs
 
 profile:
-  default: english
+  default: spanish
   group: [english, spanish]
+
+website:
+  comments: 
+    hypothesis:
+      theme: clean
+      openSidebar: false

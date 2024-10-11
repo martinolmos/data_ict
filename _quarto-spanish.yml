@@ -17,6 +17,8 @@ website:
         href: https://github.com/martinolmos
       - icon: twitter
         href: https://twitter.com/martin_olmos_
+      - icon: rss
+        href: index.xml
 
 lang: es
 

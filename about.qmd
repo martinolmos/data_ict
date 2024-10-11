@@ -29,9 +29,27 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 from datetime import datetime
 import matplotlib.patches as mpatches
+from datetime import date
+
+today = date.today().strftime("%d/%m/%Y")
 
 # Activity data
 fechas = [
+    ("01/09/2024", today, "CAF: Ejecutivo Principal de la Dirección de Transformación Digital", "Experiencia profesional"),
+    ("01/09/2023", "01/05/2024", "BID: Consultor en Ciencia de Datos y TICs", "Experiencia profesional"),
+    ("01/03/2023", "31/12/2023", "BNMC: Consultor asociado", "Experiencia profesional"),
+    ("01/02/2023", "01/03/2024", "CAF: Consultor en Ciencia de Datos y TICs", "Experiencia profesional"),
+    ("01/07/2022", "01/12/2023", "UNSAM: Docente en Gobierno Abierto y Nuevas Tecnologías", "Actividad docente"),
+    ("01/06/2021", "31/12/2023", "PELI: Docente en Nuevas Tecnologías", "Actividad docente"),
+    ("01/04/2023", "31/12/2023", "ITBA: Maestría en Ciencia de Datos", "Formación académica"),
+    ("20/12/2019", "11/03/2022", "Subsecretario de TICs", "Experiencia profesional"),
+    ("01/08/2018", "31/07/2019", "ITBA: Especialización en Ciencia de Datos", "Formación académica"),
+    ("01/07/2018", "01/11/2019", "SUBE: Consultor en Ciencia de Datos", "Experiencia profesional"),
+    ("01/08/2018", "01/06/2019", "Muni San Miguel: Consultor en Ciencia de Datos", "Experiencia profesional"),
+    ("01/02/2018", "01/08/2018", "OPDS: Consultor en Ciencia de Datos", "Experiencia profesional"),
+    ("01/04/2017", "01/11/2019", "iCiudad: Director Ejecutivo", "Experiencia profesional"),
+    ("01/05/2015", "01/12/2016", "CAF: Consultor en Ciencia de Datos", "Experiencia profesional"),
+    ("14/01/2015", "10/10/2016", "GWU: Master in Public Policy
     ("01/09/2023", "31/01/2024", "BID: Consultor en Ciencia de Datos y TICs", "Experiencia profesional"),
     ("01/03/2023", "31/01/2024", "BNMC: Consultor asociado", "Experiencia profesional"),
     ("01/02/2023", "31/01/2024", "CAF: Consultor en Ciencia de Datos y TICs", "Experiencia profesional"),
@@ -93,11 +111,11 @@ plt.show()
 
 
 
-Soy licenciado en Ciencias Políticas (UCA), Magister en Políticas Públicas (George Washington University), Especialista y Maestrando en Ciencia de Datos (ITBA).
+Soy licenciado en Ciencias Políticas (UCA), Magister en Políticas Públicas (George Washington University), Especialista y Maestrando en Ciencia de Datos (ITBA). 
 
 ### **FORMACIÓN ACADÉMICA**
 
-***2022    MAESTRÍA EN CIENCIA DE DATOS***  
+***2023    MAESTRÍA EN CIENCIA DE DATOS***  
 (Tesis en elaboración)  
 Instituto Tecnológico de Buenos Aires (ITBA)
 
@@ -114,20 +132,19 @@ Facultad de Ciencias Políticas y Relaciones Internacionales. Pontificia Univers
 
 ### **ANTECEDENTES PROFESIONALES Y DOCENTES**
 
-***9/2023- actualidad BANCO INTERAMERICANO DE DESARROLLO***
+***9/2023- 4/2024 BANCO INTERAMERICANO DE DESARROLLO***
 Responsabilidad: Consultor en Ciencia de Datos y TICs
 
-***3/2023- actualidad BLUENOTE MANAGEMENT CONSULTING***
+***3/2023- 12/2023 BLUENOTE MANAGEMENT CONSULTING***
 Responsabilidad: Consultor asociado
 
-***2/2023- actualidad CAF BANCO DE DESARROLLO DE AMÉRICA LATINA Y EL CARIBE***
+***2/2023- 2/2024 CAF BANCO DE DESARROLLO DE AMÉRICA LATINA Y EL CARIBE***
 Responsabilidad: Consultor en Ciencia de Datos y TICs
 
-***7/2022- actualidad  DIPLOMATURA EN GESTIÓN DE CIUDADES - ESCUELA DE ECONOMÍA Y NEGOCIOS – UNIVERSIDAD NACIONAL DE SAN MARTÍN***  
+***7/2022- 12/2023  DIPLOMATURA EN GESTIÓN DE CIUDADES - ESCUELA DE ECONOMÍA Y NEGOCIOS – UNIVERSIDAD NACIONAL DE SAN MARTÍN***  
 Responsabilidad: Docente en Gobierno Abierto y Nuevas Tecnologías
 
-***12/2019-03/2022 SUBSECRETARIO DE TECNOLOGÍAS DE LA INFORMACIÓN Y LAS  
-         COMUNICACIONES DE LA JEFATURA DE MINISTROS DE LA NACIÓN***
+***12/2019-03/2022 SUBSECRETARIO DE TECNOLOGÍAS DE LA INFORMACIÓN Y LAS  COMUNICACIONES DE LA JEFATURA DE MINISTROS DE LA NACIÓN***
 
 ***6/2021-9/2021   PROGRAMA EJECUTIVO EN LIDERAZGO INNOVADOR – OEI, ILES, SECRETARÍA DE ASUNTOS ESTRATÉGICOS DE LA REPÚBLICA ARGENTINA***  
 Responsabilidad: Docente en Nuevas Tecnologías
@@ -265,13 +282,16 @@ import matplotlib.dates as mdates
 from datetime import datetime
 import matplotlib.patches as mpatches
 
+today = date.today().strftime("%d/%m/%Y")
+
 # Activity data
 fechas = [
-    ("01/09/2023", "31/01/2024", "IDB: Data Science and ICT Consultant", "Professional Experience"),
-    ("01/03/2023", "31/01/2024", "BNMC: Associate Consultant", "Professional Experience"),
-    ("01/02/2023", "31/01/2024", "CAF: Data Science and ICT Consultant", "Professional Experience"),
-    ("01/07/2022", "31/01/2024", "UNSAM: Instructor in Open Government and New Technologies", "Teaching Activity"),
-    ("01/06/2021", "31/01/2024", "PELI: Instructor in New Technologies", "Teaching Activity"),
+    ("01/09/2024", today, "CAF: Main Executive at the Digital Transformation Department", "Professional Experience"),
+    ("01/09/2023", "01/05/2024", "IDB: Data Science and ICT Consultant", "Professional Experience"),
+    ("01/03/2023", "31/12/2023", "BNMC: Associate Consultant", "Professional Experience"),
+    ("01/02/2023", "01/03/2024", "CAF: Data Science and ICT Consultant", "Professional Experience"),
+    ("01/07/2022", "01/12/2023", "UNSAM: Instructor in Open Government and New Technologies", "Teaching Activity"),
+    ("01/06/2021", "31/12/2023", "PELI: Instructor in New Technologies", "Teaching Activity"),
     ("01/04/2023", "31/01/2024", "ITBA: Master's in Data Science", "Academic Training"),
     ("20/12/2019", "11/03/2022", "Deputy Secretary of ICTs", "Professional Experience"),
     ("01/08/2018", "31/07/2019", "ITBA: Specialization in Data Science", "Academic Training"),
@@ -330,7 +350,7 @@ I have a degree in Political Science (Universidad Católica Argentina - UCA), a 
 
 ### **EDUCATION**
 
-***2022    MASTER IN DATA SCIENCE***  
+***2023    MASTER IN DATA SCIENCE***  
 (Thesis in progress)
 Instituto Tecnológico de Buenos Aires (ITBA)
 
@@ -347,16 +367,19 @@ Facultad de Ciencias Políticas y Relaciones Internacionales. Pontificia Univers
 
 ### **PROFESIONAL AND TEACHING BACKGROUND**
 
-***9/2023- present day INTER-AMERICAN DEVELOPMENT BANK***  
+***9/2024- present day CAF LATIN AMERICAN DEVELOPMENT BANK***
+Responsibility: Main Executive at the Digital Transformation Department
+
+***9/2023- 4/2024 INTER-AMERICAN DEVELOPMENT BANK***  
 Responsibility: Consultant on Data Science and ICTs
 
-***3/2023- present day BLUENOTE MANAGEMENT CONSULTING***  
+***3/2023- 12/2023 BLUENOTE MANAGEMENT CONSULTING***  
 Responsibility: Associate Consultant
 
-***2/2023- present day CAF LATIN AMERICAN DEVELOPMENT BANK***  
+***2/2023- 2/2024 CAF LATIN AMERICAN DEVELOPMENT BANK***  
 Responsibility: Consultant on Data Science and ICTs
 
-***7/2022- present day  DIPLOMA ON CITY MANAGEMENT - ESCUELA DE ECONOMÍA Y NEGOCIOS – UNIVERSIDAD NACIONAL DE SAN MARTÍN***  
+***7/2022- 12/2023  DIPLOMA ON CITY MANAGEMENT - ESCUELA DE ECONOMÍA Y NEGOCIOS – UNIVERSIDAD NACIONAL DE SAN MARTÍN***  
 Responsibility: Professor on Open Government and New Technologies
 
 ***12/2019-03/2022 UNDERSECRETARY OF INFORMATION AND COMMUNICATIONS TECHNOLOGIES OF THE CHIEF OF CABINET OF ARGENTINA***
