@@ -7,6 +7,7 @@ profile:
   group: [english, spanish]
 
 website:
+  site-url: "https://martinolmos.github.io/data-icts/es"
   comments: 
     hypothesis:
       theme: clean
