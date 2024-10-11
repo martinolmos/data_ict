@@ -1,0 +1,102 @@
+---
+title: "STEM Movie Recommendations"
+subtitle: "Recomendaciones de películas STEM"
+format: 
+    html: 
+        code-fold: true
+draft: false
+author: "Martin Olmos"
+date: "2024-09-30"
+categories:
+    - "Películas"
+    - "Movies"
+    - "Series"
+    - "STEM"
+execute: 
+  warning: false
+  eval: false
+---
+
+::: {.content-visible when-profile="spanish"}
+
+Breve reseña y recomendación de películas y series STEM, sin orden particular:
+
+1. **El Código Enigma - The Imitation Game**  
+   Esta película biográfica cuenta la vida de Alan Turing, el matemático británico que descifró el código Enigma durante la Segunda Guerra Mundial. Es un retrato conmovedor de una mente brillante pero incomprendida, destacando la importancia del trabajo de Turing para la informática moderna. **Recomendada** para aquellos interesados en la historia de la criptografía y los inicios de la inteligencia artificial.
+
+2. **The Playlist**  
+   Esta serie sigue la historia de Spotify y cómo revolucionó la industria musical. Muestra el conflicto entre innovación tecnológica y las viejas estructuras de poder en la industria. **Recomendada** para quienes estén interesados en el impacto de las plataformas tecnológicas en la cultura y los negocios.
+
+3. **El Código de la Discordia - The Billion Dollar Code**  
+   Esta miniserie basada en hechos reales cuenta la lucha legal de dos programadores alemanes contra Google por los derechos de patente de lo que se convirtió en Google Earth. Un drama judicial sobre innovación, propiedad intelectual y justicia en la era digital. **Recomendada** para quienes disfrutan de historias sobre startups y grandes corporaciones tecnológicas.
+
+4. **Blackberry**  
+   Esta película sigue el ascenso y caída de Blackberry, una de las compañías pioneras en el desarrollo de smartphones. Es una mirada fascinante al vertiginoso mundo de la tecnología y cómo la innovación, y la falta de adaptación, puede hacer o deshacer una empresa. **Recomendada** para los interesados en la historia de la tecnología móvil y el auge de los dispositivos personales.
+
+5. **La Teoría del Todo - The Theory of Everything**  
+   Este biopic sobre Stephen Hawking narra su vida personal y profesional, enfocándose en su lucha contra la enfermedad de Lou Gehrig mientras desarrolla teorías revolucionarias sobre el universo. Una película conmovedora y visualmente impresionante. **Altamente recomendada** para quienes buscan un relato inspirador sobre la ciencia y la superación personal.
+
+6. **El hombre que conocía el infinito - The Man Who Knew Infinity**  
+   La película retrata la vida de Srinivasa Ramanujan, un prodigio matemático autodidacta que viaja de la India a Cambridge para colaborar con el matemático G.H. Hardy. Es un homenaje a la perseverancia intelectual y al genio que rompe barreras culturales y académicas. **Recomendada** para quienes disfrutan de las historias biográficas sobre genios matemáticos.
+
+7. **Oppenheimer**  
+   Un retrato épico de la vida de J. Robert Oppenheimer, el físico que lideró el desarrollo de la bomba atómica en el Proyecto Manhattan. La película explora el impacto ético y emocional de crear un arma de destrucción masiva. **Altamente recomendada** para quienes estén interesados en la historia de la ciencia y los dilemas éticos asociados con la tecnología.
+
+8. **La Red Social - The Social Network**  
+   La película cuenta la creación de Facebook y el ascenso de Mark Zuckerberg. Muestra los conflictos personales y legales que acompañaron el éxito de una de las plataformas más influyentes del siglo XXI. **Recomendada** para quienes quieran entender los orígenes de las redes sociales y los desafíos éticos del poder digital.
+
+9. **El Dilema de las Redes Sociales - The Social Dilemma**  
+   Este documental analiza el impacto negativo de las redes sociales en la sociedad, desde la manipulación psicológica hasta la erosión de la democracia. Con entrevistas a exejecutivos de empresas tecnológicas, es una advertencia clara sobre los peligros de la tecnología descontrolada. **Recomendada** para quienes estén interesados en los efectos sociales y psicológicos de las redes.
+
+10. **Steve Jobs**  
+   Este biopic de Danny Boyle ofrece una visión íntima de la vida de Steve Jobs, centrada en tres momentos clave en su carrera. A través de diálogos ágiles y dramáticos, la película presenta al fundador de Apple como un visionario, pero también como una figura compleja. **Recomendada** para quienes busquen un retrato personal de una de las figuras más influyentes en la tecnología moderna.
+
+11. **Citizenfour**  
+   Este documental sigue al denunciante Edward Snowden mientras revela el programa de vigilancia masiva del gobierno de EE.UU. Una mirada cruda y urgente sobre la privacidad, la seguridad y el poder gubernamental. **Recomendada** para aquellos interesados en los derechos digitales y la privacidad.
+
+12. **The Internet’s Own Boy: The Story of Aaron Swartz**  
+   Este documental narra la vida de Aaron Swartz, un activista digital y programador que luchó por el acceso libre a la información. Su trágica muerte resalta los conflictos entre la libertad de información y las leyes restrictivas. **Recomendada** para quienes quieran explorar la intersección entre tecnología, activismo y derechos civiles en la era digital.
+
+:::
+
+::: {.content-visible when-profile="english"}
+
+Here are reviews and recommendations of STEM movies and series, in no particular order:
+
+1. **The Imitation Game**  
+   This biographical film tells the life story of Alan Turing, the British mathematician who deciphered the Enigma code during World War II. It’s a moving portrayal of a brilliant yet misunderstood mind, highlighting Turing’s pivotal contributions to modern computing. **Recommended** for those interested in the history of cryptography and the early days of artificial intelligence.
+
+2. **The Playlist**  
+   This series follows the story of Spotify and how it revolutionized the music industry. It shows the conflict between technological innovation and the old power structures in the music business. **Recommended** for those interested in the impact of tech platforms on culture and business.
+
+3. **The Billion Dollar Code**  
+   This miniseries, based on true events, depicts the legal battle between two German programmers and Google over the patent rights to what eventually became Google Earth. It’s a courtroom drama about innovation, intellectual property, and justice in the digital age. **Recommended** for those who enjoy stories about startups and tech giants.
+
+4. **Blackberry**  
+   This film follows the rise and fall of Blackberry, one of the pioneering companies in smartphone development. It’s a fascinating look at the fast-paced world of technology and how innovation—and failure to adapt—can make or break a company. **Recommended** for those interested in the history of mobile technology and the rise of personal devices.
+
+5. **The Theory of Everything**  
+   This biopic about Stephen Hawking narrates his personal and professional life, focusing on his battle with ALS while developing groundbreaking theories about the universe. It’s a moving and visually stunning film. **Highly recommended** for those looking for an inspiring story about science and personal perseverance.
+
+6. **The Man Who Knew Infinity**  
+   The film portrays the life of Srinivasa Ramanujan, a self-taught mathematical prodigy who travels from India to Cambridge to collaborate with mathematician G.H. Hardy. It’s a tribute to intellectual perseverance and the genius that breaks cultural and academic barriers. **Recommended** for those who enjoy biographical stories about mathematical prodigies.
+
+7. **Oppenheimer**  
+   An epic portrait of the life of J. Robert Oppenheimer, the physicist who led the development of the atomic bomb in the Manhattan Project. The film explores the ethical and emotional impact of creating a weapon of mass destruction. **Highly recommended** for those interested in the history of science and the ethical dilemmas associated with technology.
+
+8. **The Social Network**  
+   The film tells the story of Facebook’s creation and the rise of Mark Zuckerberg. It shows the personal and legal conflicts that accompanied the success of one of the most influential platforms of the 21st century. **Recommended** for those who want to understand the origins of social networks and the ethical challenges of digital power.
+
+9. **The Social Dilemma**  
+   This documentary analyzes the negative impact of social media on society, from psychological manipulation to the erosion of democracy. With interviews from former tech company executives, it’s a stark warning about the dangers of unchecked technology. **Recommended** for those interested in the social and psychological effects of social networks.
+
+10. **Steve Jobs**  
+    Directed by Danny Boyle, this biopic offers an intimate look at Steve Jobs’s life, centered around three key moments in his career. Through sharp and dramatic dialogue, the film presents the Apple founder as a visionary but also as a complex figure. **Recommended** for those looking for a personal portrait of one of the most influential figures in modern technology.
+
+11. **Citizenfour**  
+    This documentary follows whistleblower Edward Snowden as he reveals the U.S. government’s mass surveillance program. It’s a raw and urgent look at privacy, security, and governmental power. **Recommended** for those interested in digital rights and privacy.
+
+12. **The Internet’s Own Boy: The Story of Aaron Swartz**  
+    This documentary tells the life of Aaron Swartz, a digital activist and programmer who fought for free access to information. His tragic death highlights the conflicts between information freedom and restrictive laws. **Recommended** for those looking to explore the intersection of technology, activism, and civil rights in the digital age.
+
+:::
