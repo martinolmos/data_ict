@@ -8,7 +8,7 @@ profile:
 
 website:
   site-url: "https://martinolmos.github.io/data-icts/es"
-  comments: 
-    provider: disqus
-    disqus:
-      shortname: datos-tic
+
+format:
+  html:
+    include-after-body: disqus.html
