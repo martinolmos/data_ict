@@ -9,6 +9,6 @@ profile:
 website:
   site-url: "https://martinolmos.github.io/data-icts/es"
   comments: 
-    hypothesis:
-      theme: clean
-      openSidebar: false
+    provider: disqus
+    disqus:
+      shortname: datos-tic
