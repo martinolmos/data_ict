@@ -68,18 +68,6 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script type="application/json" class="js-hypothesis-config">
-{
-  "theme": "clean",
-  "openSidebar": false
-}
-</script>
-<script async="" src="https://hypothes.is/embed.js"></script>
-<script>
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    document.body.classList.add('hypothesis-enabled');
-  });
-</script>
 
 
 <link rel="stylesheet" href="../../styles.css">
@@ -218,6 +206,16 @@ This documentary tells the life of Aaron Swartz, a digital activist and programm
 
 
 </main> <!-- /main -->
+<div id="disqus_thread"></div>
+<script>
+(function() { // DON'T EDIT BELOW THIS LINE
+  var d = document, s = d.createElement('script');
+  s.src = 'https://datos-tic.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
