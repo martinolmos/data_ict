@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/cumbre-ia/index.html",
       "/posts/stem-movie-recommendations/index.html",
       "/posts/stem-book-recommendations/index.html",
       "/posts/on-regulatory-simplification/index.html",

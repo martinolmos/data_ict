@@ -1,0 +1,508 @@
+---
+title: "Ministerial Summit on the Ethics of AI in LAC"
+subtitle: "Cumbre Ministerial sobre la Ética de la IA en LAC"
+format: 
+    html: 
+        code-fold: true
+draft: false
+author: "Martin Olmos"
+date: "2024-11-17"
+categories:
+    - "AI"
+    - "AWS"
+    - "OpenAI"
+execute: 
+  warning: false
+  eval: false
+---
+
+::: {.content-visible when-profile="spanish"}
+
+El pasado 3 y 4 de octubre en Montevideo, Uruguay, se llevó a cabo la **2da Cumbre Ministerial y de Altas Autoridades sobre la Ética en la Inteligencia Artificial en América Latina y el Caribe**. En la misma se discutieron los desafíos y oportunidades que presenta la IA en la región, así como los principios éticos que deberían guiar su desarrollo y aplicación. 
+
+[Aquí](https://foroialac.org) se puede acceder el programa completo de la cumbre y a la transmisión en vivo de las exposiciones. En este marco, se aprobó la [**Declaración de Montevideo**](https://www.gub.uy/agencia-gobierno-electronico-sociedad-informacion-conocimiento/sites/agencia-gobierno-electronico-sociedad-informacion-conocimiento/files/documentos/noticias/ESP_Declaración%20de%20Montevideo%20aprobada.pdf) y la [**Hoja de Ruta 2024-2025**](https://www.gub.uy/agencia-gobierno-electronico-sociedad-informacion-conocimiento/sites/agencia-gobierno-electronico-sociedad-informacion-conocimiento/files/documentos/noticias/ESP_Hoja%20de%20Ruta%20aprobada.pdf)
+
+Para los que no pudieron seguir el evento en vivo y no tienen tiempo para ver el video completo, aquí vamos a mostrar cómo se puede transcribir y resumir automáticamente el contenido de un video utilizando servicios de IA, en este caso las APIs de [AWS Transcribe](https://docs.aws.amazon.com/transcribe/latest/APIReference/Welcome.html) y [OpenAI](https://platform.openai.com/docs/overview).
+
+## Descarga y segmentación del video y audio de youtube
+
+Primero es necesario descargar el video y el audio de la transmisión completa.
+
+```{python}
+
+import yt_dlp as ydl
+
+video_url = 'https://www.youtube.com/watch?v=mSnMpzkR2R0'
+
+ydl_audio_opts = {
+    'outtmpl': 'data/cumbre_ia_montevideo.%(ext)s',
+    'format': 'bestaudio/best',
+    'postprocessors': [{
+        'key': 'FFmpegExtractAudio',
+        'preferredcodec': 'mp3',
+        'preferredquality': '192'}]
+}
+ydl_video_opts = {
+    'outtmpl': 'data/cumbre_ia_montevideo.%(ext)s',
+}
+
+ydl.YoutubeDL(ydl_audio_opts).download([video_url])
+ydl.YoutubeDL(ydl_video_opts).download([video_url])
+```
+
+Luego es necesario segmentar el audio y el video en cada una de los paneles y charlas de la cumbre. A modo de muestra, vamos a extraer el panel de apertura, que va desde el comienzo al minuto 43:15.
+
+```{python}
+import pydub
+from moviepy.video.io.VideoFileClip import VideoFileClip
+
+duration = 43.15 * 60.00
+
+audio_segmentado = pydub.AudioSegment.from_file('../data/cumbre_ia_montevideo.mp3', duration=duration)
+
+video = VideoFileClip('../data/cumbre_ia_montevideo.webm')
+video_segmentado = video.subclip(0, duration)
+
+```
+
+## Transcripción con AWS Transcribe
+
+La API de AWS Transcribe permite utilizar un vocabulario personalizado para mejorar la precisión de la transcripción de palabras técnicas o específicas de un dominio o nombres propios. Además, permite obtener la transcripción tanto en formato de subtítulos como en texto plano.
+
+```{python}
+from __future__ import print_function
+import time
+import boto3
+
+transcribe = boto3.client('transcribe', 'us-east-1')
+
+job_name = "cumbre-ia-montevideo-apertura"
+job_uri = "s3://cumbre-ia-montevideo/input-audios/cumbre_ia_montevideo_apertura.mp3"
+
+transcribe.start_transcription_job(
+    TranscriptionJobName = job_name,
+    Media = {
+        'MediaFileUri': job_uri
+    },
+    OutputBucketName = 'cumbre-ia-montevideo',
+    OutputKey = 'output-transcriptions/', 
+    LanguageCode = 'es-US', 
+    Subtitles = {
+        'Formats': [
+            'vtt','srt'
+        ],
+        'OutputStartIndex': 1 
+   },
+    Settings = {
+        'ShowSpeakerLabels': True,
+        'MaxSpeakerLabels': 5,
+        'VocabularyName': 'cumbre-ia-montevideo-apertura-vocabulario'
+    }    
+)
+
+while True:
+    status = transcribe.get_transcription_job(TranscriptionJobName = job_name)
+    if status['TranscriptionJob']['TranscriptionJobStatus'] in ['COMPLETED', 'FAILED']:
+        break
+    print("Not ready yet...")
+    time.sleep(5)
+print(status)
+
+```
+
+## Incrustar los subtítulos en el video
+
+Luego incrustamos los subtítulos en el video.
+
+```{python}
+
+from moviepy.editor import CompositeVideoClip
+from moviepy.video.tools.subtitles import SubtitlesClip
+from moviepy.video.fx.resize import resize
+import moviepy.editor as mp
+
+# Load subtitles from an SRT file
+# You can adjust the font size, font type, etc.
+generator = lambda txt: mp.TextClip(txt, font='Arial', fontsize=48, color='white')
+
+# Create the SubtitlesClip
+subtitles = SubtitlesClip("../data/cumbre-ia-montevideo-apertura.srt", generator)
+
+# Overlay the subtitles on the video
+video_with_subtitles = CompositeVideoClip([video_segmentado, subtitles.set_position(('center', 'bottom'))])
+
+# Write the final video file with subtitles embedded
+video_with_subtitles.write_videofile("../data/cumbre_ia_montevideo_apertura_with_subtitles.mp4", fps=video.fps)
+
+```
+
+Aquí el video de la apertura con los subtítulos incrustados:
+
+<iframe src="https://drive.google.com/file/d/1n8-4KT_2vK5Jo2vqSNAOBua4te5fdv4U/preview" width="640" height="480" allow="autoplay"></iframe>
+
+## Resumen automático con OpenAI
+
+Ahora vamos a utilizar la API de OpenAI para resumir automáticamente la transcripción de las exposiciones durante la apertura de la cumbre.
+
+Primero, es necesario hacer algo de preprocesamiento de las transcripciones.
+
+```{python}
+
+import boto3
+import json
+
+s3_client = boto3.client('s3')
+
+transcripcion = s3_client.get_object(Bucket='cumbre-ia-montevideo', Key='output-transcriptions/cumbre-ia-montevideo-aperura.json')['Body'].read().decode('utf-8')
+
+data = json.loads(transcripcion)
+
+# Extraer las etiquetas de orador y las palabras
+items = data['results']['items']
+speaker_labels = data['results']['speaker_labels']['segments']
+
+transcripcion_por_orador = []
+
+# Crear una estructura para mantener las intervenciones agrupadas
+current_speaker = None
+current_segment = []
+
+for segment in speaker_labels:
+    speaker = segment['speaker_label']
+    start_time = float(segment['start_time'])
+    end_time = float(segment['end_time'])
+    
+    if current_speaker is None or current_speaker != speaker:
+        # Guardar la intervención anterior antes de cambiar de orador
+        if current_segment:
+            transcripcion_por_orador.append({
+                "orador": current_speaker,
+                "texto": " ".join(current_segment)
+            })
+        # Empezar un nuevo segmento
+        current_speaker = speaker
+        current_segment = []
+
+    # Extraer las palabras dentro del rango de tiempo del segmento actual
+    for item in items:
+        if 'start_time' in item:
+            word_time = float(item['start_time'])
+            if start_time <= word_time < end_time:
+                current_segment.append(item['alternatives'][0]['content'])
+
+# Añadir la última intervención
+if current_segment:
+    transcripcion_por_orador.append({
+        "orador": current_speaker,
+        "texto": " ".join(current_segment)
+    })
+
+
+transcripcion_por_orador_sin_presentador = [intervencion for intervencion in transcripcion_por_orador if intervencion['orador'] != 'spk_0']
+
+```
+
+Luego, enviamos el texto de las intervenciones a OpenAI para obtener un resumen de cada exposición.
+
+```{python}
+
+from dotenv import load_dotenv
+import openai
+
+load_dotenv()
+
+sintesis_transcripciones = []
+
+for i in range(len(transcripcion_por_orador_sin_presentador)):
+    prompt = f"""
+    Estoy realizando una síntesis de las exposiciones en la 2da Cumbre Ministerial y de Altas Autoridades sobre la Ética en la Inteligencia Artificial. \
+    La misma se realizó el pasado 3 y 4 de octubre en Montevideo, Uruguay. \
+    En este caso, toca resumir la transcripción del panel {panel}, integrado por {''.join(oradores)}. \
+    Procura corregir los errores de transcripción, sobre todo en los nombres propios. \
+    Devuelve sólo el resumen de la transcripción, sin comentarios adicionales. \
+    A continuación, la transcripción completa de la exposición de {oradores[i]}: \
+    {transcripcion_por_orador_sin_presentador[i]['texto']}
+    """
+    response = openai.chat.completions.create(
+        model="gpt-4o",
+        messages=[
+            {"role": "system", "content": "You are a helpful assistant."},
+            {"role": "user", "content": prompt}
+        ],
+        max_tokens=1000
+    )
+    assistant_response = response.choices[0].message.content
+    sintesis_transcripciones.append({'orador': oradores[i], 'sintesis_exposicion': assistant_response})
+
+```
+
+Finalmente, mostramos los resúmenes de las exposiciones.
+
+:::
+
+::: {.content-visible when-profile="english"}
+
+On October 3 and 4 in Montevideo, Uruguay, the **2nd Ministerial and High-Level Authorities Summit on Artificial Intelligence Ethics in Latin America and the Caribbean** took place. The summit focused on discussing the challenges and opportunities that AI presents in the region, as well as the ethical principles that should guide its development and application.
+
+The complete program of the summit and the live streaming of the sessions can be accessed [here](https://foroialac.org). Within this framework, the [**Montevideo Declaration**](https://www.gub.uy/agencia-gobierno-electronico-sociedad-informacion-conocimiento/sites/agencia-gobierno-electronico-sociedad-informacion-conocimiento/files/documentos/noticias/ESP_Declaración%20de%20Montevideo%20aprobada.pdf) and the [**2024-2025 Roadmap**](https://www.gub.uy/agencia-gobierno-electronico-sociedad-informacion-conocimiento/sites/agencia-gobierno-electronico-sociedad-informacion-conocimiento/files/documentos/noticias/ESP_Hoja%20de%20Ruta%20aprobada.pdf) were approved.
+
+For those who could not follow the event live and do not have time to watch the entire video, here we will show how to automatically transcribe and summarize the content of a video using AI services, specifically [AWS Transcribe](https://docs.aws.amazon.com/transcribe/latest/APIReference/Welcome.html) and [OpenAI](https://platform.openai.com/docs/overview) APIs.
+
+## Downloading and Segmenting the Video and Audio from YouTube
+
+First, it is necessary to download the full video and audio of the broadcast.
+
+```{python}
+
+import yt_dlp as ydl
+
+video_url = 'https://www.youtube.com/watch?v=mSnMpzkR2R0'
+
+ydl_audio_opts = {
+    'outtmpl': 'data/cumbre_ia_montevideo.%(ext)s',
+    'format': 'bestaudio/best',
+    'postprocessors': [{
+        'key': 'FFmpegExtractAudio',
+        'preferredcodec': 'mp3',
+        'preferredquality': '192'}]
+}
+ydl_video_opts = {
+    'outtmpl': 'data/cumbre_ia_montevideo.%(ext)s',
+}
+
+ydl.YoutubeDL(ydl_audio_opts).download([video_url])
+ydl.YoutubeDL(ydl_video_opts).download([video_url])
+```
+
+Then, it is necessary to segment the audio and video into each of the panels and talks from the summit. As an example, we will extract the opening panel, which runs from the beginning to minute 43:15.
+
+```{python}
+import pydub
+from moviepy.video.io.VideoFileClip import VideoFileClip
+
+duration = 43.15 * 60.00
+
+audio_segmentado = pydub.AudioSegment.from_file('../data/cumbre_ia_montevideo.mp3', duration=duration)
+
+video = VideoFileClip('../data/cumbre_ia_montevideo.webm')
+video_segmentado = video.subclip(0, duration)
+
+```
+
+## Transcription with AWS Transcribe
+
+The AWS Transcribe API allows the use of a customized vocabulary to improve the accuracy of transcribing technical terms, domain-specific words, or proper names. Additionally, it provides the transcript in both subtitle format and plain text.
+
+```{python}
+from __future__ import print_function
+import time
+import boto3
+
+transcribe = boto3.client('transcribe', 'us-east-1')
+
+job_name = "cumbre-ia-montevideo-apertura"
+job_uri = "s3://cumbre-ia-montevideo/input-audios/cumbre_ia_montevideo_apertura.mp3"
+
+transcribe.start_transcription_job(
+    TranscriptionJobName = job_name,
+    Media = {
+        'MediaFileUri': job_uri
+    },
+    OutputBucketName = 'cumbre-ia-montevideo',
+    OutputKey = 'output-transcriptions/', 
+    LanguageCode = 'es-US', 
+    Subtitles = {
+        'Formats': [
+            'vtt','srt'
+        ],
+        'OutputStartIndex': 1 
+   },
+    Settings = {
+        'ShowSpeakerLabels': True,
+        'MaxSpeakerLabels': 5,
+        'VocabularyName': 'cumbre-ia-montevideo-apertura-vocabulario'
+    }    
+)
+
+while True:
+    status = transcribe.get_transcription_job(TranscriptionJobName = job_name)
+    if status['TranscriptionJob']['TranscriptionJobStatus'] in ['COMPLETED', 'FAILED']:
+        break
+    print("Not ready yet...")
+    time.sleep(5)
+print(status)
+
+```
+
+## Embedding the Subtitles into the Video
+
+We then embed the subtitles into the video.
+
+```{python}
+
+from moviepy.editor import CompositeVideoClip
+from moviepy.video.tools.subtitles import SubtitlesClip
+from moviepy.video.fx.resize import resize
+import moviepy.editor as mp
+
+# Load subtitles from an SRT file
+# You can adjust the font size, font type, etc.
+generator = lambda txt: mp.TextClip(txt, font='Arial', fontsize=48, color='white')
+
+# Create the SubtitlesClip
+subtitles = SubtitlesClip("../data/cumbre-ia-montevideo-apertura.srt", generator)
+
+# Overlay the subtitles on the video
+video_with_subtitles = CompositeVideoClip([video_segmentado, subtitles.set_position(('center', 'bottom'))])
+
+# Write the final video file with subtitles embedded
+video_with_subtitles.write_videofile("../data/cumbre_ia_montevideo_apertura_with_subtitles.mp4", fps=video.fps)
+
+```
+
+Here is the opening video with the embedded subtitles:
+
+<iframe src="https://drive.google.com/file/d/1n8-4KT_2vK5Jo2vqSNAOBua4te5fdv4U/preview" width="640" height="480" allow="autoplay"></iframe>
+
+## Automatic Summary with OpenAI
+
+Now we will use the OpenAI API to automatically summarize the transcriptions of the speeches during the summit's opening.
+
+First, some preprocessing of the transcriptions is required.
+
+```{python}
+
+import boto3
+import json
+
+s3_client = boto3.client('s3')
+
+transcripcion = s3_client.get_object(Bucket='cumbre-ia-montevideo', Key='output-transcriptions/cumbre-ia-montevideo-aperura.json')['Body'].read().decode('utf-8')
+
+data = json.loads(transcripcion)
+
+# Extraer las etiquetas de orador y las palabras
+items = data['results']['items']
+speaker_labels = data['results']['speaker_labels']['segments']
+
+transcripcion_por_orador = []
+
+# Crear una estructura para mantener las intervenciones agrupadas
+current_speaker = None
+current_segment = []
+
+for segment in speaker_labels:
+    speaker = segment['speaker_label']
+    start_time = float(segment['start_time'])
+    end_time = float(segment['end_time'])
+    
+    if current_speaker is None or current_speaker != speaker:
+        # Guardar la intervención anterior antes de cambiar de orador
+        if current_segment:
+            transcripcion_por_orador.append({
+                "orador": current_speaker,
+                "texto": " ".join(current_segment)
+            })
+        # Empezar un nuevo segmento
+        current_speaker = speaker
+        current_segment = []
+
+    # Extraer las palabras dentro del rango de tiempo del segmento actual
+    for item in items:
+        if 'start_time' in item:
+            word_time = float(item['start_time'])
+            if start_time <= word_time < end_time:
+                current_segment.append(item['alternatives'][0]['content'])
+
+# Añadir la última intervención
+if current_segment:
+    transcripcion_por_orador.append({
+        "orador": current_speaker,
+        "texto": " ".join(current_segment)
+    })
+
+
+transcripcion_por_orador_sin_presentador = [intervencion for intervencion in transcripcion_por_orador if intervencion['orador'] != 'spk_0']
+
+```
+
+Then, we send the text of the speeches to OpenAI to obtain a summary of each presentation.
+
+```{python}
+
+from dotenv import load_dotenv
+import openai
+
+load_dotenv()
+
+sintesis_transcripciones = []
+
+for i in range(len(transcripcion_por_orador_sin_presentador)):
+    prompt = f"""
+    Estoy realizando una síntesis de las exposiciones en la 2da Cumbre Ministerial y de Altas Autoridades sobre la Ética en la Inteligencia Artificial. \
+    La misma se realizó el pasado 3 y 4 de octubre en Montevideo, Uruguay. \
+    En este caso, toca resumir la transcripción del panel {panel}, integrado por {''.join(oradores)}. \
+    Procura corregir los errores de transcripción, sobre todo en los nombres propios. \
+    Devuelve sólo el resumen de la transcripción, sin comentarios adicionales. \
+    A continuación, la transcripción completa de la exposición de {oradores[i]}: \
+    {transcripcion_por_orador_sin_presentador[i]['texto']}
+    """
+    response = openai.chat.completions.create(
+        model="gpt-4o",
+        messages=[
+            {"role": "system", "content": "You are a helpful assistant."},
+            {"role": "user", "content": prompt}
+        ],
+        max_tokens=1000
+    )
+    assistant_response = response.choices[0].message.content
+    sintesis_transcripciones.append({'orador': oradores[i], 'sintesis_exposicion': assistant_response})
+
+```
+
+Finally, we display the summaries of the speeches.
+
+:::
+
+```{python}
+from IPython.display import display, Markdown
+
+for sintesis in sintesis_transcripciones:
+    display(Markdown(f"### {sintesis['orador']}:\n\n{sintesis['sintesis_exposicion']}"))
+```
+
+### Beatriz Argimón, Vicepresidenta de la República Oriental del Uruguay:
+
+Beatriz Argimón, Vicepresidenta de la República Oriental del Uruguay, expresó su entusiasmo por participar en la apertura de la 2da Cumbre Ministerial sobre la Ética en la Inteligencia Artificial. Destacó la importancia de los debates éticos y el protagonismo que deben asumir aquellos con responsabilidades, sobre todo en un país con alta adhesión democrática como Uruguay. Señaló la relevancia de proteger los derechos humanos y las democracias frente a los cambios vertiginosos de la inteligencia artificial.
+
+Argimón enfatizó la necesidad de un enfoque regional unido en América Latina y el Caribe para avanzar en el ámbito global y subrayó la importancia de enfrentar los desafíos con responsabilidad ética. Expresó su orgullo por las políticas de Estado de Uruguay, independientes del partido político gobernante, y elogió el papel de AGESIC y Hebert Paguas en la creación de una conciencia estratégica en el ámbito público.
+
+Finalmente, habló sobre la responsabilidad democrática de informar y educar a la ciudadanía sobre estos nuevos tiempos y agradeció a los organizadores de la cumbre por promover el entendimiento de que estos tiempos, aunque desafiantes, también son esperanzadores.
+
+### Christian Asinelli, Vicepresidente Corporativo de Programación Estratégica, CAF -banco de desarrollo de América Latina y el Caribe-:
+
+En la 2da Cumbre Ministerial y de Altas Autoridades sobre la Ética en la Inteligencia Artificial, celebrada en Montevideo, Uruguay, el discurso de apertura de Christian Asinelli, Vicepresidente Corporativo de Programación Estratégica de CAF -banco de desarrollo de América Latina y el Caribe-, abordó varios puntos clave:
+
+Christian Asinelli resaltó la importancia de abordar los problemas globales con soluciones regionales, especialmente en el ámbito de la inteligencia artificial (IA) y otras áreas como la energía y la alimentación. Destacó el esfuerzo conjunto con la UNESCO para implementar políticas públicas de IA y mencionó la anterior Cumbre de Ética de la Inteligencia Artificial en Chile, donde se lanzó la Declaración de Santiago. Asinelli expresó la expectativa de que la Declaración de Montevideo continúe avanzando en capacidades regionales.
+
+Además, Asinelli enfatizó la necesidad de una transición justa e inclusiva en América Latina y el Caribe, considerando las capacidades fiscales y la pobreza en la región, y subrayó los riesgos de la IA, incluyendo derechos humanos, transparencia y democracia. Destacó la colaboración con diferentes organizaciones y la intención de crear una hoja de ruta con un enfoque holístico que sitúe al ser humano en el centro de las políticas públicas de IA. También mencionó la importancia de los espacios de diálogo y reflexión durante la cumbre para promover una IA al servicio de la comunidad. 
+
+En conclusión, Asinelli agradeció los esfuerzos conjuntos del gobierno de Uruguay, la UNESCO y todos los involucrados en la organización de esta cumbre, proyectando que será un evento significativo en el desarrollo de la IA ética en la región.
+
+### Gabriela Ramos, Subdirectora General de Ciencias Sociales y Humanas, UNESCO:
+
+En su intervención, Gabriela Ramos, Subdirectora General de Ciencias Sociales y Humanas de la UNESCO, agradeció al Gobierno de Uruguay y a los participantes de la cumbre por la oportunidad de discutir temas relevantes sobre la ética en la inteligencia artificial. Resaltó la importancia de América Latina en definir su propio destino tecnológico y enfatizó que el proceso involucra no solo aspectos tecnológicos, sino sociales, económicos y de visión para el desarrollo sostenible.
+
+Mencionó que el proceso iniciado con el Consenso de Santiago ha sido destacado a nivel internacional y subrayó la necesidad de seguir avanzando con nuevas etapas, como las planificadas para la República Dominicana. Ramos destacó los retos y logros de los países en sus hojas de ruta (RAM), señalando el éxito de Uruguay en diversas áreas como la protección de datos y la energía renovable.
+
+Ramos enfatizó el crecimiento significativo de la inversión global en inteligencia artificial y la necesidad de que las tecnologías sirvan para resolver problemas humanos. Asimismo, instó a los países de América Latina a incrementar sus inversiones en investigación y desarrollo, sugiriendo que un aumento del PIB dedicado a este sector podría impulsar el crecimiento económico y social.
+
+Finalmente, subrayó la importancia de la ética en el desarrollo tecnológico y el papel de las competencias humanas, proponiendo una educación que fomente el pensamiento crítico y la inclusión de humanidades en programas tecnológicos. Concluyó reiterando el compromiso de la UNESCO de trabajar conjuntamente con las naciones de la región para aprovechar la inteligencia artificial de manera inclusiva y beneficiosa.
+
+### Hebert Paguas, Director Ejecutivo de AGESIC:
+
+Hebert Paguas, Director Ejecutivo de AGESIC, comenzó su intervención en la Cumbre reflexionando sobre el reto de abordar el ritmo acelerado de los cambios tecnológicos, especialmente en comparación con la lentitud de los procesos legislativos tradicionales. Subrayó que aunque la inteligencia artificial (IA) se definió por primera vez en 1956, el debate significativo sobre su influencia apenas tomó auge en 2022 con la aparición de la inteligencia artificial generativa, que simula una conversación humana. Paguas expresó su deseo de que la tecnología no llegue a suplantar la esencia humana, diferenciando a los humanos como "Homo Viator", seres en constante viaje y búsqueda de madurez.
+
+Además, destacó la importancia de la colaboración regional e internacional para enfrentar los desafíos que surgen en el entorno digital, donde los límites territoriales de la legislación se vuelven obsoletos. Citó la necesidad de coordinación internacional similar a la que ocurre en el mundo físico con convenios como los de extradición, ahora trasladados al ámbito digital.
+
+Paguas también mencionó el Pacto Global Digital y enfatizó tanto en los beneficios potenciales de la tecnología como en los riesgos aún desconocidos que conlleva. Agradeció a organizaciones como la UNESCO y la CAF por su apoyo logístico y esfuerzo colaborativo en el evento, y concluyó destacando la importancia de que Uruguay se posicione como un polo de innovación, resaltando el rol necesario del sector privado y la preparación del sector público para enfrentar los retos presentes y futuros.
