@@ -10,7 +10,1398 @@
 <atom:link href="https://martinolmos.github.io/data-icts/es/index.xml" rel="self" type="application/rss+xml"/>
 <description></description>
 <generator>quarto-1.4.554</generator>
-<lastBuildDate>Sun, 17 Nov 2024 03:00:00 GMT</lastBuildDate>
+<lastBuildDate>Wed, 18 Dec 2024 03:00:00 GMT</lastBuildDate>
+<item>
+  <title>Language Models in Spanish</title>
+  <dc:creator>Martin Olmos</dc:creator>
+  <link>https://martinolmos.github.io/data-icts/es/posts/language-models-in-spanish/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+<p>One of the topics discussed during the <a href="https://foroialac.org">2nd Ministerial Meeting on AI Ethics in LAC</a> was the need for the region to advance in the development of language models in Ibero-American languages, particularly in Spanish.</p>
+<p>One of the main Hubs for generative AI models is <a href="https://huggingface.co/">Hugging Face</a>, which offers an API to access and host pre-trained models, datasets, and “Spaces” (web applications based on existing models in the Hub).</p>
+<p>We can use the Hugging Face API to analyze the quantity, quality, and usage of models, datasets, and Spaces in Spanish and compare them with other languages such as English.</p>
+<div id="7565eefc" class="cell" data-execution_count="1">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> huggingface_hub <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> HfApi</span>
+<span id="cb1-2"></span>
+<span id="cb1-3">api <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> HfApi()</span>
+<span id="cb1-4">models <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> api.list_models()</span>
+<span id="cb1-5">models_es <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> api.list_models(<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">filter</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"es"</span>)</span></code></pre></div>
+</details>
+</div>
+<p>Let’s first see how many models are in the Huggingface Hub and how many of them are in Spanish.</p>
+<div id="55254822" class="cell" data-execution_count="2">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1">models_list <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">list</span>(models)</span>
+<span id="cb2-2"><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>(models_list)</span></code></pre></div>
+</details>
+</div>
+<pre><code>1191400</code></pre>
+<div id="baa21234" class="cell" data-execution_count="3">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1">models_es_list <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">list</span>(models_es)</span>
+<span id="cb4-2"><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>(models_es_list)</span></code></pre></div>
+</details>
+</div>
+<pre><code>6444</code></pre>
+<p>We see that there are currently 1,191,400 models in the Hub, of which 6,444 are in Spanish.</p>
+<p>Let’s now take one of the models to see the available metadata.</p>
+<div id="8d9b4e40" class="cell" data-execution_count="4">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1">m <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> models_list[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">500</span>]</span>
+<span id="cb6-2">m.__dict__</span></code></pre></div>
+</details>
+</div>
+<pre><code>{'id': 'mistralai/Mistral-Large-Instruct-2411',
+ 'author': None,
+ 'sha': None,
+ 'last_modified': None,
+ 'created_at': datetime.datetime(2024, 11, 14, 20, 3, 52, tzinfo=datetime.timezone.utc),
+ 'private': False,
+ 'gated': None,
+ 'disabled': None,
+ 'downloads': 488732,
+ 'downloads_all_time': None,
+ 'likes': 165,
+ 'library_name': 'vllm',
+ 'gguf': None,
+ 'inference': None,
+ 'tags': ['vllm',
+  'safetensors',
+  'mistral',
+  'en',
+  'fr',
+  'de',
+  'es',
+  'it',
+  'pt',
+  'zh',
+  'ja',
+  'ru',
+  'ko',
+  'license:other',
+  'region:us'],
+ 'pipeline_tag': None,
+ 'mask_token': None,
+ 'trending_score': 5,
+ 'card_data': None,
+ 'widget_data': None,
+ 'model_index': None,
+ 'config': None,
+ 'transformers_info': None,
+ 'siblings': None,
+ 'spaces': None,
+ 'safetensors': None,
+ 'security_repo_status': None,
+ 'lastModified': None,
+ 'cardData': None,
+ 'transformersInfo': None,
+ '_id': '673657a8517b82b436cb7e4c',
+ 'modelId': 'mistralai/Mistral-Large-Instruct-2411'}</code></pre>
+<p>We see that within the <code>tags</code> field there are tags that indicate the language in ISO 639-1 code. We can use these tags to analyze the data by language.</p>
+<p>First, I will download a dataset of ISO 639-1 codes.</p>
+<div id="842d27f0" class="cell" data-execution_count="5">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> pandas <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> pd</span>
+<span id="cb8-2"></span>
+<span id="cb8-3">iso_639_url <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"https://raw.githubusercontent.com/datasets/language-codes/refs/heads/main/data/language-codes.csv"</span></span>
+<span id="cb8-4">iso_639 <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> pd.read_csv(iso_639_url)</span>
+<span id="cb8-5"><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">print</span>(iso_639.head())</span></code></pre></div>
+</details>
+</div>
+<pre><code>  alpha2    English
+0     aa       Afar
+1     ab  Abkhazian
+2     ae    Avestan
+3     af  Afrikaans
+4     ak       Akan</code></pre>
+<p>Now for each model in my list of models and models in Spanish, I will create a <code>languages</code> attribute and assign the ISO 639-1 codes that I find in the <code>tags</code> field.</p>
+<div id="9ce32d3c" class="cell" data-execution_count="6">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">for</span> m <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">in</span> models_list:</span>
+<span id="cb10-2">    m.languages <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> [l <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">for</span> l <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">in</span> m.tags <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">if</span> l <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">in</span> iso_639[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"alpha2"</span>].values]</span>
+<span id="cb10-3"></span>
+<span id="cb10-4"><span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">for</span> m <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">in</span> models_es_list:</span>
+<span id="cb10-5">    m.languages <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> [l <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">for</span> l <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">in</span> m.tags <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">if</span> l <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">in</span> iso_639[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"alpha2"</span>].values]</span></code></pre></div>
+</details>
+</div>
+<p>Let’s see how many models have at least one language tag.</p>
+<div id="7feb6f09" class="cell" data-execution_count="7">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1">languages <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> [m.languages <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">for</span> m <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">in</span> models_list <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">if</span> <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>(m.languages) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>]</span>
+<span id="cb11-2">languages_es <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> [m.languages <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">for</span> m <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">in</span> models_es_list]</span>
+<span id="cb11-3"></span>
+<span id="cb11-4"><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>(languages), <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>(languages_es)</span></code></pre></div>
+</details>
+</div>
+<pre><code>(143924, 6444)</code></pre>
+<p>Only 143,924 models have at least one language tag. Of these, 6,444 are in Spanish.</p>
+<div id="bcca312a" class="cell" data-execution_count="8">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb13" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> matplotlib.pyplot <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> plt</span>
+<span id="cb13-2"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> matplotlib.ticker <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> ScalarFormatter</span>
+<span id="cb13-3"></span>
+<span id="cb13-4"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Make a bar plot of len(models_list), len(languages) and len(languages_es)</span></span>
+<span id="cb13-5">plt.bar([<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Total de modelos"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Modelos con etiqueta de lenguaje"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Modelos en español"</span>], [<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>(models_list), <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>(languages), <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>(languages_es)])</span>
+<span id="cb13-6"></span>
+<span id="cb13-7"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Rotate the x-axis labels 45 degrees</span></span>
+<span id="cb13-8">plt.xticks(rotation<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">45</span>, ha<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"right"</span>)</span>
+<span id="cb13-9"></span>
+<span id="cb13-10"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Add a title</span></span>
+<span id="cb13-11">plt.title(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Cantidad de modelos en Hugging Face Hub por lenguaje"</span>)</span>
+<span id="cb13-12"></span>
+<span id="cb13-13"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Disable scientific notation</span></span>
+<span id="cb13-14">plt.gca().yaxis.set_major_formatter(ScalarFormatter(useOffset<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">False</span>))</span>
+<span id="cb13-15">plt.gca().ticklabel_format(style<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'plain'</span>, axis<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'y'</span>)</span>
+<span id="cb13-16"></span>
+<span id="cb13-17"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Show the plot</span></span>
+<span id="cb13-18">plt.show()</span></code></pre></div>
+</details>
+</div>
+<p><img src="https://martinolmos.github.io/data-icts/es/posts/language-models-in-spanish/modelos_por_lenguaje.png" class="img-fluid"></p>
+<p>Another interesting question is how many models are “pure” in Spanish models, that is, they do not have tags for other languages.</p>
+<div id="b4e4b4b8" class="cell" data-execution_count="9">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb14" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1">models_es_only_list <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> [m <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">for</span> m <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">in</span> models_es_list <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">if</span> <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>(m.languages) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">==</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>]</span>
+<span id="cb14-2"><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>(models_es_only_list)</span></code></pre></div>
+</details>
+</div>
+<pre><code>1568</code></pre>
+<p>The models only in Spanish are 1568.</p>
+<p>Let’s now look at quality metrics, such as the number of likes and downloads of the Spanish models, compared to those in other languages.</p>
+<div id="155eda59" class="cell" data-execution_count="10">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb16" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1">likes <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> [m.likes <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">for</span> m <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">in</span> models_list]</span>
+<span id="cb16-2">likes_es <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> [m.likes <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">for</span> m <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">in</span> models_es_only_list]</span>
+<span id="cb16-3">downloads <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> [m.downloads <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">for</span> m <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">in</span> models_list]</span>
+<span id="cb16-4">downloads_es <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> [m.downloads <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">for</span> m <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">in</span> models_es_only_list]</span></code></pre></div>
+</details>
+</div>
+<div id="07136fb3" class="cell" data-execution_count="11">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb17" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>(likes), likes.count(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>), likes.count(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>)</span></code></pre></div>
+</details>
+</div>
+<pre><code>(1191400, 1092628, 49002)</code></pre>
+<p>From the total of 1,191,400 models, 1,092,628 have 0 likes and 49,002 have 1 like.</p>
+<div id="8b98307d" class="cell" data-execution_count="12">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb19" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1">likes_dist <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> {<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Min"</span>: np.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">min</span>(likes), <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"25%"</span>: np.quantile(likes, <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.25</span>), <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Median"</span>: np.median(likes), <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Mean"</span>: np.mean(likes), <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"75%"</span>: np.quantile(likes, <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.75</span>), <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"90%"</span>: np.quantile(likes, <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.9</span>), <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"95%"</span>: np.quantile(likes, <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">.95</span>), <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"99%"</span>: np.quantile(likes, <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">.99</span>)}</span></code></pre></div>
+</details>
+</div>
+<div id="a9a48f42" class="cell" data-execution_count="13">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb20" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1">plt.bar(likes_dist.keys(), likes_dist.values())</span>
+<span id="cb20-2"></span>
+<span id="cb20-3">plt.title(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Distribución de likes en modelos de Hugging Face Hub"</span>)</span>
+<span id="cb20-4"></span>
+<span id="cb20-5">plt.show()</span></code></pre></div>
+</details>
+</div>
+<p><img src="https://martinolmos.github.io/data-icts/es/posts/language-models-in-spanish/likes_dist.png" class="img-fluid"></p>
+<p>As seen in the graph, 90% of the models have 0 likes, 95% have 0 or 1 like, and 99% have 11 likes or less.</p>
+<p>Let’s focus on those with the most likes.</p>
+<div id="ebd6b391" class="cell" data-execution_count="14">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb21" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1">plt.bar([<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Modelos con más de 100 likes"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Modelos con más de 500 likes"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Modelos con más de 1000 likes"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Modelos con más de 3000"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Modelos con más de 5000 likes"</span>], [<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>([l <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">for</span> l <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">in</span> likes <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">if</span> l <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">100</span>]), <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>([l <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">for</span> l <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">in</span> likes <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">if</span> l <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">500</span>]), <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>([l <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">for</span> l <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">in</span> likes <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">if</span> l <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1000</span>]), <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>([l <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">for</span> l <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">in</span> likes <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">if</span> l <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3000</span>]), <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>([l <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">for</span> l <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">in</span> likes <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">if</span> l <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">5000</span>])])</span>
+<span id="cb21-2"></span>
+<span id="cb21-3">plt.title(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Cantidad de modelos con más de X likes en Hugging Face Hub"</span>)</span>
+<span id="cb21-4"></span>
+<span id="cb21-5"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Rotate the x-axis labels 45 degrees</span></span>
+<span id="cb21-6">plt.xticks(rotation<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">45</span>, ha<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"right"</span>)</span>
+<span id="cb21-7"></span>
+<span id="cb21-8">plt.show()</span></code></pre></div>
+</details>
+</div>
+<p><img src="https://martinolmos.github.io/data-icts/es/posts/language-models-in-spanish/likes_dist2.png" class="img-fluid"></p>
+<p>Let’s now see what happens with the models that are only in Spanish.</p>
+<div id="48de1ea7" class="cell" data-execution_count="15">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb22" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>(likes_es), likes_es.count(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>), likes_es.count(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>)</span></code></pre></div>
+</details>
+</div>
+<pre><code>(1568, 1138, 166)</code></pre>
+<p>From the total of 1,568 models that are only in Spanish, 1,138 have 0 likes and 430 have 1 like.</p>
+<div id="6dbb74f6" class="cell" data-execution_count="16">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb24" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1">likes_es_dist <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> {<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Min"</span>: np.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">min</span>(likes_es), <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"25%"</span>: np.quantile(likes_es, <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.25</span>), <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Median"</span>: np.median(likes_es), <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Mean"</span>: np.mean(likes_es), <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"75%"</span>: np.quantile(likes_es, <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.75</span>), <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"90%"</span>: np.quantile(likes_es, <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.9</span>), <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"95%"</span>: np.quantile(likes_es, <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">.95</span>), <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"99%"</span>: np.quantile(likes_es, <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">.99</span>)}</span></code></pre></div>
+</details>
+</div>
+<div id="d00d9543" class="cell" data-execution_count="17">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb25" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1">plt.bar(likes_es_dist.keys(), likes_es_dist.values())</span>
+<span id="cb25-2"></span>
+<span id="cb25-3">plt.title(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Distribución de likes en modelos sólo en español de Hugging Face Hub"</span>)</span>
+<span id="cb25-4"></span>
+<span id="cb25-5">plt.show()</span></code></pre></div>
+</details>
+</div>
+<p><img src="https://martinolmos.github.io/data-icts/es/posts/language-models-in-spanish/likes_es_dist.png" class="img-fluid"></p>
+<div id="37936dfd" class="cell" data-execution_count="18">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb26" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">print</span>(likes_es_dist)</span></code></pre></div>
+</details>
+</div>
+<pre><code>{'Min': np.int64(0), '25%': np.float64(0.0), 'Median': np.float64(0.0), 'Mean': np.float64(1.5012755102040816), '75%': np.float64(1.0), '90%': np.float64(3.0), '95%': np.float64(7.0), '99%': np.float64(27.0)}</code></pre>
+<p>The average number of likes for models only in Spanish is 1.5, 75% of the models have 1 like or less, 90% have 3 likes or less, 95% have 7 likes or less, and 99% have 27 likes or less.</p>
+<p>Let’s now look at the models only in Spanish with the most likes.</p>
+<div id="dc008989" class="cell" data-execution_count="19">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb28" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1">plt.bar([<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Modelos con más de 150 likes"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Modelos con más de 100 likes"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Modelos con más de 50 likes"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Modelos con más de 20"</span>], [<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>([l <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">for</span> l <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">in</span> likes_es <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">if</span> l <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">150</span>]), <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>([l <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">for</span> l <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">in</span> likes_es <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">if</span> l <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">100</span>]), <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>([l <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">for</span> l <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">in</span> likes_es <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">if</span> l <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">50</span>]), <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>([l <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">for</span> l <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">in</span> likes_es <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">if</span> l <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">20</span>])])</span>
+<span id="cb28-2"></span>
+<span id="cb28-3">plt.title(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Cantidad de modelos sólo en español con más de X likes en Hugging Face Hub"</span>)</span>
+<span id="cb28-4"></span>
+<span id="cb28-5"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Rotate the x-axis labels 45 degrees</span></span>
+<span id="cb28-6">plt.xticks(rotation<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">45</span>, ha<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"right"</span>)</span>
+<span id="cb28-7"></span>
+<span id="cb28-8">plt.show()</span></code></pre></div>
+</details>
+</div>
+<p><img src="https://martinolmos.github.io/data-icts/es/posts/language-models-in-spanish/likes_es_dist2.png" class="img-fluid"></p>
+<div id="e84154ea" class="cell" data-execution_count="20">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb29" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">print</span>(<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>([l <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">for</span> l <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">in</span> likes_es <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">if</span> l <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">150</span>]), <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>([l <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">for</span> l <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">in</span> likes_es <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">if</span> l <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">100</span>]), <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>([l <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">for</span> l <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">in</span> likes_es <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">if</span> l <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">50</span>]), <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>([l <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">for</span> l <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">in</span> likes_es <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">if</span> l <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">20</span>]))</span></code></pre></div>
+</details>
+</div>
+<pre><code>0 1 4 23</code></pre>
+<p>There is only one model only in Spanish with 100 likes or more, while 4 models have 50 likes or more and 23 models have 20 likes or more.</p>
+<p>Let’s now look at the downloads.</p>
+<div id="b29c1bc2" class="cell" data-execution_count="21">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb31" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>(downloads), downloads.count(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>), downloads.count(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>)</span></code></pre></div>
+</details>
+</div>
+<pre><code>(1191400, 588526, 26337)</code></pre>
+<p>From the total of 1,191,400 models, 588,526 (approximately half) have 0 downloads.</p>
+<div id="54f98870" class="cell" data-execution_count="22">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb33" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1">dl_dist <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> {<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Min"</span>: np.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">min</span>(downloads), <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"25%"</span>: np.quantile(downloads, <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.25</span>), <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Median"</span>: np.median(downloads), <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Mean"</span>: np.mean(downloads), <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"75%"</span>: np.quantile(downloads, <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.75</span>), <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"90%"</span>: np.quantile(downloads, <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.9</span>), <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"95%"</span>: np.quantile(downloads, <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">.95</span>), <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"99%"</span>: np.quantile(downloads, <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">.99</span>)}</span></code></pre></div>
+</details>
+</div>
+<div id="090b8aba" class="cell" data-execution_count="23">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb34" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1">plt.bar(dl_dist.keys(), dl_dist.values())</span>
+<span id="cb34-2"></span>
+<span id="cb34-3">plt.title(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Distribución de descargas en modelos de Hugging Face Hub"</span>)</span>
+<span id="cb34-4"></span>
+<span id="cb34-5">plt.show()</span></code></pre></div>
+</details>
+</div>
+<p><img src="https://martinolmos.github.io/data-icts/es/posts/language-models-in-spanish/dl_dist.png" class="img-fluid"></p>
+<div id="81d47ffe" class="cell" data-execution_count="24">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb35" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">print</span>(dl_dist, np.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">max</span>(downloads))</span></code></pre></div>
+</details>
+</div>
+<pre><code>{'Min': np.int64(0), '25%': np.float64(0.0), 'Median': np.float64(1.0), 'Mean': np.float64(1823.2946558670471), '75%': np.float64(11.0), '90%': np.float64(23.0), '95%': np.float64(76.0), '99%': np.float64(1398.0)} 181462888</code></pre>
+<p>The average number of downloads for the models is 1823, while the median is just 1. This large difference indicates that there are a few models with a large number of downloads that make the average so high.</p>
+<p>The model with the most downloads has 181,462,888 downloads. Let’s see which model this is.</p>
+<div id="c0c952b2" class="cell" data-execution_count="25">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb37" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1">plt.bar([<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Modelos con más de 100 mil descargas"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Modelos con más de 500 mil descargas"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Modelos con más de 1 millón de  descargas"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Modelos con más de 10 millones de descargas"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Modelos con más de 100 millones de descargas"</span>], [<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>([l <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">for</span> l <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">in</span> downloads <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">if</span> l <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">100000</span>]), <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>([l <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">for</span> l <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">in</span> downloads <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">if</span> l <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">500000</span>]), <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>([l <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">for</span> l <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">in</span> downloads <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">if</span> l <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1000000</span>]), <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>([l <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">for</span> l <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">in</span> downloads <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">if</span> l <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">10000000</span>]), <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>([l <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">for</span> l <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">in</span> downloads <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">if</span> l <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">100000000</span>])])</span>
+<span id="cb37-2"></span>
+<span id="cb37-3">plt.title(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Cantidad de modelos con más de X descargas en Hugging Face Hub"</span>)</span>
+<span id="cb37-4"></span>
+<span id="cb37-5"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Rotate the x-axis labels 45 degrees</span></span>
+<span id="cb37-6">plt.xticks(rotation<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">45</span>, ha<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"right"</span>)</span>
+<span id="cb37-7"></span>
+<span id="cb37-8">plt.show()</span></code></pre></div>
+</details>
+</div>
+<p><img src="https://martinolmos.github.io/data-icts/es/posts/language-models-in-spanish/dl_dist2.png" class="img-fluid"></p>
+<div id="506fbb5d" class="cell" data-execution_count="26">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb38" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">print</span>(<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>([l <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">for</span> l <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">in</span> downloads <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">if</span> l <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">100000</span>]), <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>([l <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">for</span> l <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">in</span> downloads <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">if</span> l <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">500000</span>]), <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>([l <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">for</span> l <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">in</span> downloads <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">if</span> l <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1000000</span>]), <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>([l <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">for</span> l <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">in</span> downloads <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">if</span> l <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">10000000</span>]), <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>([l <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">for</span> l <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">in</span> downloads <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">if</span> l <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">100000000</span>]))</span></code></pre></div>
+</details>
+</div>
+<pre><code>1134 443 273 34 3</code></pre>
+<p>There are 1,134 models with more than 100,000 downloads, 443 with more than 500,000 downloads, 273 with more than 1 million downloads, 34 with more than 10 million downloads, and 3 with more than 100 million downloads.</p>
+<p>Let’s see which models have more than 10 million downloads.</p>
+<div id="d8e7ac28" class="cell" data-execution_count="27">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb40" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1">[<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">print</span>(<span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">f"Modelo: </span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span>m<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">id</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">, descargas: </span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span>m<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span>downloads<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"</span>) <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">for</span> m <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">in</span> models_millon_downloads <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">if</span> m.downloads <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">10000000</span>]</span></code></pre></div>
+</details>
+</div>
+<pre><code>Modelo: nesaorg/benchmark_v0, descargas: 172569176
+Modelo: sentence-transformers/all-MiniLM-L6-v2, descargas: 102361718
+Modelo: Qwen/Qwen2.5-1.5B-Instruct, descargas: 29787495
+Modelo: openai-community/gpt2, descargas: 13635588
+Modelo: google-bert/bert-base-uncased, descargas: 69032646
+Modelo: openai/clip-vit-large-patch14, descargas: 30593669
+Modelo: openai/clip-vit-base-patch32, descargas: 21394717
+Modelo: sentence-transformers/all-mpnet-base-v2, descargas: 181462888
+Modelo: pyannote/speaker-diarization-3.1, descargas: 11145540
+Modelo: sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2, descargas: 10717417
+Modelo: pyannote/segmentation-3.0, descargas: 14657651
+Modelo: bartowski/Meta-Llama-3.1-8B-Instruct-GGUF, descargas: 10642781
+Modelo: FacebookAI/roberta-base, descargas: 16983687
+Modelo: sentence-transformers/all-MiniLM-L12-v2, descargas: 10686154
+Modelo: openai/clip-vit-large-patch14-336, descargas: 20836111
+Modelo: distilbert/distilbert-base-uncased, descargas: 15451802
+Modelo: microsoft/resnet-50, descargas: 34636864
+Modelo: FacebookAI/xlm-roberta-large, descargas: 71149467
+Modelo: google-bert/bert-base-multilingual-uncased, descargas: 12923212
+Modelo: FacebookAI/roberta-large, descargas: 14851944
+Modelo: FacebookAI/xlm-roberta-base, descargas: 12074140
+Modelo: google/electra-base-discriminator, descargas: 10615222
+Modelo: google/vit-base-patch16-224-in21k, descargas: 10802933
+Modelo: jonatasgrosman/wav2vec2-large-xlsr-53-english, descargas: 20671837
+Modelo: openai/clip-vit-base-patch16, descargas: 13014792
+Modelo: bigscience/bloomz-560m, descargas: 12417679
+Modelo: timm/resnet50.a1_in1k, descargas: 24015981
+Modelo: pyannote/wespeaker-voxceleb-resnet34-LM, descargas: 12499697
+Modelo: nesaorg/fc_12, descargas: 26749830
+Modelo: nesaorg/fc_4, descargas: 19983316
+Modelo: nesaorg/fc_6, descargas: 39967060
+Modelo: nesaorg/fc_8, descargas: 54180206
+Modelo: nesaorg/fc_16, descargas: 12477680
+Modelo: distributed/optimized-gpt2-1b, descargas: 25559944</code></pre>
+<p>Let’s now look at the downloads of the models only in Spanish.</p>
+<div id="dca3e18d" class="cell" data-execution_count="28">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb42" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">print</span>(<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>(downloads_es), downloads_es.count(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>))</span></code></pre></div>
+</details>
+</div>
+<pre><code>1568 248</code></pre>
+<p>Of the 1,568 models only in Spanish, 248 have 0 downloads.</p>
+<div id="690c6531" class="cell" data-execution_count="29">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb44" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1">dl_es_dist <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> {<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Min"</span>: np.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">min</span>(downloads_es), <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"25%"</span>: np.quantile(downloads_es, <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.25</span>), <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Median"</span>: np.median(downloads_es), <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Mean"</span>: np.mean(downloads_es), <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"75%"</span>: np.quantile(downloads_es, <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.75</span>), <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"90%"</span>: np.quantile(downloads_es, <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.9</span>), <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"95%"</span>: np.quantile(downloads_es, <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">.95</span>), <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"99%"</span>: np.quantile(downloads_es, <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">.99</span>)}</span></code></pre></div>
+</details>
+</div>
+<div id="f98a8604" class="cell" data-execution_count="30">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb45" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1">plt.bar(dl_es_dist.keys(), dl_es_dist.values())</span>
+<span id="cb45-2"></span>
+<span id="cb45-3">plt.title(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Distribución de descargas en modelos sólo en español de Hugging Face Hub"</span>)</span>
+<span id="cb45-4"></span>
+<span id="cb45-5">plt.show()</span></code></pre></div>
+</details>
+</div>
+<p><img src="https://martinolmos.github.io/data-icts/es/posts/language-models-in-spanish/dl_es_dist.png" class="img-fluid"></p>
+<div id="094a8517" class="cell" data-execution_count="31">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb46" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">print</span>(dl_es_dist)</span></code></pre></div>
+</details>
+</div>
+<pre><code>{'Min': np.int64(0), '25%': np.float64(9.0), 'Median': np.float64(15.0), 'Mean': np.float64(2504.596301020408), '75%': np.float64(27.0), '90%': np.float64(99.59999999999991), '95%': np.float64(376.8999999999992), '99%': np.float64(11140.349999999986)}</code></pre>
+<p>The average number of downloads for models only in Spanish is 2504, while 95% of the models have 377 downloads or less.</p>
+<div id="7ffffbe0" class="cell" data-execution_count="32">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb48" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1">plt.bar([<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Modelos con más de 1000 descargas"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Modelos con más de 5000 descargas"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Modelos con más de 10000 descargas"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Modelos con más de 100 mil descargas"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Modelos con más de 200 mil descargas"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Modelos con más de 500 mil descargas"</span>], [<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>([l <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">for</span> l <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">in</span> downloads_es <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">if</span> l <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1000</span>]), <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>([l <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">for</span> l <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">in</span> downloads_es <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">if</span> l <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">5000</span>]), <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>([l <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">for</span> l <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">in</span> downloads_es <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">if</span> l <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">10000</span>]), <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>([l <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">for</span> l <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">in</span> downloads_es <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">if</span> l <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">100000</span>]), <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>([l <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">for</span> l <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">in</span> downloads_es <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">if</span> l <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">200000</span>]), <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>([l <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">for</span> l <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">in</span> downloads_es <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">if</span> l <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">500000</span>])])</span>
+<span id="cb48-2"></span>
+<span id="cb48-3">plt.title(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Cantidad de modelos sólo en español con más de X descargas en Hugging Face Hub"</span>)</span>
+<span id="cb48-4"></span>
+<span id="cb48-5"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Rotate the x-axis labels 45 degrees</span></span>
+<span id="cb48-6">plt.xticks(rotation<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">45</span>, ha<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"right"</span>)</span>
+<span id="cb48-7"></span>
+<span id="cb48-8">plt.show()</span></code></pre></div>
+</details>
+</div>
+<p><img src="https://martinolmos.github.io/data-icts/es/posts/language-models-in-spanish/dl_es_dist2.png" class="img-fluid"></p>
+<div id="5596194f" class="cell" data-execution_count="33">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb49" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">print</span>(<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>([l <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">for</span> l <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">in</span> downloads_es <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">if</span> l <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1000</span>]), <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>([l <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">for</span> l <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">in</span> downloads_es <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">if</span> l <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">5000</span>]), <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>([l <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">for</span> l <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">in</span> downloads_es <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">if</span> l <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">10000</span>]), <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>([l <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">for</span> l <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">in</span> downloads_es <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">if</span> l <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">100000</span>]), <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>([l <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">for</span> l <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">in</span> downloads_es <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">if</span> l <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">200000</span>]), <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>([l <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">for</span> l <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">in</span> downloads_es <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">if</span> l <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">500000</span>]))</span></code></pre></div>
+</details>
+</div>
+<pre><code>53 23 17 7 5 2</code></pre>
+<p>Let’s see which models only in Spanish have more than 100,000 downloads.</p>
+<div id="5de5aa0d" class="cell" data-execution_count="34">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb51" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1">[<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">print</span>(<span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">f"Modelo: </span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span>m<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">id</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">, descargas: </span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span>m<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span>downloads<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"</span>) <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">for</span> m <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">in</span> models_es_only_list <span class="cf" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">if</span> m.downloads <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">100000</span>]</span></code></pre></div>
+</details>
+</div>
+<pre><code>Modelo: MMG/xlm-roberta-large-ner-spanish, descargas: 657221
+Modelo: dccuchile/bert-base-spanish-wwm-uncased, descargas: 458065
+Modelo: hiiamsid/sentence_similarity_spanish_es, descargas: 131325
+Modelo: pysentimiento/robertuito-emotion-analysis, descargas: 117978
+Modelo: pysentimiento/robertuito-sentiment-analysis, descargas: 1111575
+Modelo: datificate/gpt2-small-spanish, descargas: 480166
+Modelo: finiteautomata/beto-sentiment-analysis, descargas: 461003
+
+
+
+
+
+[None, None, None, None, None, None, None]</code></pre>
+
+
+
+ ]]></description>
+  <category>AI</category>
+  <category>LLM</category>
+  <category>Hugging Face</category>
+  <guid>https://martinolmos.github.io/data-icts/es/posts/language-models-in-spanish/</guid>
+  <pubDate>Wed, 18 Dec 2024 03:00:00 GMT</pubDate>
+</item>
 <item>
   <title>Ministerial Summit on the Ethics of AI in LAC</title>
   <dc:creator>Martin Olmos</dc:creator>
