@@ -1,7 +1,7 @@
 ---
 title: "You Only Look Once"
 subtitle: "You Only Look Once"
-Author: "Martin Olmos"
+author: "Martin Olmos"
 format: 
   html:
     code-fold: show
@@ -126,7 +126,7 @@ print(f"Video saved to {output_path}")
 
 ```
 
-{{< video src="output_detection.mp4" width="640" height="480" >}}
+![](output_detection2.mp4){width="640" height="480"}
 
 ```{python}
 
@@ -193,4 +193,4 @@ print(f"Video saved to {output_path}")
 
 ```
 
-{{< video src="output_pose.mp4" width="640" height="480" >}}
+![](output_pose2.mp4){width="640" height="480"}
