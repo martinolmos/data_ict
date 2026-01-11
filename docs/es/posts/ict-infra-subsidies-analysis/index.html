@@ -2,13 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.554">
+<meta name="generator" content="quarto-1.6.42">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Martin Olmos">
 
-<title>Datos y TICs - ICT Infrastructure Subsidies Analysis</title>
+<title>ICT Infrastructure Subsidies Analysis – Datos y TICs</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -34,7 +34,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -70,10 +70,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-ddd961a2510921635943dfbbd19534c4.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -118,7 +118,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </a>
   </div>
             <div id="quarto-search" class="" title="Buscar"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Navegación de palanca" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Navegación de palanca" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
@@ -154,7 +154,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
-          <div class="quarto-navbar-tools">
+            <div class="quarto-navbar-tools">
 </div>
       </div> <!-- /container-fluid -->
     </nav>
@@ -253,7 +253,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">"Provincia"</span>, fontsize<span class="op">=</span><span class="dv">15</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="fig-prog-con-prov" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-prog-con-prov" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-prog-con-prov-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="./prog_con_prov.png" class="img-fluid figure-img">
@@ -276,7 +276,7 @@ Figura&nbsp;1: Localidades beneficiarias de ANRs del Prog. Conectividad por prov
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">"Año"</span>, fontsize<span class="op">=</span><span class="dv">15</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="fig-prog-con-anio" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-prog-con-anio" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-prog-con-anio-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="./prog_con_anio.png" class="img-fluid figure-img">
@@ -303,7 +303,7 @@ Figura&nbsp;2: Localidades beneficiarias de ANRs del Prog. Conectividad por año
 <span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    ax[i].set_xticklabels([textwrap.fill(label.get_text(), <span class="dv">10</span>) <span class="cf">for</span> label <span class="kw">in</span> ax[i].get_xticklabels()], rotation<span class="op">=</span><span class="dv">45</span>, fontsize<span class="op">=</span><span class="dv">8</span>, ha<span class="op">=</span><span class="st">'right'</span>)  <span class="co"># Wrap labels</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="fig-prog-con-prov-anio" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-prog-con-prov-anio" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-prog-con-prov-anio-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="./prog_con_anio_prov.png" class="img-fluid figure-img">
@@ -340,7 +340,7 @@ Figura&nbsp;3: Localidades beneficiarias de ANRs del Prog. Conectividad por año
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">"Provincia"</span>, fontsize<span class="op">=</span><span class="dv">15</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="fig-prog-renabap-prov" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-prog-renabap-prov" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-prog-renabap-prov-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="./prog_renabap_prov.png" class="img-fluid figure-img">
@@ -363,7 +363,7 @@ Figura&nbsp;4: Barrios beneficiados con ANRs del Prog. Barrios Populares por pro
 <span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">"Año"</span>, fontsize<span class="op">=</span><span class="dv">15</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="fig-prog-renabap-anio" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-prog-renabap-anio" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-prog-renabap-anio-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="./prog_renabap_anio.png" class="img-fluid figure-img">
@@ -390,7 +390,7 @@ Figura&nbsp;5: Barrios beneficiados con ANRs del Prog. Barrios Populares aprobad
 <span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    ax[i].set_xticklabels([textwrap.fill(label.get_text(), <span class="dv">10</span>) <span class="cf">for</span> label <span class="kw">in</span> ax[i].get_xticklabels()], rotation<span class="op">=</span><span class="dv">45</span>, fontsize<span class="op">=</span><span class="dv">8</span>, ha<span class="op">=</span><span class="st">'right'</span>)  <span class="co"># Wrap labels</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="fig-prog-renabap-anio-prov" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-prog-renabap-anio-prov" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-prog-renabap-anio-prov-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="./prog_renabap_anio_prov.png" class="img-fluid figure-img">
@@ -407,15 +407,25 @@ Figura&nbsp;6: Barrios beneficiados por ANRs del Prog. Barrios Populares aprobad
 
 </main> <!-- /main -->
 <div id="disqus_thread"></div>
+
 <script>
+
 (function() { // DON'T EDIT BELOW THIS LINE
+
   var d = document, s = d.createElement('script');
+
   s.src = 'https://datos-tic.disqus.com/embed.js';
+
   s.setAttribute('data-timestamp', +new Date());
+
   (d.head || d.body).appendChild(s);
+
 })();
+
 </script>
+
 <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -451,18 +461,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -494,7 +493,27 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
       var filterRegex = new RegExp("https:\/\/martinolmos\.github\.io\/data-icts\/es");
@@ -502,7 +521,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
     // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
     for (var i=0; i<links.length; i++) {
       const link = links[i];
       if (!isInternal(link.href)) {
@@ -599,7 +618,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {

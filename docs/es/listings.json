@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/you-only-look-once/index.html",
       "/posts/language-models-in-spanish/index.html",
       "/posts/cumbre-ia/index.html",
       "/posts/stem-movie-recommendations/index.html",
