@@ -2,7 +2,6 @@
   {
     "listing": "/index.html",
     "items": [
-      "/posts/you-only-look-once/index.html",
       "/posts/language-models-in-spanish/index.html",
       "/posts/cumbre-ia/index.html",
       "/posts/stem-movie-recommendations/index.html",
@@ -19,7 +18,8 @@
       "/posts/price-evolution/index.html",
       "/posts/internet-submarine-cables/index.html",
       "/posts/30-day-map-challenge-day-3-and-4/index.html",
-      "/posts/30-day-map-challenge-day-1-and-2/index.html"
+      "/posts/30-day-map-challenge-day-1-and-2/index.html",
+      "/posts/you-only-look-once/index.html"
     ]
   }
 ]

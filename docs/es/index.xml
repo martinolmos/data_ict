@@ -7208,6 +7208,7 @@ font-style: inherit;">"Fuente: www.idecom.gob.ar / Source: www.idecom.gob.ar"</s
 </item>
 <item>
   <title>You Only Look Once</title>
+  <dc:creator>Martin Olmos</dc:creator>
   <link>https://martinolmos.github.io/data-icts/es/posts/you-only-look-once/</link>
   <description><![CDATA[ 
 
@@ -7218,7 +7219,7 @@ font-style: inherit;">"Fuente: www.idecom.gob.ar / Source: www.idecom.gob.ar"</s
 <p>You Only Look Once (YOLO) es una serie de modelos de detección de objetos en tiempo real y de código abierto que pueden identificar y clasificar múltiples objetos dentro de una imagen o fotograma de video. A diferencia de los métodos tradicionales de detección de objetos que se basan en redes de propuestas de regiones, YOLO trata la detección de objetos como un único problema de regresión, prediciendo directamente los cuadros delimitadores y las probabilidades de clase a partir de toda la imagen en una sola evaluación.</p>
 <p>La serie Ultralytics YOLOv8 admite varias tareas, incluida la detección de objetos, la estimación de poses, la segmentación y la clasificación. Es conocida por su velocidad y precisión, lo que la hace adecuada para aplicaciones en tiempo real como la vigilancia, la conducción autónoma y la robótica.</p>
 <p>Aquí está el código para ejecutar un modelo YOLOv8 utilizando la biblioteca Ultralytics en Python para la detección de objetos y la estimación de poses:</p>
-<div id="6bfc9570" class="cell" data-execution_count="1">
+<div id="fcaa3591" class="cell" data-execution_count="1">
 <details open="" class="code-fold">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: #00769E;
@@ -7721,8 +7722,8 @@ background-color: null;
 font-style: inherit;">"</span>)</span></code></pre></div>
 </details>
 </div>
-<div class="quarto-video"><video id="video_shortcode_videojs_video1" width="640" height="480" class="video-js vjs-default-skin " controls="" preload="auto" data-setup="{}" title=""><source src="output_detection.mp4"></video></div>
-<div id="ebb74aa7" class="cell" data-execution_count="2">
+<p><video src="output_detection2.mp4" width="640" height="480" controls=""><a href="output_detection2.mp4">Video</a></video></p>
+<div id="86d14d8a" class="cell" data-execution_count="2">
 <details open="" class="code-fold">
 <summary>Código</summary>
 <div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="co" style="color: #5E5E5E;
@@ -7990,13 +7991,18 @@ background-color: null;
 font-style: inherit;">"</span>)</span></code></pre></div>
 </details>
 </div>
-<div class="quarto-video"><video id="video_shortcode_videojs_video2" width="640" height="480" class="video-js vjs-default-skin " controls="" preload="auto" data-setup="{}" title=""><source src="output_pose.mp4"></video></div>
+<p><video src="output_pose2.mp4" width="640" height="480" controls=""><a href="output_pose2.mp4">Video</a></video></p>
 
 
 
  ]]></description>
+  <category>computer-vision</category>
+  <category>deep-learning</category>
+  <category>python</category>
+  <category>yolo</category>
+  <category>ultralytics</category>
   <guid>https://martinolmos.github.io/data-icts/es/posts/you-only-look-once/</guid>
-  <pubDate>Sun, 11 Jan 2026 23:15:05 GMT</pubDate>
+  <pubDate>Invalid Date</pubDate>
 </item>
 </channel>
 </rss>
