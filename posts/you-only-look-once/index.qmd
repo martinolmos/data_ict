@@ -2,6 +2,9 @@
 title: "You Only Look Once"
 subtitle: "You Only Look Once"
 author: "Martin Olmos"
+date: today()
+categories: [computer-vision, deep-learning, python, yolo, ultralytics]
+tags: [computer-vision, deep-learning, python, yolo, ultralytics]
 format: 
   html:
     code-fold: show
