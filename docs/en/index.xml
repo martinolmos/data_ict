@@ -10,7 +10,805 @@
 <atom:link href="https://martinolmos.github.io/data-icts/es/index.xml" rel="self" type="application/rss+xml"/>
 <description></description>
 <generator>quarto-1.6.42</generator>
-<lastBuildDate>Wed, 18 Dec 2024 03:00:00 GMT</lastBuildDate>
+<lastBuildDate>Sun, 11 Jan 2026 03:00:00 GMT</lastBuildDate>
+<item>
+  <title>You Only Look Once</title>
+  <dc:creator>Martin Olmos</dc:creator>
+  <link>https://martinolmos.github.io/data-icts/es/posts/you-only-look-once/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+<p>You Only Look Once (YOLO) is series of open-source, real-time object detection models that can identify and classify multiple objects within an image or video frame. Unlike traditional object detection methods that rely on region proposal networks, YOLO treats object detection as a single regression problem, directly predicting bounding boxes and class probabilities from the entire image in one evaluation.</p>
+<p>The Ultralytics YOLOv8 series supports various tasks, including object detection, pose estimation, segmentation, and classification. It is known for its speed and accuracy, making it suitable for real-time applications such as surveillance, autonomous driving, and robotics.</p>
+<p>Here is the code to run a YOLOv8 model using the Ultralytics library in Python for object detection and pose estimation:</p>
+<div id="ec4e7fbe" class="cell" data-execution_count="1">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> ultralytics <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> YOLO</span>
+<span id="cb1-2"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> cv2</span>
+<span id="cb1-3"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> math </span>
+<span id="cb1-4"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> torch</span>
+<span id="cb1-5"></span>
+<span id="cb1-6"></span>
+<span id="cb1-7">CAM_INDEX <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># change if you have multiple cameras</span></span>
+<span id="cb1-8">device <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'cuda'</span> <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">if</span> torch.cuda.is_available() <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">else</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'cpu'</span></span>
+<span id="cb1-9"></span>
+<span id="cb1-10"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># model</span></span>
+<span id="cb1-11">model <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> YOLO(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"yolo-Weights/yolov8n.pt"</span>)</span>
+<span id="cb1-12"></span>
+<span id="cb1-13"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Optional: move model to GPU (if available)</span></span>
+<span id="cb1-14"><span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">try</span>:</span>
+<span id="cb1-15">    model.to(device)</span>
+<span id="cb1-16"><span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">except</span> <span class="pp" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">Exception</span>:</span>
+<span id="cb1-17">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">pass</span>  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># older ultralytics handles device per-predict call</span></span>
+<span id="cb1-18"></span>
+<span id="cb1-19"></span>
+<span id="cb1-20"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># start webcam</span></span>
+<span id="cb1-21">cap <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> cv2.VideoCapture(CAM_INDEX)</span>
+<span id="cb1-22">cap.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">set</span>(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">640</span>)</span>
+<span id="cb1-23">cap.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">set</span>(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">4</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">480</span>)</span>
+<span id="cb1-24"></span>
+<span id="cb1-25"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># object classes</span></span>
+<span id="cb1-26">classNames <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> [<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"person"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"bicycle"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"car"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"motorbike"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"aeroplane"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"bus"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"train"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"truck"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"boat"</span>,</span>
+<span id="cb1-27">              <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"traffic light"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"fire hydrant"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"stop sign"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"parking meter"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"bench"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"bird"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"cat"</span>,</span>
+<span id="cb1-28">              <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"dog"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"horse"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"sheep"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"cow"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"elephant"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"bear"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"zebra"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"giraffe"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"backpack"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"umbrella"</span>,</span>
+<span id="cb1-29">              <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"handbag"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"tie"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"suitcase"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"frisbee"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"skis"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"snowboard"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"sports ball"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"kite"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"baseball bat"</span>,</span>
+<span id="cb1-30">              <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"baseball glove"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"skateboard"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"surfboard"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"tennis racket"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"bottle"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"wine glass"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"cup"</span>,</span>
+<span id="cb1-31">              <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"fork"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"knife"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"spoon"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"bowl"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"banana"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"apple"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"sandwich"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"orange"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"broccoli"</span>,</span>
+<span id="cb1-32">              <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"carrot"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"hot dog"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"pizza"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"donut"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"cake"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"chair"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"sofa"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"pottedplant"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"bed"</span>,</span>
+<span id="cb1-33">              <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"diningtable"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"toilet"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"tvmonitor"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"laptop"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"mouse"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"remote"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"keyboard"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"cell phone"</span>,</span>
+<span id="cb1-34">              <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"microwave"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"oven"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"toaster"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"sink"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"refrigerator"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"book"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"clock"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"vase"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"scissors"</span>,</span>
+<span id="cb1-35">              <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"teddy bear"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"hair drier"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"toothbrush"</span></span>
+<span id="cb1-36">              ]</span>
+<span id="cb1-37"></span>
+<span id="cb1-38"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Video output settings</span></span>
+<span id="cb1-39">output_path <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"output_detection.mp4"</span></span>
+<span id="cb1-40">fourcc <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> cv2.VideoWriter_fourcc(<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'mp4v'</span>)</span>
+<span id="cb1-41">fps <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">30</span></span>
+<span id="cb1-42">frame_width <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">int</span>(cap.get(cv2.CAP_PROP_FRAME_WIDTH))</span>
+<span id="cb1-43">frame_height <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">int</span>(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))</span>
+<span id="cb1-44">out <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> cv2.VideoWriter(output_path, fourcc, fps, (frame_width, frame_height))</span>
+<span id="cb1-45"></span>
+<span id="cb1-46"><span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">while</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">True</span>:</span>
+<span id="cb1-47">    success, img <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> cap.read()</span>
+<span id="cb1-48">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">if</span> <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">not</span> success:</span>
+<span id="cb1-49">        <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">break</span></span>
+<span id="cb1-50">    results <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> model(img, stream<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">True</span>, device<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"cuda"</span>)</span>
+<span id="cb1-51"></span>
+<span id="cb1-52">    <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># coordinates</span></span>
+<span id="cb1-53">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">for</span> r <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">in</span> results:</span>
+<span id="cb1-54">        boxes <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> r.boxes</span>
+<span id="cb1-55"></span>
+<span id="cb1-56">        <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">for</span> box <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">in</span> boxes:</span>
+<span id="cb1-57">            <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># bounding box</span></span>
+<span id="cb1-58">            x1, y1, x2, y2 <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> box.xyxy[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>]</span>
+<span id="cb1-59">            x1, y1, x2, y2 <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">int</span>(x1), <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">int</span>(y1), <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">int</span>(x2), <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">int</span>(y2) <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># convert to int values</span></span>
+<span id="cb1-60"></span>
+<span id="cb1-61">            <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># put box in cam</span></span>
+<span id="cb1-62">            cv2.rectangle(img, (x1, y1), (x2, y2), (<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">255</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">255</span>), <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3</span>)</span>
+<span id="cb1-63"></span>
+<span id="cb1-64">            <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># confidence</span></span>
+<span id="cb1-65">            confidence <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> math.ceil((box.conf[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>]<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">100</span>))<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">100</span></span>
+<span id="cb1-66">            <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">print</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Confidence ---&gt;"</span>,confidence)</span>
+<span id="cb1-67"></span>
+<span id="cb1-68">            <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># class name</span></span>
+<span id="cb1-69">            cls <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">int</span>(box.cls[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>])</span>
+<span id="cb1-70">            <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">print</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Class name --&gt;"</span>, classNames[cls])</span>
+<span id="cb1-71"></span>
+<span id="cb1-72">            <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># object details</span></span>
+<span id="cb1-73">            org <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> [x1, y1]</span>
+<span id="cb1-74">            font <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> cv2.FONT_HERSHEY_SIMPLEX</span>
+<span id="cb1-75">            fontScale <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span></span>
+<span id="cb1-76">            color <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> (<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">255</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>)</span>
+<span id="cb1-77">            thickness <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span></span>
+<span id="cb1-78"></span>
+<span id="cb1-79">            cv2.putText(img, classNames[cls], org, font, fontScale, color, thickness)</span>
+<span id="cb1-80"></span>
+<span id="cb1-81">    <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Write frame to video file</span></span>
+<span id="cb1-82">    out.write(img)</span>
+<span id="cb1-83">    </span>
+<span id="cb1-84">    cv2.imshow(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'Webcam'</span>, img)</span>
+<span id="cb1-85">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">if</span> cv2.waitKey(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">==</span> <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">ord</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'q'</span>):</span>
+<span id="cb1-86">        <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">break</span></span>
+<span id="cb1-87"></span>
+<span id="cb1-88">cap.release()</span>
+<span id="cb1-89">out.release()  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Release the video writer</span></span>
+<span id="cb1-90">cv2.destroyAllWindows()</span>
+<span id="cb1-91"><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">print</span>(<span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">f"Video saved to </span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span>output_path<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"</span>)</span></code></pre></div>
+</details>
+</div>
+<p><video src="output_detection2.mp4" width="640" height="480" controls=""><a href="output_detection2.mp4">Video</a></video></p>
+<div id="a9001c10" class="cell" data-execution_count="2">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Realtime pose estimation with YOLOv8 (OpenCV window)</span></span>
+<span id="cb2-2"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> cv2, torch, time</span>
+<span id="cb2-3"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> ultralytics <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> YOLO</span>
+<span id="cb2-4"></span>
+<span id="cb2-5">CAM_INDEX <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># change if you have multiple cameras</span></span>
+<span id="cb2-6">device <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'cuda'</span> <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">if</span> torch.cuda.is_available() <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">else</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'cpu'</span></span>
+<span id="cb2-7"></span>
+<span id="cb2-8">model <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> YOLO(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'yolov8n-pose.pt'</span>)  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># or 'yolov8s-pose.pt'</span></span>
+<span id="cb2-9"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Optional: move model to GPU (if available)</span></span>
+<span id="cb2-10"><span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">try</span>:</span>
+<span id="cb2-11">    model.to(device)</span>
+<span id="cb2-12"><span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">except</span> <span class="pp" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">Exception</span>:</span>
+<span id="cb2-13">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">pass</span>  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># older ultralytics handles device per-predict call</span></span>
+<span id="cb2-14"></span>
+<span id="cb2-15">cap <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> cv2.VideoCapture(CAM_INDEX)</span>
+<span id="cb2-16">cap.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">set</span>(cv2.CAP_PROP_FRAME_WIDTH, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1280</span>)</span>
+<span id="cb2-17">cap.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">set</span>(cv2.CAP_PROP_FRAME_HEIGHT, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">720</span>)</span>
+<span id="cb2-18"></span>
+<span id="cb2-19"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Video output settings</span></span>
+<span id="cb2-20">output_path <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"output_pose.mp4"</span></span>
+<span id="cb2-21">fourcc <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> cv2.VideoWriter_fourcc(<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'mp4v'</span>)</span>
+<span id="cb2-22">fps <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">30</span></span>
+<span id="cb2-23">frame_width <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">int</span>(cap.get(cv2.CAP_PROP_FRAME_WIDTH))</span>
+<span id="cb2-24">frame_height <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">int</span>(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))</span>
+<span id="cb2-25">out <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> cv2.VideoWriter(output_path, fourcc, fps, (frame_width, frame_height))</span>
+<span id="cb2-26"></span>
+<span id="cb2-27">prev_t <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> time.time()</span>
+<span id="cb2-28"><span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">while</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">True</span>:</span>
+<span id="cb2-29">    ok, frame <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> cap.read()</span>
+<span id="cb2-30">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">if</span> <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">not</span> ok:</span>
+<span id="cb2-31">        <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">break</span></span>
+<span id="cb2-32"></span>
+<span id="cb2-33">    results <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> model.predict(</span>
+<span id="cb2-34">        frame,</span>
+<span id="cb2-35">        device<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>device,</span>
+<span id="cb2-36">        imgsz<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">640</span>,</span>
+<span id="cb2-37">        conf<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.5</span>,</span>
+<span id="cb2-38">        half<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>(device <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">==</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'cuda'</span>),</span>
+<span id="cb2-39">        verbose<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">False</span></span>
+<span id="cb2-40">    )</span>
+<span id="cb2-41">    annotated <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> results[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>].plot()</span>
+<span id="cb2-42"></span>
+<span id="cb2-43">    <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># FPS overlay</span></span>
+<span id="cb2-44">    now <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> time.time()</span>
+<span id="cb2-45">    fps_val <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span> (now <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span> prev_t)</span>
+<span id="cb2-46">    prev_t <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> now</span>
+<span id="cb2-47">    cv2.putText(annotated, <span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">f'FPS: </span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span>fps_val<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:.1f}</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;"> (</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span>device<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">)'</span>, (<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">10</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">30</span>),</span>
+<span id="cb2-48">                cv2.FONT_HERSHEY_SIMPLEX, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>, (<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">255</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>), <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span>)</span>
+<span id="cb2-49"></span>
+<span id="cb2-50">    <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Write frame to video file</span></span>
+<span id="cb2-51">    out.write(annotated)</span>
+<span id="cb2-52"></span>
+<span id="cb2-53">    cv2.imshow(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'YOLOv8 Pose'</span>, annotated)</span>
+<span id="cb2-54">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">if</span> cv2.waitKey(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&amp;</span> <span class="bn" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0xFF</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">==</span> <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">ord</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'q'</span>):</span>
+<span id="cb2-55">        <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">break</span></span>
+<span id="cb2-56"></span>
+<span id="cb2-57">cap.release()</span>
+<span id="cb2-58">out.release()  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Release the video writer</span></span>
+<span id="cb2-59">cv2.destroyAllWindows()</span>
+<span id="cb2-60"><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">print</span>(<span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">f"Video saved to </span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span>output_path<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"</span>)</span></code></pre></div>
+</details>
+</div>
+<p><video src="output_pose2.mp4" width="640" height="480" controls=""><a href="output_pose2.mp4">Video</a></video></p>
+
+
+
+ ]]></description>
+  <category>computer-vision</category>
+  <category>deep-learning</category>
+  <category>python</category>
+  <category>yolo</category>
+  <category>ultralytics</category>
+  <guid>https://martinolmos.github.io/data-icts/es/posts/you-only-look-once/</guid>
+  <pubDate>Sun, 11 Jan 2026 03:00:00 GMT</pubDate>
+</item>
 <item>
   <title>Language Models in Spanish</title>
   <dc:creator>Martin Olmos</dc:creator>
@@ -7205,804 +8003,6 @@ font-style: inherit;">"Fuente: www.idecom.gob.ar / Source: www.idecom.gob.ar"</s
  ]]></description>
   <guid>https://martinolmos.github.io/data-icts/es/posts/30-day-map-challenge-day-1-and-2/</guid>
   <pubDate>Sat, 06 Nov 2021 03:00:00 GMT</pubDate>
-</item>
-<item>
-  <title>You Only Look Once</title>
-  <dc:creator>Martin Olmos</dc:creator>
-  <link>https://martinolmos.github.io/data-icts/es/posts/you-only-look-once/</link>
-  <description><![CDATA[ 
-
-
-
-
-
-<p>You Only Look Once (YOLO) is series of open-source, real-time object detection models that can identify and classify multiple objects within an image or video frame. Unlike traditional object detection methods that rely on region proposal networks, YOLO treats object detection as a single regression problem, directly predicting bounding boxes and class probabilities from the entire image in one evaluation.</p>
-<p>The Ultralytics YOLOv8 series supports various tasks, including object detection, pose estimation, segmentation, and classification. It is known for its speed and accuracy, making it suitable for real-time applications such as surveillance, autonomous driving, and robotics.</p>
-<p>Here is the code to run a YOLOv8 model using the Ultralytics library in Python for object detection and pose estimation:</p>
-<div id="b05f553b" class="cell" data-execution_count="1">
-<details open="" class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: #00769E;
-background-color: null;
-font-style: inherit;">from</span> ultralytics <span class="im" style="color: #00769E;
-background-color: null;
-font-style: inherit;">import</span> YOLO</span>
-<span id="cb1-2"><span class="im" style="color: #00769E;
-background-color: null;
-font-style: inherit;">import</span> cv2</span>
-<span id="cb1-3"><span class="im" style="color: #00769E;
-background-color: null;
-font-style: inherit;">import</span> math </span>
-<span id="cb1-4"><span class="im" style="color: #00769E;
-background-color: null;
-font-style: inherit;">import</span> torch</span>
-<span id="cb1-5"></span>
-<span id="cb1-6"></span>
-<span id="cb1-7">CAM_INDEX <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">0</span>  <span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"># change if you have multiple cameras</span></span>
-<span id="cb1-8">device <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'cuda'</span> <span class="cf" style="color: #003B4F;
-background-color: null;
-font-weight: bold;
-font-style: inherit;">if</span> torch.cuda.is_available() <span class="cf" style="color: #003B4F;
-background-color: null;
-font-weight: bold;
-font-style: inherit;">else</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'cpu'</span></span>
-<span id="cb1-9"></span>
-<span id="cb1-10"><span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"># model</span></span>
-<span id="cb1-11">model <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> YOLO(<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"yolo-Weights/yolov8n.pt"</span>)</span>
-<span id="cb1-12"></span>
-<span id="cb1-13"><span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"># Optional: move model to GPU (if available)</span></span>
-<span id="cb1-14"><span class="cf" style="color: #003B4F;
-background-color: null;
-font-weight: bold;
-font-style: inherit;">try</span>:</span>
-<span id="cb1-15">    model.to(device)</span>
-<span id="cb1-16"><span class="cf" style="color: #003B4F;
-background-color: null;
-font-weight: bold;
-font-style: inherit;">except</span> <span class="pp" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">Exception</span>:</span>
-<span id="cb1-17">    <span class="cf" style="color: #003B4F;
-background-color: null;
-font-weight: bold;
-font-style: inherit;">pass</span>  <span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"># older ultralytics handles device per-predict call</span></span>
-<span id="cb1-18"></span>
-<span id="cb1-19"></span>
-<span id="cb1-20"><span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"># start webcam</span></span>
-<span id="cb1-21">cap <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> cv2.VideoCapture(CAM_INDEX)</span>
-<span id="cb1-22">cap.<span class="bu" style="color: null;
-background-color: null;
-font-style: inherit;">set</span>(<span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">3</span>, <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">640</span>)</span>
-<span id="cb1-23">cap.<span class="bu" style="color: null;
-background-color: null;
-font-style: inherit;">set</span>(<span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">4</span>, <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">480</span>)</span>
-<span id="cb1-24"></span>
-<span id="cb1-25"><span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"># object classes</span></span>
-<span id="cb1-26">classNames <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> [<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"person"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"bicycle"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"car"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"motorbike"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"aeroplane"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"bus"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"train"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"truck"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"boat"</span>,</span>
-<span id="cb1-27">              <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"traffic light"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"fire hydrant"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"stop sign"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"parking meter"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"bench"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"bird"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"cat"</span>,</span>
-<span id="cb1-28">              <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"dog"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"horse"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"sheep"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"cow"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"elephant"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"bear"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"zebra"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"giraffe"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"backpack"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"umbrella"</span>,</span>
-<span id="cb1-29">              <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"handbag"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"tie"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"suitcase"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"frisbee"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"skis"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"snowboard"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"sports ball"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"kite"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"baseball bat"</span>,</span>
-<span id="cb1-30">              <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"baseball glove"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"skateboard"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"surfboard"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"tennis racket"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"bottle"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"wine glass"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"cup"</span>,</span>
-<span id="cb1-31">              <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"fork"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"knife"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"spoon"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"bowl"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"banana"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"apple"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"sandwich"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"orange"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"broccoli"</span>,</span>
-<span id="cb1-32">              <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"carrot"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"hot dog"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"pizza"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"donut"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"cake"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"chair"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"sofa"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"pottedplant"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"bed"</span>,</span>
-<span id="cb1-33">              <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"diningtable"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"toilet"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"tvmonitor"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"laptop"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"mouse"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"remote"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"keyboard"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"cell phone"</span>,</span>
-<span id="cb1-34">              <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"microwave"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"oven"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"toaster"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"sink"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"refrigerator"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"book"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"clock"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"vase"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"scissors"</span>,</span>
-<span id="cb1-35">              <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"teddy bear"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"hair drier"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"toothbrush"</span></span>
-<span id="cb1-36">              ]</span>
-<span id="cb1-37"></span>
-<span id="cb1-38"><span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"># Video output settings</span></span>
-<span id="cb1-39">output_path <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"output_detection.mp4"</span></span>
-<span id="cb1-40">fourcc <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> cv2.VideoWriter_fourcc(<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">*</span><span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'mp4v'</span>)</span>
-<span id="cb1-41">fps <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">30</span></span>
-<span id="cb1-42">frame_width <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="bu" style="color: null;
-background-color: null;
-font-style: inherit;">int</span>(cap.get(cv2.CAP_PROP_FRAME_WIDTH))</span>
-<span id="cb1-43">frame_height <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="bu" style="color: null;
-background-color: null;
-font-style: inherit;">int</span>(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))</span>
-<span id="cb1-44">out <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> cv2.VideoWriter(output_path, fourcc, fps, (frame_width, frame_height))</span>
-<span id="cb1-45"></span>
-<span id="cb1-46"><span class="cf" style="color: #003B4F;
-background-color: null;
-font-weight: bold;
-font-style: inherit;">while</span> <span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">True</span>:</span>
-<span id="cb1-47">    success, img <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> cap.read()</span>
-<span id="cb1-48">    <span class="cf" style="color: #003B4F;
-background-color: null;
-font-weight: bold;
-font-style: inherit;">if</span> <span class="kw" style="color: #003B4F;
-background-color: null;
-font-weight: bold;
-font-style: inherit;">not</span> success:</span>
-<span id="cb1-49">        <span class="cf" style="color: #003B4F;
-background-color: null;
-font-weight: bold;
-font-style: inherit;">break</span></span>
-<span id="cb1-50">    results <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> model(img, stream<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">True</span>, device<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"cuda"</span>)</span>
-<span id="cb1-51"></span>
-<span id="cb1-52">    <span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"># coordinates</span></span>
-<span id="cb1-53">    <span class="cf" style="color: #003B4F;
-background-color: null;
-font-weight: bold;
-font-style: inherit;">for</span> r <span class="kw" style="color: #003B4F;
-background-color: null;
-font-weight: bold;
-font-style: inherit;">in</span> results:</span>
-<span id="cb1-54">        boxes <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> r.boxes</span>
-<span id="cb1-55"></span>
-<span id="cb1-56">        <span class="cf" style="color: #003B4F;
-background-color: null;
-font-weight: bold;
-font-style: inherit;">for</span> box <span class="kw" style="color: #003B4F;
-background-color: null;
-font-weight: bold;
-font-style: inherit;">in</span> boxes:</span>
-<span id="cb1-57">            <span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"># bounding box</span></span>
-<span id="cb1-58">            x1, y1, x2, y2 <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> box.xyxy[<span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">0</span>]</span>
-<span id="cb1-59">            x1, y1, x2, y2 <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="bu" style="color: null;
-background-color: null;
-font-style: inherit;">int</span>(x1), <span class="bu" style="color: null;
-background-color: null;
-font-style: inherit;">int</span>(y1), <span class="bu" style="color: null;
-background-color: null;
-font-style: inherit;">int</span>(x2), <span class="bu" style="color: null;
-background-color: null;
-font-style: inherit;">int</span>(y2) <span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"># convert to int values</span></span>
-<span id="cb1-60"></span>
-<span id="cb1-61">            <span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"># put box in cam</span></span>
-<span id="cb1-62">            cv2.rectangle(img, (x1, y1), (x2, y2), (<span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">255</span>, <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">0</span>, <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">255</span>), <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">3</span>)</span>
-<span id="cb1-63"></span>
-<span id="cb1-64">            <span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"># confidence</span></span>
-<span id="cb1-65">            confidence <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> math.ceil((box.conf[<span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">0</span>]<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">*</span><span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">100</span>))<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">/</span><span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">100</span></span>
-<span id="cb1-66">            <span class="bu" style="color: null;
-background-color: null;
-font-style: inherit;">print</span>(<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"Confidence ---&gt;"</span>,confidence)</span>
-<span id="cb1-67"></span>
-<span id="cb1-68">            <span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"># class name</span></span>
-<span id="cb1-69">            cls <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="bu" style="color: null;
-background-color: null;
-font-style: inherit;">int</span>(box.cls[<span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">0</span>])</span>
-<span id="cb1-70">            <span class="bu" style="color: null;
-background-color: null;
-font-style: inherit;">print</span>(<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"Class name --&gt;"</span>, classNames[cls])</span>
-<span id="cb1-71"></span>
-<span id="cb1-72">            <span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"># object details</span></span>
-<span id="cb1-73">            org <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> [x1, y1]</span>
-<span id="cb1-74">            font <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> cv2.FONT_HERSHEY_SIMPLEX</span>
-<span id="cb1-75">            fontScale <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">1</span></span>
-<span id="cb1-76">            color <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> (<span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">255</span>, <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">0</span>, <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">0</span>)</span>
-<span id="cb1-77">            thickness <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">2</span></span>
-<span id="cb1-78"></span>
-<span id="cb1-79">            cv2.putText(img, classNames[cls], org, font, fontScale, color, thickness)</span>
-<span id="cb1-80"></span>
-<span id="cb1-81">    <span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"># Write frame to video file</span></span>
-<span id="cb1-82">    out.write(img)</span>
-<span id="cb1-83">    </span>
-<span id="cb1-84">    cv2.imshow(<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'Webcam'</span>, img)</span>
-<span id="cb1-85">    <span class="cf" style="color: #003B4F;
-background-color: null;
-font-weight: bold;
-font-style: inherit;">if</span> cv2.waitKey(<span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">1</span>) <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">==</span> <span class="bu" style="color: null;
-background-color: null;
-font-style: inherit;">ord</span>(<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'q'</span>):</span>
-<span id="cb1-86">        <span class="cf" style="color: #003B4F;
-background-color: null;
-font-weight: bold;
-font-style: inherit;">break</span></span>
-<span id="cb1-87"></span>
-<span id="cb1-88">cap.release()</span>
-<span id="cb1-89">out.release()  <span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"># Release the video writer</span></span>
-<span id="cb1-90">cv2.destroyAllWindows()</span>
-<span id="cb1-91"><span class="bu" style="color: null;
-background-color: null;
-font-style: inherit;">print</span>(<span class="ss" style="color: #20794D;
-background-color: null;
-font-style: inherit;">f"Video saved to </span><span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">{</span>output_path<span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">}</span><span class="ss" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"</span>)</span></code></pre></div>
-</details>
-</div>
-<p><video src="output_detection2.mp4" width="640" height="480" controls=""><a href="output_detection2.mp4">Video</a></video></p>
-<div id="ce6733e4" class="cell" data-execution_count="2">
-<details open="" class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"># Realtime pose estimation with YOLOv8 (OpenCV window)</span></span>
-<span id="cb2-2"><span class="im" style="color: #00769E;
-background-color: null;
-font-style: inherit;">import</span> cv2, torch, time</span>
-<span id="cb2-3"><span class="im" style="color: #00769E;
-background-color: null;
-font-style: inherit;">from</span> ultralytics <span class="im" style="color: #00769E;
-background-color: null;
-font-style: inherit;">import</span> YOLO</span>
-<span id="cb2-4"></span>
-<span id="cb2-5">CAM_INDEX <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">0</span>  <span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"># change if you have multiple cameras</span></span>
-<span id="cb2-6">device <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'cuda'</span> <span class="cf" style="color: #003B4F;
-background-color: null;
-font-weight: bold;
-font-style: inherit;">if</span> torch.cuda.is_available() <span class="cf" style="color: #003B4F;
-background-color: null;
-font-weight: bold;
-font-style: inherit;">else</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'cpu'</span></span>
-<span id="cb2-7"></span>
-<span id="cb2-8">model <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> YOLO(<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'yolov8n-pose.pt'</span>)  <span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"># or 'yolov8s-pose.pt'</span></span>
-<span id="cb2-9"><span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"># Optional: move model to GPU (if available)</span></span>
-<span id="cb2-10"><span class="cf" style="color: #003B4F;
-background-color: null;
-font-weight: bold;
-font-style: inherit;">try</span>:</span>
-<span id="cb2-11">    model.to(device)</span>
-<span id="cb2-12"><span class="cf" style="color: #003B4F;
-background-color: null;
-font-weight: bold;
-font-style: inherit;">except</span> <span class="pp" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">Exception</span>:</span>
-<span id="cb2-13">    <span class="cf" style="color: #003B4F;
-background-color: null;
-font-weight: bold;
-font-style: inherit;">pass</span>  <span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"># older ultralytics handles device per-predict call</span></span>
-<span id="cb2-14"></span>
-<span id="cb2-15">cap <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> cv2.VideoCapture(CAM_INDEX)</span>
-<span id="cb2-16">cap.<span class="bu" style="color: null;
-background-color: null;
-font-style: inherit;">set</span>(cv2.CAP_PROP_FRAME_WIDTH, <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">1280</span>)</span>
-<span id="cb2-17">cap.<span class="bu" style="color: null;
-background-color: null;
-font-style: inherit;">set</span>(cv2.CAP_PROP_FRAME_HEIGHT, <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">720</span>)</span>
-<span id="cb2-18"></span>
-<span id="cb2-19"><span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"># Video output settings</span></span>
-<span id="cb2-20">output_path <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"output_pose.mp4"</span></span>
-<span id="cb2-21">fourcc <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> cv2.VideoWriter_fourcc(<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">*</span><span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'mp4v'</span>)</span>
-<span id="cb2-22">fps <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">30</span></span>
-<span id="cb2-23">frame_width <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="bu" style="color: null;
-background-color: null;
-font-style: inherit;">int</span>(cap.get(cv2.CAP_PROP_FRAME_WIDTH))</span>
-<span id="cb2-24">frame_height <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="bu" style="color: null;
-background-color: null;
-font-style: inherit;">int</span>(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))</span>
-<span id="cb2-25">out <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> cv2.VideoWriter(output_path, fourcc, fps, (frame_width, frame_height))</span>
-<span id="cb2-26"></span>
-<span id="cb2-27">prev_t <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> time.time()</span>
-<span id="cb2-28"><span class="cf" style="color: #003B4F;
-background-color: null;
-font-weight: bold;
-font-style: inherit;">while</span> <span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">True</span>:</span>
-<span id="cb2-29">    ok, frame <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> cap.read()</span>
-<span id="cb2-30">    <span class="cf" style="color: #003B4F;
-background-color: null;
-font-weight: bold;
-font-style: inherit;">if</span> <span class="kw" style="color: #003B4F;
-background-color: null;
-font-weight: bold;
-font-style: inherit;">not</span> ok:</span>
-<span id="cb2-31">        <span class="cf" style="color: #003B4F;
-background-color: null;
-font-weight: bold;
-font-style: inherit;">break</span></span>
-<span id="cb2-32"></span>
-<span id="cb2-33">    results <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> model.predict(</span>
-<span id="cb2-34">        frame,</span>
-<span id="cb2-35">        device<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span>device,</span>
-<span id="cb2-36">        imgsz<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">640</span>,</span>
-<span id="cb2-37">        conf<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">0.5</span>,</span>
-<span id="cb2-38">        half<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span>(device <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">==</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'cuda'</span>),</span>
-<span id="cb2-39">        verbose<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">False</span></span>
-<span id="cb2-40">    )</span>
-<span id="cb2-41">    annotated <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> results[<span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">0</span>].plot()</span>
-<span id="cb2-42"></span>
-<span id="cb2-43">    <span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"># FPS overlay</span></span>
-<span id="cb2-44">    now <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> time.time()</span>
-<span id="cb2-45">    fps_val <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">1</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">/</span> (now <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">-</span> prev_t)</span>
-<span id="cb2-46">    prev_t <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> now</span>
-<span id="cb2-47">    cv2.putText(annotated, <span class="ss" style="color: #20794D;
-background-color: null;
-font-style: inherit;">f'FPS: </span><span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">{</span>fps_val<span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">:.1f}</span><span class="ss" style="color: #20794D;
-background-color: null;
-font-style: inherit;"> (</span><span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">{</span>device<span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">}</span><span class="ss" style="color: #20794D;
-background-color: null;
-font-style: inherit;">)'</span>, (<span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">10</span>, <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">30</span>),</span>
-<span id="cb2-48">                cv2.FONT_HERSHEY_SIMPLEX, <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">1</span>, (<span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">0</span>, <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">255</span>, <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">0</span>), <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">2</span>)</span>
-<span id="cb2-49"></span>
-<span id="cb2-50">    <span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"># Write frame to video file</span></span>
-<span id="cb2-51">    out.write(annotated)</span>
-<span id="cb2-52"></span>
-<span id="cb2-53">    cv2.imshow(<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'YOLOv8 Pose'</span>, annotated)</span>
-<span id="cb2-54">    <span class="cf" style="color: #003B4F;
-background-color: null;
-font-weight: bold;
-font-style: inherit;">if</span> cv2.waitKey(<span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">1</span>) <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">&amp;</span> <span class="bn" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">0xFF</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">==</span> <span class="bu" style="color: null;
-background-color: null;
-font-style: inherit;">ord</span>(<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'q'</span>):</span>
-<span id="cb2-55">        <span class="cf" style="color: #003B4F;
-background-color: null;
-font-weight: bold;
-font-style: inherit;">break</span></span>
-<span id="cb2-56"></span>
-<span id="cb2-57">cap.release()</span>
-<span id="cb2-58">out.release()  <span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"># Release the video writer</span></span>
-<span id="cb2-59">cv2.destroyAllWindows()</span>
-<span id="cb2-60"><span class="bu" style="color: null;
-background-color: null;
-font-style: inherit;">print</span>(<span class="ss" style="color: #20794D;
-background-color: null;
-font-style: inherit;">f"Video saved to </span><span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">{</span>output_path<span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">}</span><span class="ss" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"</span>)</span></code></pre></div>
-</details>
-</div>
-<p><video src="output_pose2.mp4" width="640" height="480" controls=""><a href="output_pose2.mp4">Video</a></video></p>
-
-
-
- ]]></description>
-  <category>computer-vision</category>
-  <category>deep-learning</category>
-  <category>python</category>
-  <category>yolo</category>
-  <category>ultralytics</category>
-  <guid>https://martinolmos.github.io/data-icts/es/posts/you-only-look-once/</guid>
-  <pubDate>Invalid Date</pubDate>
 </item>
 </channel>
 </rss>
